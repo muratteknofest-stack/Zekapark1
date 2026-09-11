@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+
+    <!-- Crystal Facet Gradients -->
+    <linearGradient id="facetPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#c7d2fe" stop-opacity="0.8"/>
+    </linearGradient>
+
+    <linearGradient id="facetCyan" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+
+    <linearGradient id="facetViolet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+
+    <linearGradient id="facetAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+
+    <linearGradient id="facetEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+
+    <!-- Shadow Filter -->
+    <filter id="shadowEffect" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#312e81" flood-opacity="0.35"/>
+    </filter>
+    
+    <filter id="innerGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1"/>
+    </filter>
+  </defs>
+
+  <!-- Rounded App Icon Background Plate -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)"/>
+
+  <!-- Subtle Ambient Glow Rings -->
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.1" stroke-dasharray="12 14"/>
+  <circle cx="256" cy="256" r="170" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-opacity="0.25" stroke-dasharray="8 10"/>
+
+  <!-- Main Geometric Crystal Brain / Neural Diamond Emblem -->
+  <g filter="url(#shadowEffect)">
+    <!-- Central Hexagonal Core -->
+    <!-- Top Central Prism -->
+    <polygon points="256,96 328,152 256,192 184,152" fill="url(#facetPrimary)"/>
+    
+    <!-- Left Cortex Facets -->
+    <polygon points="184,152 256,192 216,272 136,224" fill="url(#facetCyan)" fill-opacity="0.95"/>
+    <polygon points="136,224 216,272 176,352 112,296" fill="url(#facetViolet)" fill-opacity="0.95"/>
+    <polygon points="112,296 176,352 256,416 200,416" fill="url(#facetEmerald)" fill-opacity="0.9"/>
+
+    <!-- Right Cortex Facets -->
+    <polygon points="256,192 328,152 376,224 296,272" fill="url(#facetPrimary)" fill-opacity="0.9"/>
+    <polygon points="296,272 376,224 400,296 336,352" fill="url(#facetAmber)" fill-opacity="0.95"/>
+    <polygon points="296,272 336,352 256,416 312,416" fill="url(#facetCyan)" fill-opacity="0.9"/>
+
+    <!-- Central Synaptic Diamond Bridge -->
+    <polygon points="256,192 296,272 256,352 216,272" fill="#ffffff" fill-opacity="0.92"/>
+
+    <!-- Neural Core Sparkle Star -->
+    <polygon points="256,236 264,264 292,272 264,280 256,308 248,280 220,272 248,264" fill="#fbbf24"/>
+    <circle cx="256" cy="272" r="4" fill="#ffffff"/>
+
+    <!-- Neural Interconnect Lines -->
+    <line x1="256" y1="96" x2="256" y2="192" stroke="#ffffff" stroke-width="3" stroke-opacity="0.7"/>
+    <line x1="184" y1="152" x2="328" y2="152" stroke="#ffffff" stroke-width="2" stroke-opacity="0.5"/>
+    <line x1="136" y1="224" x2="376" y2="224" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.4"/>
+    <line x1="176" y1="352" x2="336" y2="352" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.4"/>
+    <line x1="256" y1="352" x2="256" y2="416" stroke="#ffffff" stroke-width="3" stroke-opacity="0.7"/>
+
+    <!-- Brilliant Synaptic Node Pearls -->
+    <circle cx="256" cy="96" r="9" fill="#ffffff" filter="url(#innerGlow)"/>
+    <circle cx="328" cy="152" r="7.5" fill="#38bdf8"/>
+    <circle cx="184" cy="152" r="7.5" fill="#a855f7"/>
+    <circle cx="136" cy="224" r="8" fill="#38bdf8"/>
+    <circle cx="376" cy="224" r="8" fill="#fbbf24"/>
+    <circle cx="112" cy="296" r="7.5" fill="#c084fc"/>
+    <circle cx="400" cy="296" r="7.5" fill="#f59e0b"/>
+    <circle cx="176" cy="352" r="8" fill="#34d399"/>
+    <circle cx="336" cy="352" r="8" fill="#38bdf8"/>
+    <circle cx="256" cy="416" r="9" fill="#ffffff"/>
+  </g>
+
+  <!-- Glowing Orbit Dots -->
+  <circle cx="106" cy="164" r="5" fill="#fef08a" opacity="0.9"/>
+  <circle cx="412" cy="172" r="4.5" fill="#67e8f9" opacity="0.9"/>
+  <circle cx="420" cy="376" r="5.5" fill="#f472b6" opacity="0.8"/>
+  <circle cx="92" cy="360" r="4" fill="#6ee7b7" opacity="0.8"/>
+</svg>
