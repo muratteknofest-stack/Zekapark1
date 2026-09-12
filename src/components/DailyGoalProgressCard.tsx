@@ -151,14 +151,14 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
   return (
     <div
       id="daily-goal-progress-card"
-      className={`bg-white rounded-3xl border-2 border-emerald-200/90 shadow-md p-5 sm:p-7 relative overflow-hidden transition-all duration-300 ${className}`}
+      className={`bg-white rounded-xl border-2 border-emerald-200/90  p-5 sm:p-7 relative overflow-hidden transition-all duration-300 ${className}`}
     >
       {/* Background ambient decorative glow */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 bg-gradient-to-br from-emerald-100/50 via-teal-100/30 to-indigo-100/20 rounded-full blur-3xl pointer-events-none" />
 
       {/* Feedback banner */}
       {bannerFeedback && (
-        <div className="mb-4 p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-bold flex items-center justify-between gap-2 animate-fadeIn">
+        <div className="mb-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-bold flex items-center justify-between gap-2 animate-fadeIn">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>{bannerFeedback}</span>
@@ -173,15 +173,15 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
       )}
 
       {/* Top Header Row */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-zinc-200">
         <div className="flex items-center gap-3.5">
           {/* Target Icon with Animated Badge */}
           <div className="relative shrink-0">
             <div
-              className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-lg transition-all ${
+              className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center  transition-all ${
                 isGoalReached
-                  ? 'bg-gradient-to-tr from-emerald-500 to-teal-400 shadow-emerald-500/25'
-                  : 'bg-gradient-to-tr from-teal-600 to-indigo-600 shadow-teal-500/20'
+                  ? 'bg-gradient-to-tr from-emerald-500 to-teal-400 '
+                  : 'bg-gradient-to-tr from-teal-600 to-indigo-600 '
               }`}
             >
               {isGoalReached ? (
@@ -191,7 +191,7 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
               )}
             </div>
             {isGoalReached && (
-              <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-amber-400 rounded-full border-2 border-white flex items-center justify-center text-[10px] text-amber-950 font-extrabold shadow-xs">
+              <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-amber-400 rounded-full border-2 border-white flex items-center justify-center text-[10px] text-amber-950 font-extrabold ">
                 ★
               </span>
             )}
@@ -237,7 +237,7 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
         </div>
 
         {/* Mode Switcher Tabs: Soru / Seans / Süre */}
-        <div className="flex items-center gap-1 bg-slate-100/90 p-1 rounded-2xl border border-slate-200 self-start sm:self-auto shrink-0">
+        <div className="flex items-center gap-1 bg-slate-100/90 p-1 rounded-xl border border-zinc-200 self-start sm:self-auto shrink-0">
           <button
             onClick={() => {
               sound.playClick();
@@ -245,7 +245,7 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
             }}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
               goalMode === 'questions'
-                ? 'bg-white text-emerald-800 shadow-xs border border-slate-200'
+                ? 'bg-white text-emerald-800  border border-zinc-200'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -260,7 +260,7 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
             }}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
               goalMode === 'sessions'
-                ? 'bg-white text-emerald-800 shadow-xs border border-slate-200'
+                ? 'bg-white text-emerald-800  border border-zinc-200'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -275,7 +275,7 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
             }}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
               goalMode === 'minutes'
-                ? 'bg-white text-emerald-800 shadow-xs border border-slate-200'
+                ? 'bg-white text-emerald-800  border border-zinc-200'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -333,10 +333,10 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
         {/* Large Interactive Progress Bar Track */}
         <div className="relative pt-3 pb-1">
           {/* Progress track background */}
-          <div className="w-full h-5 sm:h-6 bg-slate-100 rounded-full overflow-hidden p-1 shadow-inner border border-slate-200/80 relative">
+          <div className="w-full h-5 sm:h-6 bg-slate-100 rounded-full overflow-hidden p-1  border border-zinc-200/80 relative">
             {/* Gradient progress fill */}
             <div
-              className={`h-full rounded-full transition-all duration-700 relative overflow-hidden shadow-sm ${
+              className={`h-full rounded-full transition-all duration-700 relative overflow-hidden  ${
                 isGoalReached
                   ? 'bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400'
                   : 'bg-gradient-to-r from-teal-500 via-emerald-500 to-indigo-500'
@@ -360,7 +360,7 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
                   <div
                     className={`w-6 h-6 rounded-full flex items-center justify-center text-xs mb-1 border-2 transition-all ${
                       reached
-                        ? 'bg-emerald-500 border-white text-white shadow-sm ring-2 ring-emerald-400/30'
+                        ? 'bg-emerald-500 border-white text-white  ring-2 ring-emerald-400/30'
                         : 'bg-slate-100 border-slate-300 text-slate-400'
                     }`}
                   >
@@ -386,7 +386,7 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
       </div>
 
       {/* Goal Target Adjustment / Settings Strip */}
-      <div className="pt-4 border-t border-slate-100">
+      <div className="pt-4 border-t border-zinc-200">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-slate-600">Hedef Belirle:</span>
@@ -399,7 +399,7 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
                     onClick={() => handleSetTarget(preset)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-emerald-600 text-white shadow-xs'
+                        ? 'bg-emerald-600 text-white '
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
@@ -422,7 +422,7 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
       </div>
 
       {/* Interactive Footer Quick Actions */}
-      <div className="mt-5 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="mt-5 pt-4 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-1.5 text-xs text-slate-500">
           <Flame className="w-4 h-4 text-orange-500" />
           <span>Düzenli günlük hedefler BİLSEM sınavındaki hız ve odaklanmanı pekiştirir.</span>
@@ -442,7 +442,7 @@ export const DailyGoalProgressCard: React.FC<DailyGoalProgressCardProps> = ({
           {/* Primary Action Button */}
           <button
             onClick={onStartPractice}
-            className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-emerald-600/20 transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-98"
+            className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-xs sm:text-sm   transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-98"
           >
             <Play className="w-4 h-4 fill-white" />
             <span>{isGoalReached ? 'Hedefi Aştın, Pratiğe Devam Et' : 'Hedefi Tamamlamak İçin Başla'}</span>

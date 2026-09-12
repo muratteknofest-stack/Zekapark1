@@ -32,7 +32,7 @@ interface BadgesSectionProps {
   onNavigate?: (route: any) => void;
 }
 
-type FilterCategory = 'all' | 'questions' | 'mistakes' | 'unlocked';
+type FilterCategory = 'all' | 'questions' | 'weekly' | 'mistakes' | 'unlocked';
 
 export const BadgesSection: React.FC<BadgesSectionProps> = ({
   user,
@@ -63,6 +63,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
 
   const filteredBadges = achievements.filter((badge) => {
     if (filter === 'questions') return questionBadgeIds.includes(badge.id);
+    if (filter === 'weekly') return badge.category === 'weekly' || badge.id.includes('weekly') || badge.id.includes('pattern') || badge.id.includes('matrix');
     if (filter === 'mistakes') return mistakeBadgeIds.includes(badge.id);
     if (filter === 'unlocked') return badge.unlocked;
     return true;
@@ -186,14 +187,14 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
   return (
     <div
       id="badges-section"
-      className="bg-white rounded-3xl border-2 border-amber-200/80 shadow-md p-5 sm:p-6 space-y-5 relative overflow-hidden transition-all"
+      className="bg-white rounded-xl border-2 border-amber-200/80  p-5 sm:p-6 space-y-5 relative overflow-hidden transition-all"
     >
       {/* Background ambient gradient */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-gradient-to-bl from-amber-100/50 to-orange-50/20 rounded-full blur-2xl pointer-events-none" />
 
       {/* Toast Notification for Unlocks */}
       {toastMessage && (
-        <div className="p-3.5 rounded-2xl bg-amber-500 text-white font-extrabold text-xs sm:text-sm shadow-lg flex items-center justify-between gap-3 animate-fadeIn">
+        <div className="p-3.5 rounded-xl bg-amber-500 text-white font-extrabold text-xs sm:text-sm  flex items-center justify-between gap-3 animate-fadeIn">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-white animate-bounce shrink-0" />
             <span>{toastMessage}</span>
@@ -208,9 +209,9 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
       )}
 
       {/* Top Header Row */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-200">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-md shadow-amber-500/20 text-white">
+          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center   text-white">
             <Award className="w-6 h-6" />
           </div>
           <div>
@@ -230,7 +231,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
 
         {/* Live Counters */}
         <div className="flex items-center gap-2 self-start sm:self-auto text-xs">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 font-bold flex items-center gap-1.5">
+          <div className="px-3 py-1.5 rounded-xl bg-slate-50 border border-zinc-200 text-slate-700 font-bold flex items-center gap-1.5">
             <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
             <span>{totalQuestions} Soru Çözüldü</span>
           </div>
@@ -261,7 +262,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {/* Spotlight 1: Question Milestone */}
         {nextQuestionBadge ? (
-          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/80 flex items-center justify-between gap-3">
+          <div className="p-3.5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/80 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <span className="text-2xl">{getBadgeVisual(nextQuestionBadge)}</span>
               <div>
@@ -281,7 +282,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
 
             <button
               onClick={handleQuickSolveQuestion}
-              className="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold shadow-sm transition-all cursor-pointer shrink-0 active:scale-95 flex items-center gap-1"
+              className="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold  transition-all cursor-pointer shrink-0 active:scale-95 flex items-center gap-1"
               title="1 soru çözerek rozet ilerlemesi kaydet"
             >
               <span>+1 Soru Çöz</span>
@@ -289,7 +290,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
             </button>
           </div>
         ) : (
-          <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center gap-3">
+          <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-3">
             <span className="text-2xl">👑</span>
             <div>
               <span className="text-[10px] font-extrabold text-emerald-700 uppercase">Zirvedesin!</span>
@@ -301,7 +302,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
 
         {/* Spotlight 2: Mistakes Notebook Milestone */}
         {cleanNotebookBadge && !cleanNotebookBadge.unlocked ? (
-          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/80 flex items-center justify-between gap-3">
+          <div className="p-3.5 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/80 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <span className="text-2xl">{getBadgeVisual(cleanNotebookBadge)}</span>
               <div>
@@ -322,7 +323,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
             <div className="flex items-center gap-1.5 shrink-0">
               <button
                 onClick={handleClearNotebook}
-                className="px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-extrabold shadow-sm transition-all cursor-pointer active:scale-95 flex items-center gap-1"
+                className="px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-extrabold  transition-all cursor-pointer active:scale-95 flex items-center gap-1"
                 title="Hataları temizle ve rozeti anında kazan"
               >
                 <span>Defteri Boşalt</span>
@@ -331,7 +332,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
             </div>
           </div>
         ) : (
-          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 flex items-center justify-between gap-3">
+          <div className="p-3.5 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <span className="text-2xl">✨</span>
               <div>
@@ -363,7 +364,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
           }}
           className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             filter === 'all'
-              ? 'bg-slate-900 text-white shadow-xs'
+              ? 'bg-slate-900 text-white '
               : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
           }`}
         >
@@ -377,7 +378,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
           }}
           className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
             filter === 'questions'
-              ? 'bg-blue-600 text-white shadow-xs'
+              ? 'bg-blue-600 text-white '
               : 'bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200'
           }`}
         >
@@ -388,11 +389,26 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
         <button
           onClick={() => {
             sound.playClick();
+            setFilter('weekly');
+          }}
+          className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+            filter === 'weekly'
+              ? 'bg-indigo-600 text-white shadow-xs'
+              : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200'
+          }`}
+        >
+          <Award className="w-3.5 h-3.5" />
+          <span>Haftalık Görevler & Bilişsel</span>
+        </button>
+
+        <button
+          onClick={() => {
+            sound.playClick();
             setFilter('mistakes');
           }}
           className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
             filter === 'mistakes'
-              ? 'bg-amber-600 text-white shadow-xs'
+              ? 'bg-amber-600 text-white '
               : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200'
           }`}
         >
@@ -407,7 +423,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
           }}
           className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
             filter === 'unlocked'
-              ? 'bg-emerald-600 text-white shadow-xs'
+              ? 'bg-emerald-600 text-white '
               : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200'
           }`}
         >
@@ -429,18 +445,18 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
                 sound.playClick();
                 setSelectedBadge(item);
               }}
-              className={`p-3.5 rounded-2xl border transition-all cursor-pointer relative group flex flex-col justify-between text-left ${
+              className={`p-3.5 rounded-xl border transition-all cursor-pointer relative group flex flex-col justify-between text-left ${
                 item.unlocked
-                  ? `bg-gradient-to-b ${rarity.bg} ${rarity.border} shadow-xs hover:shadow-md hover:-translate-y-0.5`
-                  : 'bg-slate-50/70 border-slate-200/80 opacity-75 hover:opacity-100 hover:border-slate-300'
+                  ? `bg-gradient-to-b ${rarity.bg} ${rarity.border}  hover: hover:-translate-y-0.5`
+                  : 'bg-slate-50/70 border-zinc-200/80 opacity-75 hover:opacity-100 hover:border-slate-300'
               }`}
             >
               {/* Badge Top: Emblem & Status */}
               <div className="flex items-start justify-between mb-2">
                 <div
-                  className={`w-11 h-11 rounded-2xl flex items-center justify-center text-2xl shadow-xs transition-transform group-hover:scale-110 ${
+                  className={`w-11 h-11 rounded-xl flex items-center justify-center text-2xl  transition-transform group-hover:scale-110 ${
                     item.unlocked
-                      ? 'bg-white border-2 border-amber-300 shadow-amber-500/20'
+                      ? 'bg-white border-2 border-amber-300 '
                       : 'bg-slate-200 text-slate-400'
                   }`}
                 >
@@ -479,7 +495,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
               </div>
 
               {/* Badge Bottom: Progress Bar */}
-              <div className="pt-1.5 border-t border-slate-100">
+              <div className="pt-1.5 border-t border-zinc-200">
                 <div className="flex items-center justify-between text-[10px] font-bold text-slate-500 mb-1">
                   <span>İlerleme</span>
                   <span className={item.unlocked ? 'text-emerald-700' : 'text-slate-700'}>
@@ -506,7 +522,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
       {selectedBadge && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fadeIn">
           <div
-            className="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-100 overflow-hidden flex flex-col animate-scaleUp p-6 space-y-4 text-center relative"
+            className="bg-white w-full max-w-md rounded-xl  border border-zinc-200 overflow-hidden flex flex-col animate-scaleUp p-6 space-y-4 text-center relative"
             role="dialog"
             aria-modal="true"
           >
@@ -518,7 +534,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
             </button>
 
             {/* Badge Big Icon */}
-            <div className="w-20 h-20 rounded-3xl bg-amber-50 border-2 border-amber-300 mx-auto flex items-center justify-center text-4xl shadow-md shadow-amber-500/15">
+            <div className="w-20 h-20 rounded-xl bg-amber-50 border-2 border-amber-300 mx-auto flex items-center justify-center text-4xl  ">
               {getBadgeVisual(selectedBadge)}
             </div>
 
@@ -539,7 +555,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
             </div>
 
             {/* Status Details */}
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 text-left text-xs">
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-zinc-200 space-y-2 text-left text-xs">
               <div className="flex items-center justify-between">
                 <span className="text-slate-500 font-semibold">Durum:</span>
                 {selectedBadge.unlocked ? (
@@ -571,7 +587,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
                     setSelectedBadge(null);
                     onStartPractice();
                   }}
-                  className="w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-md shadow-blue-600/20 transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                  className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs   transition-all cursor-pointer flex items-center justify-center gap-1.5"
                 >
                   <span>Soru Çözmeye Git</span>
                   <ArrowRight className="w-4 h-4" />
@@ -582,7 +598,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
                     setSelectedBadge(null);
                     handleClearNotebook();
                   }}
-                  className="w-full py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold text-xs shadow-md shadow-orange-500/20 transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold text-xs   transition-all cursor-pointer flex items-center justify-center gap-1.5"
                 >
                   <span>Defteri Boşalt ve Rozeti Al</span>
                   <Sparkles className="w-4 h-4" />
@@ -590,7 +606,7 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({
               ) : (
                 <button
                   onClick={() => setSelectedBadge(null)}
-                  className="w-full py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer"
+                  className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs  transition-all cursor-pointer"
                 >
                   Tamam, Harika!
                 </button>

@@ -339,7 +339,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Value Proposition & Interactive Trust */}
           <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200/90 text-indigo-700 text-xs sm:text-sm font-bold shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200/90 text-indigo-700 text-xs sm:text-sm font-bold ">
               <Sparkles className="w-4 h-4 text-indigo-600 animate-pulse" />
               <span>Yapay Zeka Destekli Parametrik Bilişsel Soru Motoru</span>
             </div>
@@ -357,14 +357,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </p>
 
             {/* Live Trust Metrics Bar */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 py-2 border-y border-slate-200/80">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 py-2 border-y border-zinc-200/80">
               <div className="text-center lg:text-left">
                 <div className="text-xl sm:text-2xl font-black text-indigo-900 font-['Outfit',sans-serif]">
                   %91.4
                 </div>
                 <div className="text-[11px] sm:text-xs text-slate-500 font-medium">Sınav Aşama Başarısı</div>
               </div>
-              <div className="text-center lg:text-left border-x border-slate-200/80 px-2 sm:px-4">
+              <div className="text-center lg:text-left border-x border-zinc-200/80 px-2 sm:px-4">
                 <div className="text-xl sm:text-2xl font-black text-purple-900 font-['Outfit',sans-serif]">
                   35.000+
                 </div>
@@ -383,7 +383,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <button
                 id="hero-student-start"
                 onClick={() => onNavigateToLogin('student')}
-                className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold text-base shadow-lg shadow-indigo-600/25 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold text-base   active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Öğrenci Olarak Başla</span>
                 <ArrowRight className="w-5 h-5" />
@@ -394,7 +394,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   sound.playClick();
                   setHeroView(heroView === 'visual_deck' ? 'live_solver' : 'visual_deck');
                 }}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white border-2 border-slate-200 text-slate-700 font-bold text-base hover:bg-slate-50 hover:border-indigo-300 hover:text-indigo-900 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white border-2 border-zinc-200 text-slate-700 font-bold text-base hover:bg-slate-50 hover:border-indigo-300 hover:text-indigo-900 transition-all flex items-center justify-center gap-2 cursor-pointer "
               >
                 {heroView === 'visual_deck' ? (
                   <>
@@ -439,7 +439,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             {heroView === 'visual_deck' ? (
               <div className="relative group">
                 {/* Real Photograph with Modern Rounded Styling & Glassmorphic Badges */}
-                <div className="relative overflow-hidden rounded-3xl border-2 border-indigo-100 shadow-2xl shadow-indigo-600/10 bg-slate-900">
+                <div className="relative overflow-hidden rounded-xl border-2 border-indigo-100   bg-slate-900">
                   <img
                     src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80"
                     alt="BİLSEM sınavına tablet ile zevkle hazırlanan meraklı öğrenci"
@@ -466,7 +466,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </div>
 
                 {/* Floating Real-time Telemetry Card 1: Top Right */}
-                <div className="absolute -top-4 -right-2 sm:-right-4 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-indigo-100 shadow-xl shadow-indigo-500/15 max-w-[210px] hidden sm:block animate-bounce-slight">
+                <div className="absolute -top-4 -right-2 sm:-right-4 bg-white/95 backdrop-blur-md p-3.5 rounded-xl border border-indigo-100   max-w-[210px] hidden sm:block animate-bounce-slight">
                   <div className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-1">
                     <div className="w-7 h-7 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-bold shrink-0">
                       <Flame className="w-4 h-4 fill-orange-500 text-orange-500" />
@@ -482,9 +482,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </div>
 
                 {/* Floating Real-time Telemetry Card 2: Bottom Left */}
-                <div className="absolute -bottom-4 -left-2 sm:-left-4 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-indigo-100 shadow-xl shadow-indigo-500/15 max-w-[240px]">
+                <div className="absolute -bottom-4 -left-2 sm:-left-4 bg-white/95 backdrop-blur-md p-3.5 rounded-xl border border-indigo-100   max-w-[240px]">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shrink-0 shadow-sm shadow-indigo-500/30">
+                    <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shrink-0  ">
                       <Brain className="w-5 h-5" />
                     </div>
                     <div>
@@ -505,7 +505,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                       sound.playClick();
                       setHeroView('live_solver');
                     }}
-                    className="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-bold backdrop-blur-md border border-white/20 flex items-center gap-1.5 transition-all cursor-pointer shadow-md"
+                    className="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-bold backdrop-blur-md border border-white/20 flex items-center gap-1.5 transition-all cursor-pointer "
                   >
                     <MousePointerClick className="w-3.5 h-3.5 text-amber-300" />
                     <span>Canlı Soruyu Test Et</span>
@@ -516,10 +516,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               /* Live Interactive Question Sandbox */
               <div
                 id="hero-live-question-box"
-                className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-indigo-200 shadow-2xl shadow-indigo-500/10 relative transition-all"
+                className="bg-white rounded-xl p-4 sm:p-6 border-2 border-indigo-200   relative transition-all"
               >
                 {/* Interactive Question Header with Category Pills */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-slate-100 mb-3">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-zinc-200 mb-3">
                   <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
                     <span className="text-xs font-extrabold uppercase tracking-wider text-indigo-950 font-['Outfit',sans-serif]">
@@ -627,7 +627,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     disabled={!selectedOptionId}
                     className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
                       selectedOptionId
-                        ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-600/20 active:scale-98'
+                        ? 'bg-indigo-600 hover:bg-indigo-700 text-white   active:scale-98'
                         : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                     }`}
                   >
@@ -656,7 +656,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     <div className="flex gap-2">
                       <button
                         onClick={handleNextSampleQuestion}
-                        className="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                        className="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm  transition-all flex items-center justify-center gap-2 cursor-pointer"
                       >
                         <span>Yeni Bir Soru Dene</span>
                         <ArrowRight className="w-4 h-4" />
@@ -677,7 +677,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </section>
 
       {/* Real Photos Showcase: 4 Key Cognitive Pillars */}
-      <section id="bilissel-alanlar" className="py-16 bg-white border-y border-slate-200 px-4 sm:px-6 scroll-mt-20">
+      <section id="bilissel-alanlar" className="py-16 bg-white border-y border-zinc-200 px-4 sm:px-6 scroll-mt-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <span className="text-xs font-extrabold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-3.5 py-1 rounded-full border border-indigo-200">
@@ -695,7 +695,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             {photoPillars.map((pillar, idx) => (
               <div
                 key={idx}
-                className="bg-slate-50 rounded-3xl border border-slate-200 overflow-hidden hover:shadow-xl hover:border-indigo-300 transition-all flex flex-col group"
+                className="bg-slate-50 rounded-xl border border-zinc-200 overflow-hidden hover: hover:border-indigo-300 transition-all flex flex-col group"
               >
                 {/* Real Photograph with Category Badge */}
                 <div className="relative h-48 sm:h-52 overflow-hidden bg-slate-200">
@@ -706,7 +706,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-                  <span className="absolute top-3 left-3 bg-white/95 text-slate-900 px-2.5 py-1 rounded-full text-xs font-extrabold shadow-sm">
+                  <span className="absolute top-3 left-3 bg-white/95 text-slate-900 px-2.5 py-1 rounded-full text-xs font-extrabold ">
                     {pillar.category}
                   </span>
                   <span className="absolute bottom-3 right-3 bg-indigo-600/90 text-white px-2 py-0.5 rounded-md text-[11px] font-bold">
@@ -727,7 +727,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                       {pillar.description}
                     </p>
                   </div>
-                  <div className="pt-4 mt-4 border-t border-slate-200/80 flex items-center justify-between text-xs font-bold text-indigo-600 group-hover:text-indigo-800">
+                  <div className="pt-4 mt-4 border-t border-zinc-200/80 flex items-center justify-between text-xs font-bold text-indigo-600 group-hover:text-indigo-800">
                     <span>Egzersizleri Keşfet</span>
                     <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -772,20 +772,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   sound.playClick();
                   setSelectedCatIdx(idx);
                 }}
-                className={`p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
+                className={`p-5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-white border-indigo-500 shadow-lg shadow-indigo-500/10 ring-2 ring-indigo-500/20'
-                    : 'bg-white border-slate-200 hover:border-indigo-300 hover:shadow-sm'
+                    ? 'bg-white border-indigo-500   ring-2 ring-indigo-500/20'
+                    : 'bg-white border-zinc-200 hover:border-indigo-300 hover:'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <div
-                      className={`w-11 h-11 rounded-xl bg-gradient-to-br ${cat.color} text-white flex items-center justify-center shadow-xs`}
+                      className={`w-11 h-11 rounded-xl bg-gradient-to-br ${cat.color} text-white flex items-center justify-center `}
                     >
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-zinc-200">
                       {cat.badge}
                     </span>
                   </div>
@@ -796,7 +796,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   <p className="text-xs text-slate-600 mt-2 leading-relaxed">{cat.desc}</p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex items-center justify-between font-medium">
+                <div className="mt-4 pt-3 border-t border-zinc-200 text-[11px] text-slate-500 flex items-center justify-between font-medium">
                   <span>{cat.difficulty}</span>
                   <span className="text-slate-400">•</span>
                   <span className="text-slate-700 font-semibold">{cat.bilsemMatch}</span>
@@ -808,7 +808,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
         {/* Selected Category Deep Dive Panel */}
         {categories[selectedCatIdx] && (
-          <div className="mt-6 p-5 sm:p-6 rounded-3xl bg-indigo-50/80 border border-indigo-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="mt-6 p-5 sm:p-6 rounded-xl bg-indigo-50/80 border border-indigo-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold text-indigo-700 uppercase tracking-wider">
@@ -829,7 +829,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
             <button
               onClick={() => onNavigateToLogin('student')}
-              className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm transition-all cursor-pointer shrink-0 flex items-center gap-1.5"
+              className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs  transition-all cursor-pointer shrink-0 flex items-center gap-1.5"
             >
               <span>Bu Kategoriyi Çöz</span>
               <ArrowRight className="w-4 h-4" />
@@ -839,11 +839,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </section>
 
       {/* Innovative Learning Loop with Real Mother-Child Photo */}
-      <section id="nasil-calisir" className="py-16 bg-white border-y border-slate-200 px-4 sm:px-6 scroll-mt-20">
+      <section id="nasil-calisir" className="py-16 bg-white border-y border-zinc-200 px-4 sm:px-6 scroll-mt-20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left: Authentic Photo of Mother and Daughter studying */}
           <div className="lg:col-span-5 relative">
-            <div className="rounded-3xl overflow-hidden border-2 border-slate-200 shadow-xl bg-slate-100">
+            <div className="rounded-xl overflow-hidden border-2 border-zinc-200  bg-slate-100">
               <img
                 src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80"
                 alt="Anne ve çocuk birlikte zeka egzersizlerini inceleyip başarıyı kutluyor"
@@ -853,7 +853,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             {/* Overlaid Floating Testimonial Pill */}
-            <div className="absolute -bottom-5 right-4 left-4 sm:left-auto bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-200 shadow-xl max-w-sm">
+            <div className="absolute -bottom-5 right-4 left-4 sm:left-auto bg-white/95 backdrop-blur-md p-4 rounded-xl border border-zinc-200  max-w-sm">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-900 mb-1">
                 <HeartHandshake className="w-4 h-4 text-rose-500" />
                 <span>Veliler İçin Tam Şeffaflık</span>
@@ -879,8 +879,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             <div className="space-y-4">
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
-                <span className="w-10 h-10 rounded-xl bg-indigo-600 text-white font-black flex items-center justify-center text-base shrink-0 shadow-xs">
+              <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-zinc-200 flex items-start gap-4">
+                <span className="w-10 h-10 rounded-xl bg-indigo-600 text-white font-black flex items-center justify-center text-base shrink-0 ">
                   1
                 </span>
                 <div>
@@ -893,8 +893,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
-                <span className="w-10 h-10 rounded-xl bg-purple-600 text-white font-black flex items-center justify-center text-base shrink-0 shadow-xs">
+              <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-zinc-200 flex items-start gap-4">
+                <span className="w-10 h-10 rounded-xl bg-purple-600 text-white font-black flex items-center justify-center text-base shrink-0 ">
                   2
                 </span>
                 <div>
@@ -907,8 +907,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
-                <span className="w-10 h-10 rounded-xl bg-pink-600 text-white font-black flex items-center justify-center text-base shrink-0 shadow-xs">
+              <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-zinc-200 flex items-start gap-4">
+                <span className="w-10 h-10 rounded-xl bg-pink-600 text-white font-black flex items-center justify-center text-base shrink-0 ">
                   3
                 </span>
                 <div>
@@ -921,8 +921,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
-                <span className="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black flex items-center justify-center text-base shrink-0 shadow-xs">
+              <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-zinc-200 flex items-start gap-4">
+                <span className="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black flex items-center justify-center text-base shrink-0 ">
                   4
                 </span>
                 <div>
@@ -951,9 +951,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden text-left text-xs sm:text-sm">
+          <table className="w-full bg-white rounded-xl border border-zinc-200  overflow-hidden text-left text-xs sm:text-sm">
             <thead>
-              <tr className="bg-slate-100 text-slate-700 font-extrabold border-b border-slate-200">
+              <tr className="bg-slate-100 text-slate-700 font-extrabold border-b border-zinc-200">
                 <th className="p-4 sm:p-5">Özellik & Kriter</th>
                 <th className="p-4 sm:p-5 text-slate-500">Geleneksel Test Kitapları</th>
                 <th className="p-4 sm:p-5 bg-indigo-50/70 text-indigo-900 border-l border-indigo-100">
@@ -1003,7 +1003,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </section>
 
       {/* Real Testimonials with Real Portrait Photographs */}
-      <section id="veli-yorumlari" className="py-16 bg-white border-y border-slate-200 px-4 sm:px-6 scroll-mt-20">
+      <section id="veli-yorumlari" className="py-16 bg-white border-y border-zinc-200 px-4 sm:px-6 scroll-mt-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
@@ -1021,7 +1021,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             {testimonials.map((t, idx) => (
               <div
                 key={idx}
-                className="bg-slate-50 p-6 rounded-3xl border border-slate-200 flex flex-col justify-between hover:shadow-lg transition-all"
+                className="bg-slate-50 p-6 rounded-xl border border-zinc-200 flex flex-col justify-between hover: transition-all"
               >
                 <div>
                   <div className="flex items-center gap-1 text-amber-400 mb-3">
@@ -1034,7 +1034,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   </p>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-slate-200 flex items-center gap-3">
+                <div className="pt-4 mt-4 border-t border-zinc-200 flex items-center gap-3">
                   <img
                     src={t.avatar}
                     alt={t.name}
@@ -1059,7 +1059,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
       {/* Modern High-Tech Classroom & STEM Atmosphere Banner */}
       <section className="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-slate-950 text-white p-8 sm:p-12 md:p-16">
+        <div className="relative rounded-xl overflow-hidden  bg-slate-950 text-white p-8 sm:p-12 md:p-16">
           <img
             src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80"
             alt="Modern bilişsel öğrenme ve BİLSEM sınıf ortamı"
@@ -1082,20 +1082,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="flex flex-wrap gap-3 pt-2">
               <button
                 onClick={() => onNavigateToLogin('student')}
-                className="px-6 py-3.5 rounded-2xl bg-white text-indigo-950 font-extrabold text-sm hover:bg-slate-100 transition-all cursor-pointer shadow-lg active:scale-98 flex items-center gap-2"
+                className="px-6 py-3.5 rounded-xl bg-white text-indigo-950 font-extrabold text-sm hover:bg-slate-100 transition-all cursor-pointer  active:scale-98 flex items-center gap-2"
               >
                 <LogIn className="w-4 h-4 text-indigo-600" />
                 <span>Öğrenci Girişi</span>
               </button>
               <button
                 onClick={() => onNavigateToLogin('parent')}
-                className="px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm border border-emerald-400/40 transition-all cursor-pointer flex items-center gap-2"
+                className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm border border-emerald-400/40 transition-all cursor-pointer flex items-center gap-2"
               >
                 <span>Veli Portalı Girişi</span>
               </button>
               <button
                 onClick={() => onNavigateToLogin('admin')}
-                className="px-6 py-3.5 rounded-2xl bg-slate-800/90 hover:bg-slate-800 text-white font-bold text-sm border border-slate-700 transition-all cursor-pointer flex items-center gap-2"
+                className="px-6 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-white font-bold text-sm border border-slate-700 transition-all cursor-pointer flex items-center gap-2"
               >
                 <span>Yönetici & Soru Mimarı</span>
               </button>
@@ -1105,7 +1105,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </section>
 
       {/* Frequently Asked Questions (Accordion) */}
-      <section id="sss" className="py-16 bg-white border-t border-slate-200 px-4 sm:px-6 scroll-mt-20">
+      <section id="sss" className="py-16 bg-white border-t border-zinc-200 px-4 sm:px-6 scroll-mt-20">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">
@@ -1125,7 +1125,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 overflow-hidden transition-all"
+                  className="rounded-xl border border-zinc-200 bg-slate-50 overflow-hidden transition-all"
                 >
                   <button
                     onClick={() => {
@@ -1135,12 +1135,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     className="w-full p-4 sm:p-5 text-left font-extrabold text-slate-900 text-sm sm:text-base flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-100 transition-colors"
                   >
                     <span>{faq.q}</span>
-                    <span className="p-1 rounded-lg bg-white border border-slate-200 shrink-0 text-slate-600">
+                    <span className="p-1 rounded-lg bg-white shrink-0 text-slate-600">
                       {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </span>
                   </button>
                   {isOpen && (
-                    <div className="px-4 pb-5 sm:px-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200/60 pt-3">
+                    <div className="px-4 pb-5 sm:px-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-zinc-200/60 pt-3">
                       {faq.a}
                     </div>
                   )}

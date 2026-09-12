@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 
 interface StudyReminderSettingsModalProps {
-  user: UserProfile;
+  user?: UserProfile | null;
   isOpen: boolean;
   onClose: () => void;
   onConfigSaved?: (config: StudyReminderConfig) => void;
@@ -116,7 +116,7 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
   const handleTestReminder = () => {
     sound.playClick();
     setTestSent(true);
-    reminderService.testReminderNow(user);
+    reminderService.testReminderNow(user || undefined);
     setTimeout(() => {
       setTestSent(false);
     }, 4000);
@@ -129,11 +129,11 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-auto animate-in zoom-in-95 duration-250">
+      <div className="relative w-full max-w-lg bg-white rounded-xl  border border-zinc-200 overflow-hidden my-auto animate-in zoom-in-95 duration-250">
         {/* Header */}
         <div className="p-5 sm:p-6 bg-gradient-to-r from-indigo-900 via-indigo-800 to-purple-900 text-white flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center text-amber-300 shadow-inner">
+            <div className="w-12 h-12 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center text-amber-300 ">
               <Bell className="w-6 h-6" />
             </div>
             <div>
@@ -163,7 +163,7 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
         {/* Content Body */}
         <div className="p-5 sm:p-6 space-y-5 max-h-[75vh] overflow-y-auto">
           {/* Main Master Switch */}
-          <div className="flex items-center justify-between p-4 rounded-2xl bg-indigo-50/60 border border-indigo-100">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-indigo-50/60 border border-indigo-100">
             <div className="flex items-center gap-3">
               <div
                 className={`w-10 h-10 rounded-xl flex items-center justify-center ${
@@ -219,8 +219,8 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
                         onClick={() => handleTimeSelect(preset.time)}
                         className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-1 ${
                           isSelected
-                            ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                            : 'bg-slate-50 hover:bg-white border-slate-200 text-slate-700'
+                            ? 'bg-slate-900 text-white border-slate-900 '
+                            : 'bg-slate-50 hover:bg-white border-zinc-200 text-slate-700'
                         }`}
                       >
                         <span className="text-base">{preset.icon}</span>
@@ -259,10 +259,10 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
                 <div className="space-y-2 text-xs">
                   <label
                     onClick={() => handleFrequencyChange('smart_goal')}
-                    className={`p-3 rounded-2xl border flex items-start gap-3 cursor-pointer transition-all ${
+                    className={`p-3 rounded-xl border flex items-start gap-3 cursor-pointer transition-all ${
                       config.frequency === 'smart_goal'
-                        ? 'bg-indigo-50/70 border-indigo-300 shadow-xs'
-                        : 'bg-white border-slate-200 hover:bg-slate-50'
+                        ? 'bg-indigo-50/70 border-indigo-300 '
+                        : 'bg-white border-zinc-200 hover:bg-slate-50'
                     }`}
                   >
                     <input
@@ -287,10 +287,10 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
 
                   <label
                     onClick={() => handleFrequencyChange('daily_fixed')}
-                    className={`p-3 rounded-2xl border flex items-start gap-3 cursor-pointer transition-all ${
+                    className={`p-3 rounded-xl border flex items-start gap-3 cursor-pointer transition-all ${
                       config.frequency === 'daily_fixed'
-                        ? 'bg-indigo-50/70 border-indigo-300 shadow-xs'
-                        : 'bg-white border-slate-200 hover:bg-slate-50'
+                        ? 'bg-indigo-50/70 border-indigo-300 '
+                        : 'bg-white border-zinc-200 hover:bg-slate-50'
                     }`}
                   >
                     <input
@@ -312,10 +312,10 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
 
                   <label
                     onClick={() => handleFrequencyChange('interval_3h')}
-                    className={`p-3 rounded-2xl border flex items-start gap-3 cursor-pointer transition-all ${
+                    className={`p-3 rounded-xl border flex items-start gap-3 cursor-pointer transition-all ${
                       config.frequency === 'interval_3h'
-                        ? 'bg-indigo-50/70 border-indigo-300 shadow-xs'
-                        : 'bg-white border-slate-200 hover:bg-slate-50'
+                        ? 'bg-indigo-50/70 border-indigo-300 '
+                        : 'bg-white border-zinc-200 hover:bg-slate-50'
                     }`}
                   >
                     <input
@@ -338,7 +338,7 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
               </div>
 
               {/* Push Notification Integration Box */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+              <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200 space-y-3">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center">
@@ -375,7 +375,7 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
                   <button
                     onClick={handleRequestPushPermission}
                     disabled={requestingPerm}
-                    className="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                    className="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer "
                   >
                     <Bell className="w-3.5 h-3.5" />
                     <span>
@@ -393,7 +393,7 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
 
               {/* Switches: Sound & Weekend */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                <div className="p-3 rounded-xl border border-zinc-200 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {config.soundAlert ? (
                       <Volume2 className="w-4 h-4 text-indigo-600" />
@@ -412,7 +412,7 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
                   />
                 </div>
 
-                <div className="p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                <div className="p-3 rounded-xl border border-zinc-200 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-purple-600" />
                     <span className="text-xs font-bold text-slate-800">
@@ -431,10 +431,10 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
           )}
 
           {/* Test Reminder CTA */}
-          <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="pt-2 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-3">
             <button
               onClick={handleTestReminder}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer active:scale-95"
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs flex items-center justify-center gap-2  transition-all cursor-pointer active:scale-95"
             >
               <Bell className="w-4 h-4 animate-bounce" />
               <span>Hatırlatıcıyı Şimdi Test Et</span>
@@ -450,7 +450,7 @@ export const StudyReminderSettingsModal: React.FC<StudyReminderSettingsModalProp
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+        <div className="p-4 sm:p-5 bg-slate-50 border-t border-zinc-200 flex items-center justify-between">
           <p className="text-[11px] text-slate-500">
             Ayarlar cihazınızda güvenle saklanır.
           </p>

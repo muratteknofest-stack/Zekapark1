@@ -124,6 +124,64 @@ class SoundEngine {
     } catch {}
   }
 
+  playCombo(comboCount: number) {
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      // Calculate dynamic base pitch based on streak count
+      const basePitch = Math.min(1200, 440 + Math.min(comboCount, 12) * 55);
+      const isHighCombo = comboCount >= 5;
+      
+      const freqs = isHighCombo
+        ? [basePitch, basePitch * 1.25, basePitch * 1.5, basePitch * 2]
+        : [basePitch, basePitch * 1.25, basePitch * 1.5];
+
+      freqs.forEach((f, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = isHighCombo ? 'triangle' : 'sine';
+        osc.frequency.setValueAtTime(f, now + i * 0.06);
+
+        gain.gain.setValueAtTime(0.12, now + i * 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.06 + 0.22);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now + i * 0.06);
+        osc.stop(now + i * 0.06 + 0.22);
+      });
+    } catch {}
+  }
+
+  playComboMilestone(comboCount: number) {
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      // Grand celebration chord arpeggio
+      const notes = [523.25, 659.25, 783.99, 1046.5, 1318.51];
+      notes.forEach((f, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(f, now + i * 0.07);
+
+        gain.gain.setValueAtTime(0.16, now + i * 0.07);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.4);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now + i * 0.07);
+        osc.stop(now + i * 0.07 + 0.4);
+      });
+    } catch {}
+  }
+
   playReminderChime() {
     const ctx = this.getContext();
     if (!ctx) return;

@@ -78,7 +78,7 @@ export const VisualCountdownTimer: React.FC<VisualCountdownTimerProps> = ({
               Katı Mod
             </span>
           ) : (
-            <span className="px-1.5 py-0.2 rounded-md bg-slate-100 text-slate-600 text-[10px] font-medium border border-slate-200">
+            <span className="px-1.5 py-0.2 rounded-md bg-slate-100 text-slate-600 text-[10px] font-medium border border-zinc-200">
               Serbest Tempo
             </span>
           )}
@@ -91,14 +91,14 @@ export const VisualCountdownTimer: React.FC<VisualCountdownTimerProps> = ({
               <span>Ek Süre</span>
             </span>
           )}
-          <span className={`font-mono text-sm px-2.5 py-1 rounded-xl font-extrabold border shadow-2xs ${badgeBorder}`}>
+          <span className={`font-mono text-base px-3 py-1 rounded-xl font-extrabold border  tracking-tight ${badgeBorder}`}>
             {isOvertime ? `+${formatTime(overtimeSeconds)}` : formatTime(remainingSeconds)}
           </span>
         </div>
       </div>
 
       {/* Visual Progress Bar */}
-      <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200/60 shadow-inner">
+      <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-zinc-200/60 ">
         <div
           className={`h-full transition-all duration-500 rounded-full ${colorClass}`}
           style={{ width: `${isOvertime ? 100 : percentage}%` }}

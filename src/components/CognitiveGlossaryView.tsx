@@ -78,7 +78,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-8 pb-28 space-y-6">
       {/* Header Hero Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-900 via-indigo-800 to-purple-900 text-white p-6 sm:p-8 shadow-xl">
+      <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-900 via-indigo-800 to-purple-900 text-white p-6 sm:p-8 ">
         <div className="absolute -top-12 -right-12 w-52 h-52 rounded-full bg-amber-400/20 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-10 -left-10 w-44 h-44 rounded-full bg-indigo-500/20 blur-2xl pointer-events-none" />
 
@@ -103,7 +103,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
           </div>
 
           {/* Quick Practice Pill */}
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 text-xs text-indigo-100 flex flex-col gap-2 shrink-0 max-w-xs">
+          <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/15 text-xs text-indigo-100 flex flex-col gap-2 shrink-0 max-w-xs">
             <div className="flex items-center gap-2 text-amber-300 font-bold">
               <Sparkles className="w-4 h-4" />
               <span>Dokunarak Öğren!</span>
@@ -116,7 +116,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
       </div>
 
       {/* Search & Filter Controls */}
-      <div className="bg-white p-4 rounded-3xl border border-slate-200 shadow-xs space-y-3">
+      <div className="bg-white p-4 rounded-xl border border-zinc-200  space-y-3">
         <div className="relative">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
@@ -124,7 +124,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Terim ara... (örn: matris, rotasyon, simetri, analoji, kağıt katlama)"
-            className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+            className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
           />
           {searchQuery && (
             <button
@@ -147,7 +147,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
               }}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === cat.id
-                  ? 'bg-indigo-600 text-white shadow-xs'
+                  ? 'bg-indigo-600 text-white '
                   : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
               }`}
             >
@@ -163,7 +163,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
       {/* Terms Accordion & Interactive Cards */}
       <div className="space-y-4">
         {filteredTerms.length === 0 ? (
-          <div className="bg-white rounded-3xl p-10 text-center border border-slate-200 space-y-3">
+          <div className="bg-white rounded-xl p-10 text-center border border-zinc-200 space-y-3">
             <HelpCircle className="w-10 h-10 text-slate-300 mx-auto" />
             <h3 className="font-extrabold text-slate-700 text-base">Aradığınız kriterde terim bulunamadı</h3>
             <p className="text-xs text-slate-500 max-w-sm mx-auto">
@@ -174,7 +174,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
                 setSearchQuery('');
                 setSelectedCategory('all');
               }}
-              className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-xs cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold  cursor-pointer"
             >
               Tüm Terimleri Göster
             </button>
@@ -188,10 +188,10 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
               <div
                 key={term.id}
                 id={`term-card-${term.id}`}
-                className={`bg-white rounded-3xl border transition-all duration-200 overflow-hidden ${
+                className={`bg-white rounded-xl border transition-all duration-200 overflow-hidden ${
                   isExpanded
-                    ? 'border-indigo-300 shadow-md ring-1 ring-indigo-200/50'
-                    : 'border-slate-200 hover:border-slate-300 shadow-xs'
+                    ? 'border-indigo-300  ring-1 ring-indigo-200/50'
+                    : 'border-zinc-200 hover:border-slate-300 '
                 }`}
               >
                 {/* Header Row (Clickable) */}
@@ -201,9 +201,9 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
                 >
                   <div className="flex items-start gap-4">
                     <div
-                      className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 transition-all ${
+                      className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0 transition-all ${
                         isExpanded
-                          ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                          ? 'bg-indigo-600 text-white  '
                           : 'bg-indigo-50 text-indigo-700'
                       }`}
                     >
@@ -255,7 +255,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
 
                 {/* Expanded Detailed Section */}
                 {isExpanded && (
-                  <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 bg-slate-50/40 space-y-5">
+                  <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-zinc-200 bg-slate-50/40 space-y-5">
                     {/* 2-Column Content: Detailed Explanation & Interactive Simulation */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 pt-2">
                       {/* Left: Detailed Concept & BİLSEM Exam Tip */}
@@ -265,13 +265,13 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
                             <Layers className="w-3.5 h-3.5 text-indigo-600" />
                             Nasıl Çalışır & Sınav Mantığı
                           </h4>
-                          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed bg-white p-3.5 rounded-2xl border border-slate-200/80">
+                          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed bg-white p-3.5 rounded-xl border border-zinc-200/80">
                             {term.detailedExplanation}
                           </p>
                         </div>
 
                         {/* BİLSEM Tip Highlight Box */}
-                        <div className="bg-amber-50/90 border border-amber-200 rounded-2xl p-4 space-y-1.5">
+                        <div className="bg-amber-50/90 border border-amber-200 rounded-xl p-4 space-y-1.5">
                           <div className="flex items-center gap-1.5 text-amber-900 font-extrabold text-xs">
                             <Lightbulb className="w-4 h-4 text-amber-500 fill-amber-400" />
                             <span>BİLSEM Sınav Taktikleri & Pratik İpucu</span>
@@ -301,14 +301,14 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
                     </div>
 
                     {/* Footer Row: Tags & Practice Button */}
-                    <div className="pt-3 border-t border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="pt-3 border-t border-zinc-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       {/* Tags */}
                       <div className="flex flex-wrap items-center gap-1.5">
                         <span className="text-[11px] font-bold text-slate-400 mr-1">Etiketler:</span>
                         {term.tags.map((tag, idx) => (
                           <span
                             key={idx}
-                            className="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-600 text-[11px] font-medium"
+                            className="px-2 py-0.5 rounded-md bg-white text-slate-600 text-[11px] font-medium"
                           >
                             #{tag}
                           </span>
@@ -321,7 +321,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
                           sound.playClick();
                           onStartPractice(term.practiceCategory);
                         }}
-                        className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md shadow-indigo-600/20 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                        className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs   active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
                       >
                         <span>Bu Kavramla İlgili Pratik Yap</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -336,7 +336,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
       </div>
 
       {/* Cognitive Tips for Parents & Mentors Banner */}
-      <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="p-1 rounded-lg bg-amber-400 text-amber-950">
@@ -356,7 +356,7 @@ export const CognitiveGlossaryView: React.FC<CognitiveGlossaryViewProps> = ({
             sound.playClick();
             onStartPractice();
           }}
-          className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs shadow-md shadow-amber-500/20 active:scale-98 transition-all cursor-pointer whitespace-nowrap"
+          className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs   active:scale-98 transition-all cursor-pointer whitespace-nowrap"
         >
           Genel Pratiğe Başla
         </button>

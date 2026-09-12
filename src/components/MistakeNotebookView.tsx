@@ -114,8 +114,8 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
   // RETRY MODAL/VIEW
   if (activeRetryMistake && retryQuestion) {
     return (
-      <div className="w-full max-w-3xl mx-auto px-4 py-6 pb-24 space-y-4">
-        <div className="flex items-center justify-between bg-white px-4 py-3 rounded-2xl border border-slate-200 shadow-xs">
+      <div className="w-full max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 pb-28 md:pb-12 space-y-4">
+        <div className="flex items-center justify-between bg-white px-4 py-3 rounded-xl border border-zinc-200 ">
           <button
             onClick={closeRetry}
             className="flex items-center gap-1 text-sm font-bold text-slate-600 hover:text-slate-900 cursor-pointer"
@@ -128,8 +128,8 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
           </span>
         </div>
 
-        <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-sm space-y-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 border-b border-slate-100 pb-3">
+        <div className="bg-white rounded-xl p-5 sm:p-6 border border-zinc-200  space-y-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 border-b border-zinc-200 pb-3">
             <div className="text-center sm:text-left space-y-0.5 flex-1">
               <h2 className="text-base sm:text-lg font-bold text-slate-900 leading-snug">
                 {retryQuestion.prompt}
@@ -147,7 +147,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
                   sound.playClick();
                   setShowAiHint(true);
                 }}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-extrabold text-xs shadow-xs transition-all cursor-pointer active:scale-95 shrink-0"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-extrabold text-xs  transition-all cursor-pointer active:scale-95 shrink-0"
                 title="Takıldığında yapay zeka destekli adım adım ipucu al"
               >
                 <Lightbulb className="w-4 h-4 text-amber-500 fill-amber-400" />
@@ -187,7 +187,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
                   sound.playClick();
                   setShowAiHint(true);
                 }}
-                className="w-full sm:w-auto px-4 py-3.5 rounded-2xl bg-amber-50 hover:bg-amber-100 border-2 border-amber-300/80 text-amber-950 font-extrabold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 shadow-xs shrink-0"
+                className="w-full sm:w-auto px-4 py-3.5 rounded-xl bg-amber-50 hover:bg-amber-100 border-2 border-amber-300/80 text-amber-950 font-extrabold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98  shrink-0"
               >
                 <Lightbulb className="w-4 h-4 text-amber-500 fill-amber-400" />
                 <span>Takıldım, İpucu Ver!</span>
@@ -196,9 +196,9 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
               <button
                 onClick={handleSubmitRetry}
                 disabled={!selectedOptionId}
-                className={`flex-1 w-full py-3.5 rounded-2xl font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                className={`flex-1 w-full py-3.5 rounded-xl font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 cursor-pointer ${
                   selectedOptionId
-                    ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-md active:scale-98'
+                    ? 'bg-amber-600 hover:bg-amber-700 text-white  active:scale-98'
                     : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                 }`}
               >
@@ -208,7 +208,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
           ) : (
             <div className="space-y-4 pt-2">
               <div
-                className={`p-4 rounded-2xl text-center text-sm font-bold flex items-center justify-center gap-2 ${
+                className={`p-4 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2 ${
                   isCorrect
                     ? 'bg-emerald-100 text-emerald-950 border-2 border-emerald-300'
                     : 'bg-amber-100 text-amber-950 border-2 border-amber-300'
@@ -234,7 +234,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
 
               <button
                 onClick={closeRetry}
-                className="w-full py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm  transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Hata Defterine Dön</span>
               </button>
@@ -256,13 +256,13 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
 
   // LIST OF MISTAKES
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-6 pb-24 space-y-6">
+    <div className="w-full max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 pb-28 md:pb-12 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button
             onClick={onNavigateHome}
-            className="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer"
+            className="p-2 rounded-xl bg-white text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -282,7 +282,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
           {unresolvedCount > 0 && (
             <button
               onClick={handleClearAllMistakes}
-              className="text-xs font-extrabold px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-xs transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
+              className="text-xs font-extrabold px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white  transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
               title="Tüm hataları temizle ve Tertemiz Defter rozetini anında kazan"
             >
               <Sparkles className="w-3.5 h-3.5" />
@@ -300,7 +300,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
 
       {/* Unlocked Toast/Notice Banner */}
       {unlockedNotice && (
-        <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-extrabold text-xs sm:text-sm shadow-md flex items-center justify-between gap-3 animate-fadeIn">
+        <div className="p-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-extrabold text-xs sm:text-sm  flex items-center justify-between gap-3 animate-fadeIn">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-white animate-bounce shrink-0" />
             <span>{unlockedNotice}</span>
@@ -316,7 +316,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
 
       {/* Clean Notebook Celebration Banner when unresolvedCount is 0 */}
       {unresolvedCount === 0 && mistakes.length > 0 && (
-        <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border-2 border-emerald-300 text-emerald-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border-2 border-emerald-300 text-emerald-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <span className="text-3xl">✨</span>
             <div>
@@ -349,7 +349,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
           <h3 className="text-base font-extrabold text-slate-900 font-['Outfit',sans-serif]">
             Hata Defterindeki Sorular
           </h3>
-          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-zinc-200">
             {filteredMistakes.length} Soru
           </span>
           {selectedCategoryFilter !== 'all' && (
@@ -375,8 +375,8 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
             }}
             className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
               statusFilter === 'all'
-                ? 'bg-slate-900 text-white shadow-xs'
-                : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                ? 'bg-slate-900 text-white '
+                : 'bg-white text-slate-600 hover:bg-slate-50'
             }`}
           >
             Tümü ({mistakes.length})
@@ -388,8 +388,8 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
             }}
             className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
               statusFilter === 'unresolved'
-                ? 'bg-amber-600 text-white shadow-xs'
-                : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                ? 'bg-amber-600 text-white '
+                : 'bg-white text-slate-600 hover:bg-slate-50'
             }`}
           >
             Bekleyenler ({unresolvedCount})
@@ -401,8 +401,8 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
             }}
             className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
               statusFilter === 'resolved'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                ? 'bg-emerald-600 text-white '
+                : 'bg-white text-slate-600 hover:bg-slate-50'
             }`}
           >
             Öğrenilenler ({resolvedCount})
@@ -412,7 +412,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
 
       {/* Empty State */}
       {mistakes.length === 0 ? (
-        <div className="p-12 text-center bg-white rounded-3xl border border-slate-200 shadow-sm space-y-3">
+        <div className="p-12 text-center bg-white rounded-xl border border-zinc-200  space-y-3">
           <Award className="w-12 h-12 text-emerald-500 mx-auto" />
           <h3 className="text-lg font-bold text-slate-800">Henüz Kayıtlı Hatan Yok!</h3>
           <p className="text-xs text-slate-500 max-w-sm mx-auto">
@@ -420,7 +420,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
           </p>
         </div>
       ) : filteredMistakes.length === 0 ? (
-        <div className="p-10 text-center bg-white rounded-3xl border border-slate-200 shadow-sm space-y-3">
+        <div className="p-10 text-center bg-white rounded-xl border border-zinc-200  space-y-3">
           <Filter className="w-10 h-10 text-slate-400 mx-auto" />
           <h4 className="text-base font-bold text-slate-800">Seçilen Filtrede Soru Bulunamadı</h4>
           <p className="text-xs text-slate-500">
@@ -446,10 +446,10 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
             return (
               <div
                 key={item.id}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
+                className={`p-4 sm:p-5 rounded-xl border transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
                   item.resolved
                     ? 'bg-emerald-50/40 border-emerald-200/80'
-                    : 'bg-white border-slate-200 shadow-xs hover:border-amber-300'
+                    : 'bg-white border-zinc-200  hover:border-amber-300'
                 }`}
               >
                 <div className="space-y-1.5 flex-1 min-w-0">
@@ -468,7 +468,7 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
                     </button>
 
                     <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 uppercase">
-                      {item.questionType.replace(/_/g, ' ')}
+                      {item.questionType?.replace(/_/g, ' ')}
                     </span>
                     <span className="text-[11px] font-semibold text-slate-500">
                       Sv. {item.difficulty} • {item.createdAt}
@@ -489,8 +489,8 @@ export const MistakeNotebookView: React.FC<MistakeNotebookViewProps> = ({ onNavi
                   onClick={() => startRetry(item)}
                   className={`px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer shrink-0 transition-all ${
                     item.resolved
-                      ? 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
-                      : 'bg-amber-500 hover:bg-amber-600 text-white shadow-xs active:scale-98'
+                      ? 'bg-white text-slate-700 hover:bg-slate-50'
+                      : 'bg-amber-500 hover:bg-amber-600 text-white  active:scale-98'
                   }`}
                 >
                   <RotateCcw className="w-4 h-4" />

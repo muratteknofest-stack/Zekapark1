@@ -177,7 +177,7 @@ export const AdminStudentCohort: React.FC<AdminStudentCohortProps> = ({ onSyncNe
   return (
     <div className="space-y-6">
       {/* Top Banner & Cohort Overview */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
@@ -204,7 +204,7 @@ export const AdminStudentCohort: React.FC<AdminStudentCohortProps> = ({ onSyncNe
 
         {/* Action notification toast */}
         {actionMessage && (
-          <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-bold flex items-center gap-2 animate-fadeIn">
+          <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-bold flex items-center gap-2 animate-fadeIn">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>{actionMessage}</span>
           </div>
@@ -220,7 +220,7 @@ export const AdminStudentCohort: React.FC<AdminStudentCohortProps> = ({ onSyncNe
               placeholder="Öğrenci adı ile ara..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-purple-500"
+              className="w-full pl-9 pr-3 py-2 rounded-xl border border-zinc-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-purple-500"
             />
           </div>
 
@@ -236,7 +236,7 @@ export const AdminStudentCohort: React.FC<AdminStudentCohortProps> = ({ onSyncNe
                 onClick={() => setSelectedGrade(g)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   selectedGrade === g
-                    ? 'bg-purple-600 text-white shadow-xs'
+                    ? 'bg-purple-600 text-white '
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
@@ -248,11 +248,11 @@ export const AdminStudentCohort: React.FC<AdminStudentCohortProps> = ({ onSyncNe
       </div>
 
       {/* Student Roster Table */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs text-slate-700 border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50/80 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+              <tr className="border-b border-zinc-200 bg-slate-50/80 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                 <th className="py-3 px-3">Öğrenci</th>
                 <th className="py-3 px-3 text-center">Sınıf</th>
                 <th className="py-3 px-3 text-center">Seviye & XP</th>
@@ -376,8 +376,8 @@ export const AdminStudentCohort: React.FC<AdminStudentCohortProps> = ({ onSyncNe
       {/* Student Cognitive Detail Modal */}
       {selectedStudentForModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
-          <div className="bg-white rounded-3xl p-6 max-w-lg w-full border border-slate-200 shadow-xl space-y-4 animate-scaleUp">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="bg-white rounded-xl p-6 max-w-lg w-full border border-zinc-200  space-y-4 animate-scaleUp">
+            <div className="flex items-center justify-between border-b border-zinc-200 pb-3">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{selectedStudentForModal.avatar}</span>
                 <div>
@@ -402,7 +402,7 @@ export const AdminStudentCohort: React.FC<AdminStudentCohortProps> = ({ onSyncNe
                 8 Bilişsel Alanda Ustalık Yüzdeleri:
               </div>
               {masteries.map((m) => (
-                <div key={m.category} className="space-y-1 p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                <div key={m.category} className="space-y-1 p-2.5 rounded-xl bg-slate-50 border border-zinc-200">
                   <div className="flex justify-between text-xs">
                     <span className="font-bold text-slate-800">{m.categoryName}</span>
                     <span className="font-mono font-bold text-purple-700">%{m.mastery} Ustalık</span>

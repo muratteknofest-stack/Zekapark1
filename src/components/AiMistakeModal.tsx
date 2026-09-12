@@ -104,7 +104,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
       <div
         id="ai-mistake-modal-container"
-        className="relative w-full max-w-2xl max-h-[90vh] flex flex-col bg-white rounded-3xl border border-rose-100 shadow-2xl overflow-hidden animate-scaleUp"
+        className="relative w-full max-w-2xl max-h-[90vh] flex flex-col bg-white rounded-xl border border-rose-100  overflow-hidden animate-scaleUp"
       >
         {/* Modal Header */}
         <div className="relative overflow-hidden bg-gradient-to-br from-rose-600 via-purple-700 to-indigo-900 text-white p-5 sm:p-6 shrink-0">
@@ -113,7 +113,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
 
           <div className="relative z-10 flex items-start justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 via-rose-400 to-orange-400 text-slate-950 flex items-center justify-center shadow-lg shadow-rose-900/30 shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-400 via-rose-400 to-orange-400 text-slate-950 flex items-center justify-center   shrink-0">
                 <HelpCircle className="w-6 h-6 stroke-[2.5]" />
               </div>
               <div className="space-y-0.5">
@@ -165,7 +165,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
           </div>
 
           {/* Reassuring Empathetic Quote */}
-          <div className="relative z-10 mt-3 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-xs text-rose-50 flex items-center gap-2.5">
+          <div className="relative z-10 mt-3 p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-xs text-rose-50 flex items-center gap-2.5">
             <Brain className="w-4 h-4 text-amber-300 shrink-0" />
             <p className="leading-relaxed font-medium">
               Yanlış yapmak öğrenmenin en değerli parçasıdır! Zihnimizin takıldığı noktayı fark etmek, bir sonraki soruda bizi durdurulamaz yapar.
@@ -194,7 +194,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
           ) : (
             <>
               {/* Empathetic Introduction Card */}
-              <div className="p-4 rounded-2xl bg-indigo-50/90 border border-indigo-100 text-indigo-950 flex items-start gap-3 shadow-xs">
+              <div className="p-4 rounded-xl bg-indigo-50/90 border border-indigo-100 text-indigo-950 flex items-start gap-3 ">
                 <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 mt-0.5">
                   <Brain className="w-4 h-4" />
                 </div>
@@ -211,7 +211,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
               {/* Side-by-Side Visual Comparison Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {/* Chosen Option Card */}
-                <div className="p-3.5 rounded-2xl bg-rose-50/70 border-2 border-rose-200/80 space-y-2">
+                <div className="p-3.5 rounded-xl bg-rose-50/70 border-2 border-rose-200/80 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-extrabold text-rose-700 uppercase tracking-wide flex items-center gap-1">
                       <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
@@ -237,7 +237,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
                 </div>
 
                 {/* Correct Option Card */}
-                <div className="p-3.5 rounded-2xl bg-emerald-50/70 border-2 border-emerald-300/80 space-y-2">
+                <div className="p-3.5 rounded-xl bg-emerald-50/70 border-2 border-emerald-300/80 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-extrabold text-emerald-800 uppercase tracking-wide flex items-center gap-1">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
@@ -264,7 +264,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
               </div>
 
               {/* Misconception Trap Section */}
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2">
+              <div className="p-4 rounded-xl bg-white  space-y-2">
                 <div className="flex items-center gap-2 text-rose-600">
                   <Target className="w-4 h-4 shrink-0" />
                   <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wide">
@@ -277,7 +277,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
               </div>
 
               {/* Difference Analysis Section */}
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2">
+              <div className="p-4 rounded-xl bg-white  space-y-2">
                 <div className="flex items-center gap-2 text-indigo-700">
                   <Scale className="w-4 h-4 shrink-0" />
                   <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wide">
@@ -290,7 +290,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
               </div>
 
               {/* Golden Rule Tip */}
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300/80 shadow-xs space-y-2">
+              <div className="p-4 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300/80  space-y-2">
                 <div className="flex items-center gap-2 text-amber-900">
                   <Lightbulb className="w-4 h-4 text-amber-600 fill-amber-500 shrink-0" />
                   <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wide">
@@ -303,7 +303,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
               </div>
 
               {/* Superpower Badge */}
-              <div className="p-3 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-between gap-3">
+              <div className="p-3 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <div className="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center shrink-0">
                     <Zap className="w-4 h-4" />
@@ -327,7 +327,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3 shrink-0">
+        <div className="p-4 bg-slate-50 border-t border-zinc-200 flex items-center justify-between gap-3 shrink-0">
           <div className="text-xs text-slate-500 hidden sm:block">
             <span>Her hata, doğruya giden en sağlam basamaktır!</span>
           </div>
@@ -337,7 +337,7 @@ export const AiMistakeModal: React.FC<AiMistakeModalProps> = ({
               sound.playClick();
               onClose();
             }}
-            className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs sm:text-sm shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs sm:text-sm  transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
           >
             <span>Şimdi Çok Daha İyi Anladım!</span>
             <ArrowRight className="w-4 h-4" />

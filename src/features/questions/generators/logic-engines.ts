@@ -7,17 +7,49 @@ import { ShapeItem, SHAPES_POOL, COLORS_POOL } from './generator-utils';
 // 11 Direction / Path (Yön ve Rota Takibi)
 export function generateDirectionPathQuestion(seed: number, difficulty: DifficultyLevel): BaseQuestion {
   const rng = new SeededRNG(seed);
-  // A 3x3 or 4x4 grid of landmarks/symbols. Starting at (0,0) or center, following arrow instructions.
-  // E.g. [Sağ 1, Aşağı 2, Sol 1] -> Land on target symbol!
   const symbols = ['star', 'circle', 'diamond', 'triangle', 'clover', 'heart', 'cross', 'pacman', 'ring'] as const;
-  const targetSymbol = rng.pick(symbols);
-  const altSymbols = rng.shuffle(symbols.filter((s) => s !== targetSymbol)).slice(0, 3);
+  
+  // 3x3 Grid from (0,0) to (2,2)
+  // Start at (0,0)
+  let curX = 0;
+  let curY = 0;
+  const stepList: string[] = [];
 
-  const steps = [
-    '2 Adım Sağa (→)',
-    '1 Adım Aşağıya (↓)',
-    '1 Adım Sola (←)',
+  const possibleMoves = [
+    { dx: 1, dy: 0, text: 'Sağa (→)' },
+    { dx: 0, dy: 1, text: 'Aşağıya (↓)' },
+    { dx: 2, dy: 0, text: '2 Adım Sağa (→)' },
+    { dx: 0, dy: 2, text: '2 Adım Aşağıya (↓)' },
   ];
+
+  // Generate 2 or 3 valid moves
+  const numMoves = difficulty >= 3 ? 3 : 2;
+  for (let m = 0; m < numMoves; m++) {
+    const validMoves = [
+      { dx: 1, dy: 0, text: '1 Adım Sağa (→)' },
+      { dx: -1, dy: 0, text: '1 Adım Sola (←)' },
+      { dx: 0, dy: 1, text: '1 Adım Aşağıya (↓)' },
+      { dx: 0, dy: -1, text: '1 Adım Yukarıya (↑)' },
+    ].filter((mv) => curX + mv.dx >= 0 && curX + mv.dx <= 2 && curY + mv.dy >= 0 && curY + mv.dy <= 2);
+
+    if (validMoves.length > 0) {
+      const chosen = rng.pick(validMoves);
+      curX += chosen.dx;
+      curY += chosen.dy;
+      stepList.push(chosen.text);
+    }
+  }
+
+  // If didn't move, default move
+  if (stepList.length === 0) {
+    curX = 1;
+    curY = 1;
+    stepList.push('1 Adım Sağa (→)', '1 Adım Aşağıya (↓)');
+  }
+
+  const targetIdx = curY * 3 + curX;
+  const targetSymbol = symbols[targetIdx];
+  const altSymbols = rng.shuffle(symbols.filter((s) => s !== targetSymbol)).slice(0, 3);
 
   const choices = [
     { kind: targetSymbol, isCorrect: true },
@@ -53,17 +85,17 @@ export function generateDirectionPathQuestion(seed: number, difficulty: Difficul
     category: 'spatial',
     difficulty,
     ageGroup: 'all',
-    prompt: 'Başlangıç noktasından verilen yön adımlarını takip ettiğinde hangi sembole ulaşırsın?',
-    secondaryPrompt: `Adımlar: ${steps.join(', ')}`,
+    prompt: 'Başlangıç noktasından (sol üst) verilen adımları sırayla takip ettiğinde hangi sembole ulaşırsın?',
+    secondaryPrompt: `Adımlar: ${stepList.join(' ➔ ')}`,
     options,
     correctOptionId,
     explanation: {
       ruleTitle: 'Yön ve Koordinat Takibi',
-      summary: `Belirtilen rota adımları sırasıyla uygulandığında varılan sembol ${correctOptionId} seçeneğidir.`,
+      summary: `Sol üst başlangıç noktasından belirtilen adımlar takip edildiğinde ${targetSymbol} sembolüne (${correctOptionId}) ulaşılır.`,
       steps: [
-        'Başlangıç konumunu belirle.',
-        ...steps.map((s, idx) => `${idx + 1}. Adım: ${s}`),
-        `Son varış noktası: ${correctOptionId} sembolü.`,
+        'Başlangıç konumunu (sol üst hücre) belirle.',
+        ...stepList.map((s, idx) => `${idx + 1}. Adım: ${s}`),
+        `Ulaşılan hedef sembol: ${correctOptionId}`,
       ],
     },
     estimatedSeconds: 25 + difficulty * 5,
@@ -71,7 +103,8 @@ export function generateDirectionPathQuestion(seed: number, difficulty: Difficul
     seed,
     visualConfig: {
       displayMode: 'grid_path',
-      steps,
+      steps: stepList,
+      gridSymbols: symbols,
       targetSymbol,
     },
   };

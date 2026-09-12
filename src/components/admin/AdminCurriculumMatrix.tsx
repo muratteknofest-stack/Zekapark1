@@ -145,7 +145,7 @@ export const AdminCurriculumMatrix: React.FC<AdminCurriculumMatrixProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-2">
+      <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-2">
         <div className="flex items-center gap-2">
           <Compass className="w-5 h-5 text-purple-600" />
           <h2 className="text-lg font-extrabold text-slate-900">
@@ -162,12 +162,12 @@ export const AdminCurriculumMatrix: React.FC<AdminCurriculumMatrixProps> = ({
         {curriculumData.map((cat) => (
           <div
             key={cat.id}
-            className="bg-white rounded-3xl p-5 border border-slate-200 shadow-xs space-y-3.5 hover:border-purple-300 transition-colors"
+            className="bg-white rounded-xl p-5 border border-zinc-200  space-y-3.5 hover:border-purple-300 transition-colors"
           >
             {/* Header */}
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-slate-50 border border-slate-100 shrink-0">
+                <div className="p-2 rounded-xl bg-slate-50 border border-zinc-200 shrink-0">
                   {cat.icon}
                 </div>
                 <div>
@@ -194,7 +194,7 @@ export const AdminCurriculumMatrix: React.FC<AdminCurriculumMatrixProps> = ({
             </p>
 
             {/* Recommended Grades */}
-            <div className="flex items-center justify-between text-[11px] text-slate-500 border-t border-slate-100 pt-2 font-medium">
+            <div className="flex items-center justify-between text-[11px] text-slate-500 border-t border-zinc-200 pt-2 font-medium">
               <span>Hedef Düzey: <strong className="text-slate-700">{cat.recommendedGrades}</strong></span>
               <span>2. Aşama Mülakat: <strong className="text-indigo-700 font-bold">%{cat.bilsemStage2Weight}</strong></span>
             </div>
@@ -212,7 +212,7 @@ export const AdminCurriculumMatrix: React.FC<AdminCurriculumMatrixProps> = ({
                       sound.playClick();
                       onSelectTypeForStudio(type);
                     }}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-50 hover:bg-purple-50 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 text-xs font-semibold transition-colors cursor-pointer group"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-50 hover:bg-purple-50 text-slate-700 hover:text-purple-800 border border-zinc-200 hover:border-purple-300 text-xs font-semibold transition-colors cursor-pointer group"
                     title="Bu motoru Soru Stüdyosunda Aç"
                   >
                     <span>{QUESTION_TYPE_LABELS[type]}</span>

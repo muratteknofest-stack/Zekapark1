@@ -112,11 +112,11 @@ export const AdminDiagnosticsModal: React.FC<AdminDiagnosticsModalProps> = ({ on
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-xl border border-zinc-200  w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50/90">
+        <div className="p-5 border-b border-zinc-200 flex items-center justify-between bg-slate-50/90">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-purple-600 text-white flex items-center justify-center shadow-md">
+            <div className="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center ">
               <Activity className="w-5 h-5" />
             </div>
             <div>
@@ -140,7 +140,7 @@ export const AdminDiagnosticsModal: React.FC<AdminDiagnosticsModalProps> = ({ on
         <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
           {/* Key Metrics Summary */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-4 rounded-2xl bg-purple-50 border border-purple-200/70">
+            <div className="p-4 rounded-xl bg-purple-50 border border-purple-200/70">
               <div className="flex items-center justify-between text-purple-700 mb-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider">Ortalama Süre</span>
                 <Clock className="w-3.5 h-3.5" />
@@ -151,7 +151,7 @@ export const AdminDiagnosticsModal: React.FC<AdminDiagnosticsModalProps> = ({ on
               <span className="text-[10px] text-purple-700 font-bold">Ultra Hızlı Üretim</span>
             </div>
 
-            <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200/70">
+            <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200/70">
               <div className="flex items-center justify-between text-emerald-700 mb-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider">Doğruluk Oranı</span>
                 <ShieldCheck className="w-3.5 h-3.5" />
@@ -164,7 +164,7 @@ export const AdminDiagnosticsModal: React.FC<AdminDiagnosticsModalProps> = ({ on
               <span className="text-[10px] text-emerald-700 font-bold">0 Çakışma / 0 Hata</span>
             </div>
 
-            <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200/70">
+            <div className="p-4 rounded-xl bg-blue-50 border border-blue-200/70">
               <div className="flex items-center justify-between text-blue-700 mb-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider">Havuz Boyutu</span>
                 <Sparkles className="w-3.5 h-3.5" />
@@ -175,7 +175,7 @@ export const AdminDiagnosticsModal: React.FC<AdminDiagnosticsModalProps> = ({ on
               <span className="text-[10px] text-blue-700 font-bold">Aktif Kayıtlı Soru</span>
             </div>
 
-            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200/70">
+            <div className="p-4 rounded-xl bg-amber-50 border border-amber-200/70">
               <div className="flex items-center justify-between text-amber-700 mb-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider">Yerel Bellek</span>
                 <HardDrive className="w-3.5 h-3.5" />
@@ -208,7 +208,7 @@ export const AdminDiagnosticsModal: React.FC<AdminDiagnosticsModalProps> = ({ on
               {benchmarkResults.map((res) => (
                 <div
                   key={res.type}
-                  className="p-3 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-white transition-all flex items-center justify-between gap-2"
+                  className="p-3 rounded-xl border border-zinc-200 bg-slate-50/70 hover:bg-white transition-all flex items-center justify-between gap-2"
                 >
                   <div className="min-w-0 flex-1">
                     <div className="text-xs font-bold text-slate-900 truncate">{res.label}</div>
@@ -240,7 +240,7 @@ export const AdminDiagnosticsModal: React.FC<AdminDiagnosticsModalProps> = ({ on
         </div>
 
         {/* Footer */}
-        <div className="p-4 sm:p-5 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+        <div className="p-4 sm:p-5 border-t border-zinc-200 bg-slate-50 flex items-center justify-between">
           <span className="text-xs text-slate-500 font-medium">
             Tüm motorlar SVG vektörel çıktı üretmektedir.
           </span>

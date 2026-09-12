@@ -74,11 +74,11 @@ export const AdminStudentPracticeSimulatorModal: React.FC<
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-xl border border-zinc-200  w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         {/* Simulator Banner */}
-        <div className="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between bg-gradient-to-r from-purple-900 to-indigo-900 text-white">
+        <div className="p-4 sm:p-5 border-b border-zinc-200 flex items-center justify-between bg-gradient-to-r from-purple-900 to-indigo-900 text-white">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
               <Play className="w-5 h-5 text-purple-300" />
             </div>
             <div>
@@ -117,7 +117,7 @@ export const AdminStudentPracticeSimulatorModal: React.FC<
         {/* Live Simulator Body */}
         <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-6">
           {/* Top Timer & Status Bar */}
-          <div className="flex items-center justify-between bg-slate-50 p-3 rounded-2xl border border-slate-200">
+          <div className="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-zinc-200">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
               <Clock className="w-4 h-4 text-purple-600" />
               <span>Kalan Süre:</span>
@@ -168,7 +168,7 @@ export const AdminStudentPracticeSimulatorModal: React.FC<
           </div>
 
           {/* Question SVG Main Visual */}
-          <div className="bg-slate-50/70 p-4 sm:p-6 rounded-3xl border border-slate-200 shadow-2xs flex items-center justify-center min-h-[220px]">
+          <div className="bg-slate-50/70 p-4 sm:p-6 rounded-xl border border-zinc-200  flex items-center justify-center min-h-[220px]">
             <div className="w-full max-w-[420px]">
               <QuestionRenderer question={question} />
             </div>
@@ -186,7 +186,7 @@ export const AdminStudentPracticeSimulatorModal: React.FC<
                 const isSelected = selectedOptionId === opt.id;
                 const isTargetCorrect = opt.id === question.correctOptionId;
 
-                let cardBorder = 'border-slate-200 hover:border-purple-300 hover:bg-purple-50/40';
+                let cardBorder = 'border-zinc-200 hover:border-purple-300 hover:bg-purple-50/40';
                 let badgeBg = 'bg-slate-100 text-slate-700';
 
                 if (isSubmitted) {
@@ -197,7 +197,7 @@ export const AdminStudentPracticeSimulatorModal: React.FC<
                     cardBorder = 'border-rose-500 bg-rose-50 ring-2 ring-rose-400';
                     badgeBg = 'bg-rose-600 text-white';
                   } else {
-                    cardBorder = 'border-slate-200 opacity-60';
+                    cardBorder = 'border-zinc-200 opacity-60';
                   }
                 }
 
@@ -207,7 +207,7 @@ export const AdminStudentPracticeSimulatorModal: React.FC<
                     type="button"
                     disabled={isSubmitted}
                     onClick={() => handleSelectOption(opt)}
-                    className={`p-3 rounded-2xl border bg-white flex flex-col items-center gap-2 transition-all cursor-pointer text-center relative ${cardBorder}`}
+                    className={`p-3 rounded-xl border bg-white flex flex-col items-center gap-2 transition-all cursor-pointer text-center relative ${cardBorder}`}
                   >
                     <div className="flex items-center justify-between w-full">
                       <span className={`w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center ${badgeBg}`}>
@@ -232,7 +232,7 @@ export const AdminStudentPracticeSimulatorModal: React.FC<
 
           {/* Explanation Drawer */}
           {showExplanation && (
-            <div className="bg-purple-50/70 border border-purple-200 rounded-3xl p-5 space-y-4 animate-in fade-in duration-300">
+            <div className="bg-purple-50/70 border border-purple-200 rounded-xl p-5 space-y-4 animate-in fade-in duration-300">
               <div className="flex items-center gap-2 text-purple-900 font-extrabold text-sm">
                 <Sparkles className="w-4 h-4 text-purple-600" />
                 <span>Pedagojik Çözüm & Akıl Yürütme Adımları</span>
@@ -259,7 +259,7 @@ export const AdminStudentPracticeSimulatorModal: React.FC<
         </div>
 
         {/* Footer */}
-        <div className="p-4 sm:p-5 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+        <div className="p-4 sm:p-5 border-t border-zinc-200 bg-slate-50 flex items-center justify-between">
           <button
             onClick={handleReset}
             className="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"

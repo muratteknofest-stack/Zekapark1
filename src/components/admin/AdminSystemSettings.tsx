@@ -69,7 +69,7 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-2">
+      <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-2">
         <div className="flex items-center gap-2">
           <Settings className="w-5 h-5 text-purple-600" />
           <h2 className="text-lg font-extrabold text-slate-900">
@@ -82,7 +82,7 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
       </div>
 
       {savedNotice && (
-        <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-bold flex items-center gap-2 animate-fadeIn">
+        <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-bold flex items-center gap-2 animate-fadeIn">
           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>Sistem yapılandırma parametreleri başarıyla güncellendi.</span>
         </div>
@@ -90,8 +90,8 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left Column: BİLSEM Exam Presets */}
-        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+        <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
+          <div className="flex items-center gap-2 pb-2 border-b border-zinc-200">
             <Sliders className="w-4 h-4 text-purple-600" />
             <h3 className="font-extrabold text-sm sm:text-base text-slate-900">
               BİLSEM Deneme Sınavı Standartları
@@ -114,8 +114,8 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
                   onClick={() => setExamQuestionCount(item.count)}
                   className={`py-2 px-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                     examQuestionCount === item.count
-                      ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
-                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                      ? 'bg-purple-600 text-white border-purple-600 '
+                      : 'bg-slate-50 text-slate-700 border-zinc-200 hover:bg-slate-100'
                   }`}
                 >
                   {item.label}
@@ -140,8 +140,8 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
                   onClick={() => setSecondsPerQuestion(item.sec)}
                   className={`py-2 px-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                     secondsPerQuestion === item.sec
-                      ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
-                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                      ? 'bg-purple-600 text-white border-purple-600 '
+                      : 'bg-slate-50 text-slate-700 border-zinc-200 hover:bg-slate-100'
                   }`}
                 >
                   {item.label}
@@ -151,7 +151,7 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
           </div>
 
           {/* Bilsem Rule Note */}
-          <div className="p-3 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-900 text-xs space-y-1">
+          <div className="p-3 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-900 text-xs space-y-1">
             <div className="flex items-center gap-1.5 font-bold">
               <ShieldCheck className="w-4 h-4 text-indigo-600" />
               <span>MEB BİLSEM Kuralı Devrede:</span>
@@ -162,7 +162,7 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
           </div>
 
           {/* Audio sound preview */}
-          <div className="pt-2 border-t border-slate-100">
+          <div className="pt-2 border-t border-zinc-200">
             <label className="text-xs font-bold text-slate-700 block mb-2">
               Ses Efekti Motoru Testi
             </label>
@@ -196,7 +196,7 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
 
           <button
             onClick={handleSaveSettings}
-            className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-xs cursor-pointer transition-colors"
+            className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs  cursor-pointer transition-colors"
           >
             Sınav Standartlarını Kaydet
           </button>
@@ -205,8 +205,8 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
         {/* Right Column: Adaptive CAT & Backup Controls */}
         <div className="space-y-4">
           {/* Adaptive CAT Engine */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+          <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
+            <div className="flex items-center gap-2 pb-2 border-b border-zinc-200">
               <Cpu className="w-4 h-4 text-purple-600" />
               <h3 className="font-extrabold text-sm sm:text-base text-slate-900">
                 Adaptif Algoritma (IRT / CAT)
@@ -214,7 +214,7 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100">
+              <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-zinc-200">
                 <div>
                   <div className="font-bold text-slate-900">Otomatik Zorluk Adaptasyonu</div>
                   <div className="text-[11px] text-slate-500">
@@ -228,14 +228,14 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
                   }`}
                 >
                   <div
-                    className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${
+                    className={`bg-white w-4 h-4 rounded-full  transform transition-transform ${
                       adaptiveDifficultyEnabled ? 'translate-x-6' : 'translate-x-0'
                     }`}
                   />
                 </button>
               </div>
 
-              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-1 font-mono text-[11px] text-slate-600">
+              <div className="p-3 rounded-xl bg-slate-50 border border-zinc-200 space-y-1 font-mono text-[11px] text-slate-600">
                 <div className="flex justify-between">
                   <span>Yetenek Katsayısı (K-Factor):</span>
                   <span className="font-bold text-purple-700">0.32</span>
@@ -253,8 +253,8 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
           </div>
 
           {/* Database Backup & Factory Reset */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+          <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
+            <div className="flex items-center gap-2 pb-2 border-b border-zinc-200">
               <Database className="w-4 h-4 text-purple-600" />
               <h3 className="font-extrabold text-sm sm:text-base text-slate-900">
                 Veritabanı & Platform Yedekleme
@@ -285,7 +285,7 @@ export const AdminSystemSettings: React.FC<AdminSystemSettingsProps> = ({ onSync
       {/* Confirmation Modal */}
       {resetConfirmOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
-          <div className="bg-white rounded-3xl p-6 max-w-sm w-full border border-slate-200 shadow-xl space-y-4 text-center">
+          <div className="bg-white rounded-xl p-6 max-w-sm w-full border border-zinc-200  space-y-4 text-center">
             <div className="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto">
               <AlertTriangle className="w-6 h-6" />
             </div>

@@ -151,7 +151,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
   return (
     <div className="space-y-6">
       {/* Control Banner */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
@@ -172,7 +172,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
                 disabled={isRunning}
                 onClick={() => setTestScale(18)}
                 className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-                  testScale === 18 ? 'bg-white text-purple-700 shadow-xs' : 'text-slate-600'
+                  testScale === 18 ? 'bg-white text-purple-700 ' : 'text-slate-600'
                 }`}
               >
                 18 Soru (1x)
@@ -181,7 +181,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
                 disabled={isRunning}
                 onClick={() => setTestScale(54)}
                 className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-                  testScale === 54 ? 'bg-white text-purple-700 shadow-xs' : 'text-slate-600'
+                  testScale === 54 ? 'bg-white text-purple-700 ' : 'text-slate-600'
                 }`}
               >
                 54 Soru (3x)
@@ -190,7 +190,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
                 disabled={isRunning}
                 onClick={() => setTestScale(100)}
                 className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-                  testScale === 100 ? 'bg-white text-purple-700 shadow-xs' : 'text-slate-600'
+                  testScale === 100 ? 'bg-white text-purple-700 ' : 'text-slate-600'
                 }`}
               >
                 100 Soru
@@ -199,7 +199,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
                 disabled={isRunning}
                 onClick={() => setTestScale(180)}
                 className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-                  testScale === 180 ? 'bg-white text-purple-700 shadow-xs' : 'text-slate-600'
+                  testScale === 180 ? 'bg-white text-purple-700 ' : 'text-slate-600'
                 }`}
               >
                 180 Soru (10x)
@@ -209,7 +209,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
             <button
               onClick={() => runMultiEngineTest()}
               disabled={isRunning}
-              className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50 active:scale-98"
+              className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs sm:text-sm  transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50 active:scale-98"
             >
               {isRunning ? (
                 <>
@@ -243,7 +243,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
       {/* Summary KPI Cards (When test has completed) */}
       {summary && (
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+          <div className="bg-white p-4 rounded-xl border border-zinc-200 ">
             <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
               Test Edilen
             </span>
@@ -253,7 +253,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
             <span className="text-[10px] text-purple-600 font-bold">18 Motor Kapsandı</span>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl border border-emerald-200 bg-emerald-50/40 shadow-xs">
+          <div className="bg-white p-4 rounded-xl border border-emerald-200 bg-emerald-50/40 ">
             <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider block">
               Başarılı (Doğrulandı)
             </span>
@@ -266,7 +266,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
             </span>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+          <div className="bg-white p-4 rounded-xl border border-zinc-200 ">
             <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
               Hatalı / Kural İhlali
             </span>
@@ -276,7 +276,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
             <span className="text-[10px] text-slate-400 font-bold">0 Tolerans</span>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+          <div className="bg-white p-4 rounded-xl border border-zinc-200 ">
             <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
               Toplam Çalışma Süresi
             </span>
@@ -287,7 +287,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
             <span className="text-[10px] text-slate-400 font-bold">Anlık Üretim</span>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+          <div className="bg-white p-4 rounded-xl border border-zinc-200 ">
             <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
               Ortalama Gecikme
             </span>
@@ -301,7 +301,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
       )}
 
       {/* Results Table & Search */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <Layers className="w-4 h-4 text-purple-600" />
@@ -318,7 +318,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
               placeholder="Motor veya kategori ara..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-purple-500"
+              className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-zinc-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-purple-500"
             />
           </div>
         </div>
@@ -327,7 +327,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-700 border-collapse">
               <thead>
-                <tr className="border-b border-slate-200 bg-slate-50/80 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                <tr className="border-b border-zinc-200 bg-slate-50/80 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                   <th className="py-3 px-3">Motor Adı</th>
                   <th className="py-3 px-3">Bilişsel Alan</th>
                   <th className="py-3 px-3 text-center">Test Adedi</th>
@@ -401,7 +401,7 @@ export const AdminStressTest: React.FC<AdminStressTestProps> = ({ onInspectType 
             <p className="text-sm font-medium">Henüz kapsamlı stres testi çalıştırılmadı.</p>
             <button
               onClick={() => runMultiEngineTest(54)}
-              className="px-4 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700 cursor-pointer shadow-xs"
+              className="px-4 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700 cursor-pointer "
             >
               54 Soruluk Doğrulama Testini Başlat
             </button>

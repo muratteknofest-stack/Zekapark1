@@ -8,6 +8,7 @@ import {
   CognitiveCategory,
 } from '../types';
 import { dataService } from './data-service';
+import { safeStorage } from '../lib/storage';
 
 const STORAGE_KEY_AI_DAILY_PLAN = 'bilsem_ai_personalized_daily_plan';
 
@@ -66,7 +67,7 @@ class AiDailyPlanService {
         return synced;
       }
 
-      const raw = localStorage.getItem(STORAGE_KEY_AI_DAILY_PLAN);
+      const raw = safeStorage.getItem(STORAGE_KEY_AI_DAILY_PLAN);
       if (raw) {
         try {
           const parsed: AiPersonalizedDailyPlan = JSON.parse(raw);
@@ -333,7 +334,7 @@ class AiDailyPlanService {
 
   private savePlan(plan: AiPersonalizedDailyPlan) {
     this.cachedPlan = plan;
-    localStorage.setItem(STORAGE_KEY_AI_DAILY_PLAN, JSON.stringify(plan));
+    safeStorage.setItem(STORAGE_KEY_AI_DAILY_PLAN, JSON.stringify(plan));
     this.notify(plan);
   }
 }

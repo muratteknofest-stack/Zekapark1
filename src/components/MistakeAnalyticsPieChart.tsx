@@ -101,8 +101,24 @@ export const CATEGORY_CONFIG: Record<
     advice: 'Gördüğün şekilleri küçük bir hikayeye dönüştürerek hafızanda kodla.',
     icon: (cls = 'w-4 h-4') => <Zap className={cls} />,
   },
-  numerical: {
-    name: 'Sayısal Muhakeme',
+  verbal: {
+      name: 'Sözel Mantık',
+      color: '#ec4899',
+      bgLight: '#fdf2f8',
+      borderColor: '#fbcfe8',
+      advice: 'Sözel ilişkileri ve kelime mantığını pekiştirmelisin.',
+      icon: (cls) => <Brain className={cls} />
+    },
+    coding: {
+      name: 'Algoritma & Kodlama',
+      color: '#8b5cf6',
+      bgLight: '#f5f3ff',
+      borderColor: '#ede9fe',
+      advice: 'Mantıksal sıralama ve adım-adım düşünme pratiği yapmalısın.',
+      icon: (cls) => <Brain className={cls} />
+    },
+    numerical: {
+      name: 'Sayısal Muhakeme',
     color: '#6366f1', // Indigo
     bgLight: 'bg-indigo-50 text-indigo-800',
     borderColor: 'border-indigo-200',
@@ -130,6 +146,32 @@ export const QUESTION_TYPE_TO_CATEGORY: Record<QuestionType, CognitiveCategory> 
   number_pattern: 'pattern',
   logical_sequence: 'logic',
   matrix_3x3: 'matrix',
+  shape_equation: 'numerical',
+  latin_square: 'logic',
+  shadow_matching: 'visual_perception',
+  balance_scale: 'logic',
+  gear_rotation: 'spatial',
+  paper_folding: 'spatial',
+  venn_diagram: 'logic',
+  cube_counting: 'attention',
+  dice_unfold: 'spatial',
+  cryptogram: 'logic',
+  operation_machine: 'numerical',
+  top_view: 'spatial',
+  shape_combination: 'visual_perception',
+  verbal_analogy: 'logic',
+  number_pyramid: 'numerical',
+  story_logic: 'logic',
+  tangram_puzzle: 'visual_perception',
+  maze_path: 'spatial',
+  logic_grid: 'logic',
+  punch_folding: 'spatial',
+  detail_detection: 'attention',
+  weight_comparison: 'numerical',
+  multiview_perspective: 'spatial',
+  raven_matrix: 'matrix',
+  word_scramble_logic: 'pattern',
+  spatial_origami: 'spatial',
 };
 
 interface MistakeAnalyticsPieChartProps {
@@ -274,12 +316,12 @@ export const MistakeAnalyticsPieChart: React.FC<MistakeAnalyticsPieChartProps> =
   return (
     <div
       id="mistake-analytics-card"
-      className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden transition-all"
+      className="bg-white rounded-xl border border-zinc-200  overflow-hidden transition-all"
     >
       {/* Header Bar */}
-      <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 bg-slate-50/50">
+      <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200 bg-slate-50/50">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-300 flex items-center justify-center text-amber-700 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-300 flex items-center justify-center text-amber-700 ">
             <PieChartIcon className="w-5 h-5" />
           </div>
           <div>
@@ -314,7 +356,7 @@ export const MistakeAnalyticsPieChart: React.FC<MistakeAnalyticsPieChartProps> =
 
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-xs font-bold px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer"
+            className="text-xs font-bold px-3 py-1.5 rounded-xl bg-white text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer"
           >
             {isExpanded ? 'Grafiği Daralt' : 'Grafiği Genişlet'}
           </button>
@@ -326,7 +368,7 @@ export const MistakeAnalyticsPieChart: React.FC<MistakeAnalyticsPieChartProps> =
           {/* Main Visual Row: Pie Chart on left, Insight and Category Bars on right */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             {/* Pie Chart Display (5 cols on lg) */}
-            <div className="lg:col-span-5 flex flex-col items-center justify-center bg-slate-50/70 p-4 rounded-2xl border border-slate-100">
+            <div className="lg:col-span-5 flex flex-col items-center justify-center bg-slate-50/70 p-4 rounded-xl border border-zinc-200">
               <div className="w-full h-64 sm:h-72 relative">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -335,8 +377,8 @@ export const MistakeAnalyticsPieChart: React.FC<MistakeAnalyticsPieChartProps> =
                         if (active && payload && payload.length) {
                           const data = payload[0].payload;
                           return (
-                            <div className="bg-white/95 backdrop-blur-xs p-3 rounded-2xl shadow-xl border border-slate-200 text-xs space-y-1.5 z-50">
-                              <div className="flex items-center gap-2 font-bold text-slate-900 border-b border-slate-100 pb-1">
+                            <div className="bg-white/95 backdrop-blur-xs p-3 rounded-xl  border border-zinc-200 text-xs space-y-1.5 z-50">
+                              <div className="flex items-center gap-2 font-bold text-slate-900 border-b border-zinc-200 pb-1">
                                 <span
                                   className="w-3 h-3 rounded-full"
                                   style={{ backgroundColor: data.color }}
@@ -411,10 +453,10 @@ export const MistakeAnalyticsPieChart: React.FC<MistakeAnalyticsPieChartProps> =
             <div className="lg:col-span-7 space-y-4">
               {/* Weakest Area Alert Box */}
               {mostMistaken && (
-                <div className="p-4 rounded-2xl bg-gradient-to-r from-rose-50 to-amber-50 border border-rose-200/80 space-y-2">
+                <div className="p-4 rounded-xl bg-gradient-to-r from-rose-50 to-amber-50 border border-rose-200/80 space-y-2">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="p-1.5 rounded-xl bg-rose-500 text-white shadow-xs">
+                      <span className="p-1.5 rounded-xl bg-rose-500 text-white ">
                         <AlertTriangle className="w-4 h-4" />
                       </span>
                       <div>
@@ -432,7 +474,7 @@ export const MistakeAnalyticsPieChart: React.FC<MistakeAnalyticsPieChartProps> =
                       className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
                         selectedCategoryFilter === mostMistaken.category
                           ? 'bg-slate-900 text-white'
-                          : 'bg-white border border-rose-300 text-rose-800 hover:bg-rose-100/50 shadow-xs'
+                          : 'bg-white border border-rose-300 text-rose-800 hover:bg-rose-100/50 '
                       }`}
                     >
                       {selectedCategoryFilter === mostMistaken.category
@@ -467,10 +509,10 @@ export const MistakeAnalyticsPieChart: React.FC<MistakeAnalyticsPieChartProps> =
                       <div
                         key={item.category}
                         onClick={() => handleCategoryClick(item.category)}
-                        className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
+                        className={`p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
                           isSelected
-                            ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                            : 'bg-slate-50/80 hover:bg-white border-slate-200/90 hover:border-slate-300'
+                            ? 'bg-slate-900 text-white border-slate-900 '
+                            : 'bg-slate-50/80 hover:bg-white border-zinc-200/90 hover:border-slate-300'
                         }`}
                       >
                         <div className="flex items-center gap-2.5 min-w-0">

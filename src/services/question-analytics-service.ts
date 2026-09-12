@@ -8,6 +8,7 @@ import {
 } from '../types';
 import { questionBankService } from './question-bank-service';
 import { dataService } from './data-service';
+import { safeStorage } from '../lib/storage';
 
 export interface CategorySuccessMetric {
   category: CognitiveCategory;
@@ -102,7 +103,7 @@ export interface AnalyticsFilter {
   difficulty?: DifficultyLevel | 'all';
   timeRange?: '7d' | '30d' | 'all';
   searchQuery?: string;
-  onlyChallenging?: boolean;
+  successRateFilter?: 'all' | 'very_easy' | 'very_hard';
 }
 
 const STORAGE_KEY_USER_STATS = 'bilsem_question_live_analytics_v1';
@@ -117,6 +118,8 @@ const CATEGORY_TRAPS: Record<CognitiveCategory, string> = {
   numerical: 'Görsel terazi dengesi veya sayı örüntüsündeki çift adımlı artış karmaşası',
   memory: 'Arka arkaya sunulan figürlerin yerleşim koordinatlarının unutulması',
   visual_perception: 'Dış sınır çizgisi benzerliği nedeniyle iç detayların atlanması',
+  verbal: 'Kelime anlam ilişkilerinde yapısal değil tanımsal benzerliğe aldanma',
+  coding: 'Döngü veya koşul adımlarından birini atlama',
 };
 
 const BENCHMARK_RATES: Record<DifficultyLevel, number> = {
@@ -140,7 +143,7 @@ class QuestionAnalyticsService {
 
   private loadUserLiveStats() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY_USER_STATS);
+      const raw = safeStorage.getItem(STORAGE_KEY_USER_STATS);
       if (raw) {
         this.userLiveStats = JSON.parse(raw);
       }
@@ -151,7 +154,7 @@ class QuestionAnalyticsService {
 
   private saveUserLiveStats() {
     try {
-      localStorage.setItem(STORAGE_KEY_USER_STATS, JSON.stringify(this.userLiveStats));
+      safeStorage.setItem(STORAGE_KEY_USER_STATS, JSON.stringify(this.userLiveStats));
     } catch (e) {
       console.warn('Failed to save user live stats', e);
     }
@@ -463,10 +466,13 @@ class QuestionAnalyticsService {
       rate: hardestDiffItem ? hardestDiffItem.successRate : 36,
     };
 
-    // Challenging list filter
-    const challengingList = filter?.onlyChallenging
-      ? questionRecords.filter((r) => r.successRate < 65)
-      : questionRecords;
+    // Success Rate list filter
+    let challengingList = questionRecords;
+    if (filter?.successRateFilter === 'very_easy') {
+      challengingList = questionRecords.filter((r) => r.successRate > 85);
+    } else if (filter?.successRateFilter === 'very_hard') {
+      challengingList = questionRecords.filter((r) => r.successRate < 40);
+    }
 
     // 7. Generate Pedagogical Insights
     const pedagogicalInsights: PedagogicalInsight[] = [
@@ -538,7 +544,7 @@ class QuestionAnalyticsService {
    */
   public resetLiveStats() {
     this.userLiveStats = {};
-    localStorage.removeItem(STORAGE_KEY_USER_STATS);
+    safeStorage.removeItem(STORAGE_KEY_USER_STATS);
   }
 }
 

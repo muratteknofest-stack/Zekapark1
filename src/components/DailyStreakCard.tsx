@@ -191,14 +191,14 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
   return (
     <div
       id="daily-streak-card"
-      className="bg-white rounded-3xl border-2 border-orange-200/80 shadow-md p-5 sm:p-7 relative overflow-hidden transition-all duration-300"
+      className="bg-white rounded-xl border-2 border-orange-200/80  p-5 sm:p-7 relative overflow-hidden transition-all duration-300"
     >
       {/* Background soft energetic glow */}
       <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-gradient-to-br from-amber-100/60 to-orange-100/30 rounded-full blur-2xl pointer-events-none" />
 
       {/* Claim notification banner */}
       {claimFeedback && (
-        <div className="mb-4 p-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm font-bold flex items-center justify-between gap-2 animate-fadeIn">
+        <div className="mb-4 p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm font-bold flex items-center justify-between gap-2 animate-fadeIn">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
             <span>{claimFeedback}</span>
@@ -213,11 +213,11 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
       )}
 
       {/* Top Header Row */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-zinc-200">
         <div className="flex items-center gap-3.5">
           {/* Animated Flame Icon Container */}
           <div className="relative">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center shadow-lg shadow-orange-500/25">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center  ">
               <Flame className="w-8 h-8 sm:w-9 sm:h-9 text-white fill-white animate-bounce duration-1000" />
             </div>
             {todayPracticed && (
@@ -260,7 +260,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
           <button
             onClick={() => setShowShieldInfo(true)}
             title="Seri Koruma Kalkanı detayını gör"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold cursor-pointer transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-zinc-200 text-slate-700 text-xs font-bold cursor-pointer transition-colors"
           >
             <Shield className="w-4 h-4 text-indigo-600 fill-indigo-100" />
             <span>{streakFreezeCount} Kalkan</span>
@@ -299,16 +299,16 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
             return (
               <div
                 key={day.key}
-                className={`flex flex-col items-center justify-center p-2 sm:p-2.5 rounded-2xl border transition-all ${
+                className={`flex flex-col items-center justify-center p-2 sm:p-2.5 rounded-xl border transition-all ${
                   isToday
                     ? isCompleted
-                      ? 'border-emerald-400 bg-emerald-50 text-emerald-950 shadow-xs ring-2 ring-emerald-400/30'
-                      : 'border-orange-400 bg-orange-50 text-orange-950 shadow-xs ring-2 ring-orange-400/30'
+                      ? 'border-emerald-400 bg-emerald-50 text-emerald-950  ring-2 ring-emerald-400/30'
+                      : 'border-orange-400 bg-orange-50 text-orange-950  ring-2 ring-orange-400/30'
                     : isCompleted
                     ? 'border-emerald-200 bg-emerald-50/60 text-emerald-800'
                     : isPast
-                    ? 'border-slate-200 bg-slate-50/70 text-slate-400'
-                    : 'border-slate-100 bg-slate-50/40 text-slate-400'
+                    ? 'border-zinc-200 bg-slate-50/70 text-slate-400'
+                    : 'border-zinc-200 bg-slate-50/40 text-slate-400'
                 }`}
               >
                 <span className="text-[10px] sm:text-xs font-bold mb-1">
@@ -317,7 +317,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
 
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center">
                   {isCompleted ? (
-                    <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-xs">
+                    <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-white ">
                       <CheckCircle2 className="w-4 h-4 text-white" />
                     </div>
                   ) : isToday ? (
@@ -340,7 +340,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
 
       {/* Claimable Milestones Notification Box (If any available right now) */}
       {claimableMilestones.length > 0 && (
-        <div className="my-2 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white shadow-md space-y-2">
+        <div className="my-2 p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white  space-y-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Gift className="w-5 h-5 text-white animate-bounce" />
@@ -359,7 +359,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
                 key={m.day}
                 onClick={() => handleClaim(m)}
                 disabled={claimingDay === m.day}
-                className="px-3 py-1.5 rounded-xl bg-white text-orange-950 font-extrabold text-xs shadow-sm hover:bg-amber-50 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="px-3 py-1.5 rounded-xl bg-white text-orange-950 font-extrabold text-xs  hover:bg-amber-50 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
               >
                 <span>{m.badge}</span>
                 <span>{m.day}. Gün Ödülünü Al (+{m.xpReward} XP)</span>
@@ -371,7 +371,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
       )}
 
       {/* Bottom Milestones Horizon Bar */}
-      <div className="pt-4 border-t border-slate-100">
+      <div className="pt-4 border-t border-zinc-200">
         <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-3">
           <div className="flex items-center gap-1.5">
             <Trophy className="w-3.5 h-3.5 text-indigo-600" />
@@ -394,12 +394,12 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
             return (
               <div
                 key={m.day}
-                className={`p-2.5 rounded-2xl border text-center relative flex flex-col justify-between transition-all ${
+                className={`p-2.5 rounded-xl border text-center relative flex flex-col justify-between transition-all ${
                   isClaimed
                     ? 'border-emerald-200 bg-emerald-50/40 text-emerald-950'
                     : isUnlocked
-                    ? 'border-amber-400 bg-amber-50 text-amber-950 ring-2 ring-amber-400/30 shadow-xs'
-                    : 'border-slate-200 bg-slate-50/60 text-slate-500'
+                    ? 'border-amber-400 bg-amber-50 text-amber-950 ring-2 ring-amber-400/30 '
+                    : 'border-zinc-200 bg-slate-50/60 text-slate-500'
                 }`}
               >
                 <div>
@@ -418,7 +418,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
                   ) : isUnlocked ? (
                     <button
                       onClick={() => handleClaim(m)}
-                      className="w-full py-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-[10px] shadow-xs cursor-pointer active:scale-95"
+                      className="w-full py-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-[10px]  cursor-pointer active:scale-95"
                     >
                       Al (+{m.xpReward} XP)
                     </button>
@@ -435,7 +435,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
       </div>
 
       {/* Interactive Quick Actions Footer */}
-      <div className="mt-5 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="mt-5 pt-4 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-1.5 text-xs text-slate-500">
           <Zap className="w-4 h-4 text-amber-500" />
           <span>Her gün düzenli 1 pratik zeka puanını ve BİLSEM başarını katlar.</span>
@@ -446,7 +446,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
           {!todayPracticed && (
             <button
               onClick={handleStartQuickChallenge}
-              className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-extrabold shadow-sm transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
+              className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-extrabold  transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
             >
               <Brain className="w-3.5 h-3.5" />
               <span>1 Hızlı Soruyla Koru</span>
@@ -466,7 +466,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
           {/* Primary Action Button */}
           <button
             onClick={onStartPractice}
-            className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-orange-500/20 transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-98"
+            className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs sm:text-sm   transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-98"
           >
             <span>{todayPracticed ? 'Pratiğe Devam Et' : 'Bugünün Pratiğini Yap'}</span>
             <ArrowRight className="w-4 h-4" />
@@ -478,7 +478,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
       {showQuickChallenge && quickQuestion && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fadeIn">
           <div
-            className="bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-100 overflow-hidden flex flex-col animate-scaleUp"
+            className="bg-white w-full max-w-lg rounded-xl  border border-zinc-200 overflow-hidden flex flex-col animate-scaleUp"
             role="dialog"
             aria-modal="true"
           >
@@ -542,7 +542,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+            <div className="p-4 bg-slate-50 border-t border-zinc-200 flex items-center justify-between">
               <button
                 onClick={() => setShowQuickChallenge(false)}
                 className="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-200 text-xs font-bold transition-colors cursor-pointer"
@@ -553,9 +553,9 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
               <button
                 onClick={handleSubmitQuickChallenge}
                 disabled={!selectedQuickOption || isQuickSubmitted}
-                className={`px-5 py-2 rounded-xl text-xs font-extrabold shadow-sm transition-all flex items-center gap-1.5 cursor-pointer ${
+                className={`px-5 py-2 rounded-xl text-xs font-extrabold  transition-all flex items-center gap-1.5 cursor-pointer ${
                   selectedQuickOption && !isQuickSubmitted
-                    ? 'bg-orange-500 hover:bg-orange-600 text-white active:scale-95 shadow-orange-500/20'
+                    ? 'bg-orange-500 hover:bg-orange-600 text-white active:scale-95 '
                     : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                 }`}
               >
@@ -571,11 +571,11 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
       {showShieldInfo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fadeIn">
           <div
-            className="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-100 overflow-hidden flex flex-col animate-scaleUp p-6 text-center space-y-4"
+            className="bg-white w-full max-w-md rounded-xl  border border-zinc-200 overflow-hidden flex flex-col animate-scaleUp p-6 text-center space-y-4"
             role="dialog"
             aria-modal="true"
           >
-            <div className="w-16 h-16 rounded-2xl bg-indigo-50 border border-indigo-100 mx-auto flex items-center justify-center">
+            <div className="w-16 h-16 rounded-xl bg-indigo-50 border border-indigo-100 mx-auto flex items-center justify-center">
               <Shield className="w-9 h-9 text-indigo-600 fill-indigo-100 animate-pulse" />
             </div>
 
@@ -589,7 +589,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
               </p>
             </div>
 
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3 text-left flex items-start gap-2.5">
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-left flex items-start gap-2.5">
               <Sparkles className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <div className="text-xs text-amber-900">
                 <span className="font-bold block">Nasıl yeni kalkan kazanılır?</span>
@@ -599,7 +599,7 @@ export const DailyStreakCard: React.FC<DailyStreakCardProps> = ({
 
             <button
               onClick={() => setShowShieldInfo(false)}
-              className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md shadow-indigo-600/20 transition-colors cursor-pointer"
+              className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs   transition-colors cursor-pointer"
             >
               Anladım, Harika!
             </button>

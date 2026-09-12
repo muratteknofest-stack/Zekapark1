@@ -1,7 +1,7 @@
 import { BaseQuestion, DifficultyLevel, VisualOption } from '../../../types';
 import { SeededRNG } from '../../../lib/rng';
 import { generateVisualFingerprint } from '../fingerprint';
-import { PALETTE } from '../../../lib/svg-primitives';
+import { PALETTE, ShapeKind } from '../../../lib/svg-primitives';
 import { ShapeItem, SHAPES_POOL, ASYMMETRIC_SHAPES, COLORS_POOL } from './generator-utils';
 
 export function generateOddOneOutQuestion(seed: number, difficulty: DifficultyLevel): BaseQuestion {
@@ -13,19 +13,20 @@ export function generateOddOneOutQuestion(seed: number, difficulty: DifficultyLe
   let ruleTitle = '';
   let explanationStep = '';
 
-  const baseColor = rng.pick(COLORS_POOL);
-  const altColor = rng.pick(COLORS_POOL.filter((c) => c !== baseColor));
+  const colors = rng.pickUnique(COLORS_POOL, 3);
+  const baseColor = colors[0];
+  const altColor = colors[1];
 
   if (ruleType === 1) {
-    // Rotation difference: asymmetric shape rotated clockwise 90 deg steps, odd one is wrong or mirrored
+    // Rotation difference: asymmetric shape rotated clockwise 90 deg steps, odd one is wrong angle
     const shape = rng.pick(ASYMMETRIC_SHAPES);
-    ruleTitle = 'Dönme Yönü Kuralı';
+    ruleTitle = 'Dönme Açısı ve Yönü';
     const angles = [0, 90, 180, 270];
     const chosenAngles = rng.shuffle(angles);
 
     for (let i = 0; i < 4; i++) {
       if (i === correctIdx) {
-        // Odd one: mirrored or weird angle
+        // Odd one: 45 deg offset angle
         optionsData.push({
           kind: shape,
           fill: baseColor,
@@ -43,62 +44,67 @@ export function generateOddOneOutQuestion(seed: number, difficulty: DifficultyLe
     }
     explanationStep = `${String.fromCharCode(65 + correctIdx)} seçeneğindeki şekil diğerleri gibi 90° dik açılarla değil, 45° eğik bir açıyla döndürülmüştür.`;
   } else if (ruleType === 2) {
-    // Marker position rule
-    const shape = rng.pick(SHAPES_POOL.filter((s) => s !== 'arrow'));
-    ruleTitle = 'İç Nokta Konumu';
-    const normalPos: ('top' | 'right' | 'bottom' | 'left') = 'top';
-    const oddPos: ('top' | 'right' | 'bottom' | 'left') = 'bottom';
+    // Marker position rule with 4 distinct rotations (0, 90, 180, 270)
+    const shape = rng.pick(SHAPES_POOL.filter((s) => s !== 'arrow' && s !== 'circle'));
+    ruleTitle = 'İşaretleyici Konumu';
+    const angles = [0, 90, 180, 270];
+    const markerPositions: ('top' | 'right' | 'bottom' | 'left')[] = ['top', 'right', 'bottom', 'left'];
 
     for (let i = 0; i < 4; i++) {
       if (i === correctIdx) {
+        // Inverted marker position
+        const wrongPos = markerPositions[(i + 2) % 4];
         optionsData.push({
           kind: shape,
           fill: baseColor,
+          rotation: angles[i],
           marker: 'dot',
-          markerPos: oddPos,
+          markerPos: wrongPos,
           markerColor: PALETTE.white,
         });
       } else {
         optionsData.push({
           kind: shape,
           fill: baseColor,
+          rotation: angles[i],
           marker: 'dot',
-          markerPos: normalPos,
+          markerPos: markerPositions[i],
           markerColor: PALETTE.white,
         });
       }
     }
-    explanationStep = `Diğer 3 seçenekteki işaretleyici şeklin üst kısmında yer alırken, ${String.fromCharCode(65 + correctIdx)} seçeneğinde alt kısmında yer almaktadır.`;
+    explanationStep = `Şekil döndürüldükçe işaretleyici de aynı doğrultuda hareket etmelidir. Ancak ${String.fromCharCode(65 + correctIdx)} seçeneğinde işaretleyici kurala uymayan zıt bir konumdadır.`;
   } else if (ruleType === 3) {
-    // Color or fill difference
-    const shape = rng.pick(SHAPES_POOL);
-    ruleTitle = 'Renk ve Doku Farkı';
+    // Color/Fill difference with 4 distinct shapes
+    const fourShapes = rng.pickUnique(SHAPES_POOL, 4);
+    ruleTitle = 'Renk Uyumu';
 
     for (let i = 0; i < 4; i++) {
       if (i === correctIdx) {
         optionsData.push({
-          kind: shape,
+          kind: fourShapes[i],
           fill: altColor,
           rotation: 0,
           marker: 'none',
         });
       } else {
         optionsData.push({
-          kind: shape,
+          kind: fourShapes[i],
           fill: baseColor,
           rotation: 0,
           marker: 'none',
         });
       }
     }
-    explanationStep = `Tüm şekiller aynı renge sahipken, yalnızca ${String.fromCharCode(65 + correctIdx)} seçeneği farklı bir renkle renklendirilmiştir.`;
+    explanationStep = `Tüm şekiller ${baseColor === PALETTE.indigo ? 'mavi' : 'aynı'} renge sahipken, yalnızca ${String.fromCharCode(65 + correctIdx)} seçeneği farklı bir renktedir.`;
   } else {
-    // Shape category: 3 shapes have 4 vertices (square, diamond, trapezoid, rectangle) or circles/curves, 1 has 3 or 5
-    ruleTitle = 'Şekil Türü ve Köşe Sayısı';
-    const shapesWith4 = ['square', 'diamond', 'trapezoid'] as const;
-    const oddShape = rng.pick(['circle', 'triangle', 'star'] as const);
+    // Shape category: 3 distinct 4-sided shapes, 1 odd shape (triangle, circle, star)
+    ruleTitle = 'Geometrik Özellik ve Köşe Sayısı';
+    const fourSidedPool: ShapeKind[] = ['square', 'diamond', 'trapezoid'];
+    const pickedFourSided = rng.pickUnique(fourSidedPool, 3);
+    const oddShape = rng.pick(['circle', 'triangle', 'star', 'hexagon'] as ShapeKind[]);
 
-    const pool = rng.shuffle([...shapesWith4]);
+    let fourSidedIdx = 0;
     for (let i = 0; i < 4; i++) {
       if (i === correctIdx) {
         optionsData.push({
@@ -108,16 +114,15 @@ export function generateOddOneOutQuestion(seed: number, difficulty: DifficultyLe
           marker: 'none',
         });
       } else {
-        const shapeItem = pool[i % pool.length];
         optionsData.push({
-          kind: shapeItem,
+          kind: pickedFourSided[fourSidedIdx++],
           fill: baseColor,
           rotation: 0,
           marker: 'none',
         });
       }
     }
-    explanationStep = `Diğer tüm seçenekler 4 kenarlı/köşeli geometrik şekillerden oluşurken, ${String.fromCharCode(65 + correctIdx)} seçeneği farklı bir geometrik yapıya sahiptir.`;
+    explanationStep = `Diğer 3 seçenek 4 kenarlı/köşeli geometrik şekiller iken, ${String.fromCharCode(65 + correctIdx)} seçeneğindeki şekil farklı sayıda kenar/köşeye sahiptir.`;
   }
 
   // Build Visual Options

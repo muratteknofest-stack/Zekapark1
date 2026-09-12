@@ -59,6 +59,8 @@ const CATEGORY_ICONS: Record<CognitiveCategory, React.ReactNode> = {
   attention: <Target className="w-4 h-4" />,
   memory: <Zap className="w-4 h-4" />,
   numerical: <BarChart3 className="w-4 h-4" />,
+  verbal: <Brain className="w-4 h-4" />,
+  coding: <Brain className="w-4 h-4" />,
 };
 
 const CATEGORY_COLORS: Record<CognitiveCategory, { bg: string; text: string; border: string }> = {
@@ -70,6 +72,8 @@ const CATEGORY_COLORS: Record<CognitiveCategory, { bg: string; text: string; bor
   attention: { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' },
   memory: { bg: 'bg-cyan-50', text: 'text-cyan-700', border: 'border-cyan-200' },
   numerical: { bg: 'bg-orange-50', text: 'text-orange-700', border: 'border-orange-200' },
+  verbal: { bg: 'bg-pink-50', text: 'text-pink-700', border: 'border-pink-200' },
+  coding: { bg: 'bg-violet-50', text: 'text-violet-700', border: 'border-violet-200' },
 };
 
 export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDashboardProps> = ({
@@ -81,7 +85,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
   const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyLevel | 'all'>('all');
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [onlyChallenging, setOnlyChallenging] = useState(false);
+  const [successRateFilter, setSuccessRateFilter] = useState<'all' | 'very_easy' | 'very_hard'>('all');
 
   // Active question for Student Practice Simulator
   const [activeSimulatorQuestion, setActiveSimulatorQuestion] = useState<BaseQuestion | null>(null);
@@ -106,10 +110,10 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
       difficulty: selectedDifficulty,
       timeRange,
       searchQuery,
-      onlyChallenging,
+      successRateFilter,
     };
     return questionAnalyticsService.getAnalytics(filter);
-  }, [selectedGrade, selectedCategory, selectedDifficulty, timeRange, searchQuery, onlyChallenging]);
+  }, [selectedGrade, selectedCategory, selectedDifficulty, timeRange, searchQuery, successRateFilter]);
 
   const toggleExplanation = (questionId: string) => {
     sound.playClick();
@@ -145,7 +149,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
     setSelectedDifficulty('all');
     setTimeRange('all');
     setSearchQuery('');
-    setOnlyChallenging(false);
+    setSuccessRateFilter('all');
     setSelectedMatrixCell(null);
   };
 
@@ -186,7 +190,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
     <div className="space-y-7">
       {/* Action Notification Toast */}
       {actionNotification && (
-        <div className="p-4 rounded-2xl bg-purple-900 text-white text-sm font-bold flex items-center justify-between shadow-lg animate-in fade-in slide-in-from-top-2">
+        <div className="p-4 rounded-xl bg-purple-900 text-white text-sm font-bold flex items-center justify-between  animate-in fade-in slide-in-from-top-2">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-emerald-400" />
             <span>{actionNotification}</span>
@@ -201,7 +205,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
       )}
 
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-purple-900 via-indigo-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-md relative overflow-hidden border border-purple-800">
+      <div className="bg-gradient-to-r from-purple-900 via-indigo-900 to-slate-900 text-white rounded-xl p-6 sm:p-8  relative overflow-hidden border border-purple-800">
         <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
@@ -222,7 +226,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
           <div className="flex flex-wrap items-center gap-2.5">
             <button
               onClick={handleExportJson}
-              className="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-xs"
+              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold transition-all flex items-center gap-2 cursor-pointer "
             >
               <Download className="w-4 h-4" />
               <span>Raporu Dışa Aktar (JSON)</span>
@@ -234,7 +238,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
                   sound.playClick();
                   onNavigateToQuestionManager();
                 }}
-                className="px-4 py-2.5 rounded-2xl bg-purple-500 hover:bg-purple-400 text-white text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md"
+                className="px-4 py-2.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-white text-xs font-bold transition-all flex items-center gap-2 cursor-pointer "
               >
                 <Layers className="w-4 h-4" />
                 <span>Soru Havuzuna Git</span>
@@ -247,7 +251,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
       {/* Executive KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
         {/* Overall Success Rate */}
-        <div className="bg-white p-4.5 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-2">
+        <div className="bg-white p-4.5 rounded-xl border border-zinc-200  flex flex-col justify-between space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               Ortalama Başarı
@@ -273,7 +277,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
         </div>
 
         {/* Most Challenging Category */}
-        <div className="bg-white p-4.5 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-2">
+        <div className="bg-white p-4.5 rounded-xl border border-zinc-200  flex flex-col justify-between space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               En Zorlayıcı Kategori
@@ -296,7 +300,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
         </div>
 
         {/* Critical Questions Alert (<%60 Success) */}
-        <div className="bg-white p-4.5 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-2">
+        <div className="bg-white p-4.5 rounded-xl border border-zinc-200  flex flex-col justify-between space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               Kritik Zor Soru
@@ -320,7 +324,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
         </div>
 
         {/* Average Solution Time */}
-        <div className="bg-white p-4.5 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-2">
+        <div className="bg-white p-4.5 rounded-xl border border-zinc-200  flex flex-col justify-between space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               Ortalama Süre
@@ -344,7 +348,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
         </div>
 
         {/* Total Analyzed Student Attempts */}
-        <div className="bg-white p-4.5 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-2 col-span-2 sm:col-span-1">
+        <div className="bg-white p-4.5 rounded-xl border border-zinc-200  flex flex-col justify-between space-y-2 col-span-2 sm:col-span-1">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               Toplam Çözüm Yanıtı
@@ -368,7 +372,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
       </div>
 
       {/* Control & Filter Bar */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl p-5 border border-zinc-200  space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           {/* Grade Level Filter Buttons */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
@@ -382,7 +386,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
               }}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                 selectedGrade === 'all'
-                  ? 'bg-purple-600 text-white shadow-2xs'
+                  ? 'bg-purple-600 text-white '
                   : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
               }`}
             >
@@ -400,7 +404,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
                   }}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 whitespace-nowrap ${
                     isActive
-                      ? 'bg-purple-600 text-white shadow-2xs'
+                      ? 'bg-purple-600 text-white '
                       : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
                   }`}
                 >
@@ -411,28 +415,30 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
             })}
           </div>
 
-          {/* Time Range & Only Challenging Toggle */}
+          {/* Time Range & Success Rate Filter */}
           <div className="flex items-center gap-2 flex-wrap">
-            <button
-              onClick={() => {
+            <select
+              value={successRateFilter}
+              onChange={(e) => {
                 sound.playClick();
-                setOnlyChallenging(!onlyChallenging);
+                setSuccessRateFilter(e.target.value as 'all' | 'very_easy' | 'very_hard');
               }}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
-                onlyChallenging
-                  ? 'bg-rose-50 text-rose-700 border-rose-300 ring-2 ring-rose-200'
-                  : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border outline-none cursor-pointer ${
+                successRateFilter !== 'all'
+                  ? 'bg-amber-50 text-amber-800 border-amber-300 ring-2 ring-amber-200'
+                  : 'bg-slate-50 text-slate-600 border-zinc-200 hover:bg-slate-100'
               }`}
             >
-              <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
-              <span>Sadece Zorlayıcı Sorular (&lt;%65)</span>
-            </button>
+              <option value="all">Tüm Başarı Oranları</option>
+              <option value="very_easy">Çok Kolay Sorular (&gt;%85)</option>
+              <option value="very_hard">Çok Zor Sorular (&lt;%40)</option>
+            </select>
 
             {(selectedGrade !== 'all' ||
               selectedCategory !== 'all' ||
               selectedDifficulty !== 'all' ||
               searchQuery ||
-              onlyChallenging) && (
+              successRateFilter !== 'all') && (
               <button
                 onClick={handleResetFilters}
                 className="px-2.5 py-1.5 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-all flex items-center gap-1 cursor-pointer"
@@ -446,7 +452,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
         </div>
 
         {/* Secondary Filter Row: Search & Dropdowns */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-100">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-zinc-200">
           {/* Search by prompt / rule */}
           <div className="relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -455,7 +461,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Soru metni veya kural ara..."
-              className="w-full pl-9.5 pr-4 py-2 bg-slate-50 rounded-xl border border-slate-200 text-xs font-medium text-slate-800 focus:outline-none focus:border-purple-500 focus:bg-white transition-all"
+              className="w-full pl-9.5 pr-4 py-2 bg-slate-50 rounded-xl border border-zinc-200 text-xs font-medium text-slate-800 focus:outline-none focus:border-purple-500 focus:bg-white transition-all"
             />
           </div>
 
@@ -467,7 +473,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
                 sound.playClick();
                 setSelectedCategory(e.target.value as any);
               }}
-              className="w-full px-3.5 py-2 bg-slate-50 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 focus:outline-none focus:border-purple-500 focus:bg-white transition-all cursor-pointer"
+              className="w-full px-3.5 py-2 bg-slate-50 rounded-xl border border-zinc-200 text-xs font-bold text-slate-700 focus:outline-none focus:border-purple-500 focus:bg-white transition-all cursor-pointer"
             >
               <option value="all">Tüm Bilişsel Kategoriler (8 Alan)</option>
               {Object.entries(COGNITIVE_CATEGORY_LABELS).map(([catKey, catLabel]) => (
@@ -486,7 +492,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
                 sound.playClick();
                 setSelectedDifficulty(e.target.value === 'all' ? 'all' : (Number(e.target.value) as any));
               }}
-              className="w-full px-3.5 py-2 bg-slate-50 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 focus:outline-none focus:border-purple-500 focus:bg-white transition-all cursor-pointer"
+              className="w-full px-3.5 py-2 bg-slate-50 rounded-xl border border-zinc-200 text-xs font-bold text-slate-700 focus:outline-none focus:border-purple-500 focus:bg-white transition-all cursor-pointer"
             >
               <option value="all">Tüm Zorluk Dereceleri (1-6 Seviye)</option>
               {([1, 2, 3, 4, 5, 6] as const).map((lvl) => (
@@ -502,7 +508,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
       {/* ========================================================================= */}
       {/* SECTION 1: INTERACTIVE HEATMAP (Kategori x Zorluk Çapraz Başarı Matrisi) */}
       {/* ========================================================================= */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <div className="flex items-center gap-2">
@@ -538,7 +544,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-200">
+              <tr className="border-b border-zinc-200">
                 <th className="py-2.5 px-3 text-slate-500 font-extrabold uppercase tracking-wider text-[11px] w-52">
                   Bilişsel Kategori
                 </th>
@@ -602,8 +608,8 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
                               cell.successRate
                             )} ${
                               isSelected
-                                ? 'ring-2 ring-purple-600 scale-105 shadow-md'
-                                : 'hover:scale-102 shadow-2xs'
+                                ? 'ring-2 ring-purple-600 scale-105 '
+                                : 'hover:scale-102 '
                             }`}
                             title={`${catMetric.categoryName} - Seviye ${diff}: %${cell.successRate} Başarı (${cell.totalAttempts} deneme, ortalama ${cell.avgTimeSeconds} sn)`}
                           >
@@ -623,7 +629,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
         </div>
 
         {selectedMatrixCell && (
-          <div className="p-3 bg-purple-50 border border-purple-200 rounded-2xl flex items-center justify-between text-xs">
+          <div className="p-3 bg-purple-50 border border-purple-200 rounded-xl flex items-center justify-between text-xs">
             <div className="flex items-center gap-2 text-purple-900 font-bold">
               <Filter className="w-4 h-4 text-purple-600" />
               <span>
@@ -651,7 +657,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Chart 1: Kategori Başarı ve Süre Karşılaştırması */}
-        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+        <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-indigo-600" />
@@ -717,7 +723,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
         </div>
 
         {/* Chart 2: Zorluk Seviyeleri Direnç Eğrisi (Expected vs Actual) */}
-        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+        <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <TrendingDown className="w-5 h-5 text-purple-600" />
@@ -739,11 +745,11 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
               return (
                 <div
                   key={diff.difficulty}
-                  className="p-3 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-1.5"
+                  className="p-3 rounded-xl bg-slate-50/80 border border-zinc-200/80 space-y-1.5"
                 >
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-lg bg-white font-black text-purple-700 text-xs flex items-center justify-center border border-slate-200 shadow-2xs">
+                      <span className="w-6 h-6 rounded-lg bg-white font-black text-purple-700 text-xs flex items-center justify-center border border-zinc-200 ">
                         {diff.difficulty}
                       </span>
                       <div>
@@ -791,40 +797,38 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
       </div>
 
       {/* ========================================================================= */}
-      {/* SECTION 3: TOP CHALLENGING QUESTIONS INSPECTOR (En Çok Zorlanılan Sorular) */}
+      {/* SECTION 3: QUESTION ANALYTICS TABLE (Soru Analitik Tablosu) */}
       {/* ========================================================================= */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+      <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-5 overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-200">
           <div>
             <div className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-rose-600" />
+              <Grid className="w-5 h-5 text-indigo-600" />
               <h3 className="text-base font-black text-slate-900">
-                En Çok Zorlanılan ve Revizyon Gerektiren Sorular
+                Parametrik Soru Başarı Analitik Tablosu
               </h3>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              Öğrencilerin en düşük başarı gösterdiği, çeldiriciye kapıldığı veya süre aşımı yaşadığı sorular:
+              Sisteme yüklenen tüm parametrik soruların detaylı başarı oranları, süre kullanımları ve çeldirici analizleri.
             </p>
           </div>
-
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200">
+            <span className="text-xs font-bold px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
               {analytics.challengingQuestions.length} Soru Listeleniyor
             </span>
           </div>
         </div>
 
         {analytics.challengingQuestions.length === 0 ? (
-          <div className="p-12 text-center rounded-2xl bg-slate-50 border border-dashed border-slate-300 space-y-3">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+          <div className="p-12 text-center rounded-xl bg-slate-50 border border-dashed border-slate-300 space-y-3">
+            <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <h4 className="text-sm font-extrabold text-slate-800">
-              Seçilen kriterlerde zorlayıcı soru bulunamadı!
+              Seçilen kriterlerde soru bulunamadı!
             </h4>
             <p className="text-xs text-slate-500 max-w-md mx-auto">
-              Tüm sorular belirlenen başarı eşiğinin üzerinde veya filtreler çok dar. Filtreleri
-              sıfırlayarak tüm soruları inceleyebilirsiniz.
+              Filtreleri sıfırlayarak tüm soruları inceleyebilirsiniz.
             </p>
             <button
               onClick={handleResetFilters}
@@ -834,162 +838,131 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {analytics.challengingQuestions.map((item, idx) => {
-              const q = item.question;
-              const grade = (q.targetGrade || 1) as 1 | 2 | 3 | 4;
-              const gradeCfg = GRADE_CONFIGS[grade];
-              const isExpanded = expandedExplanationIds.has(q.id);
+          <div className="overflow-x-auto rounded-xl border border-zinc-200">
+            <table className="w-full text-left text-sm whitespace-nowrap">
+              <thead className="bg-slate-50 text-slate-500 font-extrabold text-[11px] uppercase tracking-wider">
+                <tr>
+                  <th className="p-4 rounded-tl-2xl">Soru ID / Kategori</th>
+                  <th className="p-4">Sınıf / Seviye</th>
+                  <th className="p-4 text-center">Başarı Oranı</th>
+                  <th className="p-4 text-center">Deneme / Hata</th>
+                  <th className="p-4 text-center">Ortalama Süre</th>
+                  <th className="p-4 text-right rounded-tr-2xl">İşlemler</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {analytics.challengingQuestions.map((item, idx) => {
+                  const q = item.question;
+                  const grade = (q.targetGrade || 1) as 1 | 2 | 3 | 4;
+                  const gradeCfg = GRADE_CONFIGS[grade];
+                  const isExpanded = expandedExplanationIds.has(q.id);
 
-              return (
-                <div
-                  key={q.id}
-                  className={`bg-white rounded-3xl border p-5 space-y-4 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between ${
-                    item.severity === 'critical'
-                      ? 'border-rose-300 ring-1 ring-rose-100'
-                      : 'border-slate-200'
-                  }`}
-                >
-                  <div className="space-y-3">
-                    {/* Header Badges */}
-                    <div className="flex items-center justify-between gap-2 flex-wrap">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        {/* Rank Badge */}
-                        <span className="w-6 h-6 rounded-lg bg-slate-900 text-white font-black text-xs flex items-center justify-center">
-                          #{idx + 1}
-                        </span>
-
-                        {/* Grade Badge */}
-                        <span
-                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold border ${gradeCfg.badgeBg} ${gradeCfg.badgeColor}`}
-                        >
-                          <span>{gradeCfg.icon}</span>
-                          <span>{gradeCfg.title}</span>
-                        </span>
-
-                        {/* Difficulty */}
-                        <span
-                          className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold border ${
-                            DIFFICULTY_COLORS[q.difficulty]
-                          }`}
-                        >
-                          Seviye {q.difficulty} - {DIFFICULTY_LABELS[q.difficulty]}
-                        </span>
-                      </div>
-
-                      {/* Success Rate Warning Pill */}
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-black border flex items-center gap-1 ${
-                          item.severity === 'critical'
-                            ? 'bg-rose-100 text-rose-800 border-rose-300'
-                            : 'bg-amber-100 text-amber-800 border-amber-300'
-                        }`}
-                      >
-                        <AlertTriangle className="w-3.5 h-3.5" />
-                        <span>%{item.successRate} Başarı</span>
-                      </span>
-                    </div>
-
-                    {/* Question Prompt */}
-                    <div>
-                      <div className="text-xs font-mono text-purple-700 font-bold mb-1">
-                        {q.id} • {COGNITIVE_CATEGORY_LABELS[q.category]}
-                      </div>
-                      <p className="text-sm font-extrabold text-slate-900 leading-snug">
-                        {q.prompt}
-                      </p>
-                    </div>
-
-                    {/* Key Metrics Row */}
-                    <div className="grid grid-cols-3 gap-2 p-2.5 rounded-2xl bg-slate-50 border border-slate-100 text-center text-xs">
-                      <div>
-                        <span className="text-[10px] text-slate-400 block font-medium">Toplam Çözüm</span>
-                        <span className="font-extrabold text-slate-800">{item.totalAttempts} Deneme</span>
-                      </div>
-                      <div>
-                        <span className="text-[10px] text-slate-400 block font-medium">Hata Dağılımı</span>
-                        <span className="font-extrabold text-rose-600">
-                          {item.wrongCount} Yanlış ({100 - item.successRate}%)
-                        </span>
-                      </div>
-                      <div>
-                        <span className="text-[10px] text-slate-400 block font-medium">Ortalama Süre</span>
-                        <span
-                          className={`font-extrabold ${
-                            item.timeOverrunPct > 15 ? 'text-amber-700' : 'text-slate-800'
-                          }`}
-                        >
-                          {item.avgTimeSeconds} sn{' '}
-                          {item.timeOverrunPct > 15 && (
-                            <span className="text-[9px] block text-amber-600 font-bold">
-                              (+%{item.timeOverrunPct} Aşım)
+                  return (
+                    <React.Fragment key={q.id}>
+                      <tr className="hover:bg-slate-50/50 transition-colors bg-white">
+                        <td className="p-4">
+                          <div className="font-mono text-xs font-bold text-slate-900">{q.id}</div>
+                          <div className="text-[11px] font-medium text-slate-500">{COGNITIVE_CATEGORY_LABELS[q.category]}</div>
+                        </td>
+                        <td className="p-4">
+                          <div className="flex items-center gap-1.5">
+                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${gradeCfg.badgeBg} ${gradeCfg.badgeColor}`}>
+                              {gradeCfg.title}
                             </span>
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border ${DIFFICULTY_COLORS[q.difficulty]}`}>
+                              Seviye {q.difficulty}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center">
+                          <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-black border ${
+                            item.successRate < 50 ? 'bg-rose-100 text-rose-700 border-rose-200' :
+                            item.successRate > 85 ? 'bg-emerald-100 text-emerald-700 border-emerald-200' :
+                            'bg-amber-100 text-amber-700 border-amber-200'
+                          }`}>
+                            %{item.successRate}
+                          </span>
+                        </td>
+                        <td className="p-4 text-center">
+                          <div className="font-extrabold text-slate-800 text-xs">{item.totalAttempts} Çözüm</div>
+                          <div className="text-[10px] text-rose-500 font-bold">{item.wrongCount} Yanlış</div>
+                        </td>
+                        <td className="p-4 text-center">
+                          <div className={`font-extrabold text-xs ${item.timeOverrunPct > 15 ? 'text-amber-600' : 'text-slate-800'}`}>
+                            {item.avgTimeSeconds} sn
+                          </div>
+                          {item.timeOverrunPct > 15 && (
+                            <div className="text-[9px] text-amber-500 font-bold">(+{item.timeOverrunPct}% Aşım)</div>
                           )}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Distractor & Cognitive Trap Callout */}
-                    <div className="p-3 rounded-2xl bg-rose-50/70 border border-rose-200/80 space-y-1.5">
-                      <div className="flex items-center gap-1.5 text-xs font-black text-rose-800">
-                        <AlertTriangle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
-                        <span>Çeldirici Tuzağı: Seçenek {item.mostCommonDistractorOptionId}</span>
-                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-rose-200 text-rose-900 ml-auto">
-                          Hataların %{item.distractorPickRate}'si bu şıkka düştü
-                        </span>
-                      </div>
-                      <p className="text-xs text-rose-900/90 leading-relaxed">
-                        {item.pedagogicalChallengeReason}
-                      </p>
-                    </div>
-
-                    {/* Expandable Explanation Details */}
-                    {isExpanded && (
-                      <div className="p-3.5 rounded-2xl bg-purple-50/80 border border-purple-200 space-y-2 text-xs">
-                        <div className="font-black text-purple-900 flex items-center gap-1.5">
-                          <Lightbulb className="w-4 h-4 text-purple-700" />
-                          <span>Doğru Kural Çözüm Mantığı</span>
-                        </div>
-                        <p className="font-bold text-slate-800">
-                          {q.explanation.summary || q.explanation.ruleTitle}
-                        </p>
-                        <ol className="list-decimal list-inside space-y-1 text-slate-700 font-medium">
-                          {q.explanation.steps.map((step, sIdx) => (
-                            <li key={sIdx}>{step}</li>
-                          ))}
-                        </ol>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Card Actions */}
-                  <div className="flex items-center justify-between gap-2 pt-3 border-t border-slate-100">
-                    <button
-                      type="button"
-                      onClick={() => toggleExplanation(q.id)}
-                      className="text-xs font-bold text-purple-700 hover:text-purple-900 flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>{isExpanded ? 'Detayları Gizle' : 'Kural Detayını Gör'}</span>
-                      {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                    </button>
-
-                    {/* Student Practice Simulator button */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        sound.playClick();
-                        setActiveSimulatorQuestion(q);
-                      }}
-                      className="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
-                      title="Bu soruyu öğrenci gözünden çöz ve süre sayacını test et"
-                    >
-                      <Play className="w-3.5 h-3.5 fill-white text-white" />
-                      <span>Simülatörde Çöz</span>
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                        </td>
+                        <td className="p-4 text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <button
+                              type="button"
+                              onClick={() => toggleExplanation(q.id)}
+                              className="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer flex items-center gap-1"
+                              title="Detayları Gör"
+                            >
+                              <span>Detaylar</span>
+                              {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                sound.playClick();
+                                setActiveSimulatorQuestion(q);
+                              }}
+                              className="p-1.5 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-700 transition-colors cursor-pointer"
+                              title="Simülatörde Çöz"
+                            >
+                              <Play className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* Expanded Row */}
+                      {isExpanded && (
+                        <tr>
+                          <td colSpan={6} className="p-0 border-b border-zinc-200">
+                            <div className="bg-slate-50 p-4 sm:p-6 border-l-4 border-purple-500 space-y-4 ">
+                              <div>
+                                <h4 className="text-xs font-black text-slate-900 mb-1">Soru Metni:</h4>
+                                <p className="text-xs text-slate-700 whitespace-normal">{q.prompt}</p>
+                              </div>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 whitespace-normal">
+                                <div className="p-4 rounded-xl bg-rose-50/70 border border-rose-200 space-y-2">
+                                  <div className="text-xs font-black text-rose-800 flex items-center gap-1.5">
+                                    <AlertTriangle className="w-4 h-4 text-rose-600" />
+                                    <span>Çeldirici Analizi (Şık {item.mostCommonDistractorOptionId})</span>
+                                  </div>
+                                  <p className="text-xs text-rose-900/90 leading-relaxed">
+                                    {item.pedagogicalChallengeReason}
+                                  </p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-purple-50/80 border border-purple-200 space-y-2">
+                                  <div className="text-xs font-black text-purple-900 flex items-center gap-1.5">
+                                    <Lightbulb className="w-4 h-4 text-purple-700" />
+                                    <span>Kural / Çözüm</span>
+                                  </div>
+                                  <p className="text-xs font-bold text-slate-800">
+                                    {q.explanation.summary || q.explanation.ruleTitle}
+                                  </p>
+                                  <ol className="list-decimal list-inside space-y-1 text-slate-700 font-medium text-xs mt-2">
+                                    {q.explanation.steps.map((step, sIdx) => (
+                                      <li key={sIdx}>{step}</li>
+                                    ))}
+                                  </ol>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         )}
       </div>
@@ -997,7 +970,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
       {/* ========================================================================= */}
       {/* SECTION 4: PEDAGOGICAL RECOMMENDATIONS (Müfredat ve Geliştirici Önerileri) */}
       {/* ========================================================================= */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl p-6 border border-zinc-200  space-y-4">
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-amber-500" />
           <h3 className="text-base font-black text-slate-900">
@@ -1015,7 +988,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
             return (
               <div
                 key={insight.id}
-                className={`p-4 rounded-2xl border space-y-2.5 ${
+                className={`p-4 rounded-xl border space-y-2.5 ${
                   isWarning
                     ? 'bg-amber-50/60 border-amber-200'
                     : 'bg-indigo-50/60 border-indigo-200'
@@ -1032,7 +1005,7 @@ export const AdminQuestionAnalyticsDashboard: React.FC<AdminQuestionAnalyticsDas
 
                 <p className="text-xs text-slate-700 leading-relaxed">{insight.description}</p>
 
-                <div className="p-2.5 rounded-xl bg-white border border-slate-200/80 text-xs font-medium text-slate-800 space-y-1">
+                <div className="p-2.5 rounded-xl bg-white/80 text-xs font-medium text-slate-800 space-y-1">
                   <span className="font-bold text-[11px] text-purple-700 uppercase tracking-wider block">
                     Önerilen Eylem / Çözüm:
                   </span>

@@ -11,8 +11,16 @@ export interface StreakMilestone {
 
 export interface UserProfile {
   id: string;
+  email?: string;
+  lastLoginAt?: number;
+  createdAt?: number;
+  updatedAt?: number;
+  totalPoints?: number;
   name: string;
   role: UserRole;
+  studentCode?: string;
+  linkedStudentIds?: string[];
+  linkedParentId?: string;
   grade?: number;
   avatar: string;
   level: number;
@@ -72,7 +80,9 @@ export type CognitiveCategory =
   | 'logic'             // Mantık ve Muhakeme
   | 'attention'         // Dikkat ve Odaklanma
   | 'memory'            // Görsel Bellek
-  | 'numerical';        // Sayısal Muhakeme
+  | 'numerical'
+  | 'verbal'
+  | 'coding';        // Sayısal Muhakeme
 
 export const ALL_COGNITIVE_CATEGORIES: CognitiveCategory[] = [
   'visual_perception',
@@ -83,6 +93,8 @@ export const ALL_COGNITIVE_CATEGORIES: CognitiveCategory[] = [
   'attention',
   'memory',
   'numerical',
+  'verbal',
+  'coding',
 ];
 
 export const COGNITIVE_CATEGORY_LABELS: Record<CognitiveCategory, string> = {
@@ -94,6 +106,8 @@ export const COGNITIVE_CATEGORY_LABELS: Record<CognitiveCategory, string> = {
   attention: 'Dikkat ve Odaklanma',
   memory: 'Görsel Bellek',
   numerical: 'Sayısal Muhakeme',
+  verbal: 'Sözel Mantık & Analoji',
+  coding: 'Algoritma & Kodlama',
 };
 
 export interface CategoryInfo {
@@ -145,7 +159,33 @@ export type QuestionType =
   | 'visual_attention'     // 15 Görsel Dikkat
   | 'number_pattern'       // 16 Sayısal Örüntü
   | 'logical_sequence'     // 17 Mantık Akışı
-  | 'matrix_3x3';          // 18 3x3 Matris
+  | 'matrix_3x3'           // 18 3x3 Matris
+  | 'shape_equation'       // 19 Şekil Denklemleri
+  | 'latin_square'         // 20 Sudoku / Latin Karesi
+  | 'shadow_matching'      // 21 Gölge Eşleştirme
+  | 'balance_scale'        // 22 Terazi Dengesi
+  | 'gear_rotation'        // 23 Dişli Çarklar
+  | 'paper_folding'        // 24 Kağıt Katlama
+  | 'venn_diagram'         // 25 Venn Şeması
+  | 'cube_counting'        // 26 Küp Sayma
+  | 'dice_unfold'          // 27 Küp Açılımı
+  | 'cryptogram'           // 28 Şifreli Sözcükler
+  | 'operation_machine'    // 29 İşlem Makinesi
+  | 'top_view'             // 30 Üstten Görünüş
+  | 'shape_combination'    // 31 Şekil Birleştirme
+  | 'verbal_analogy'       // 32 Sözel İlişki
+  | 'number_pyramid'       // 33 Sayı Piramidi
+  | 'story_logic'          // 34 Hikayeli Mantık
+  | 'tangram_puzzle'       // 35 Tangram ve Şekil İnşası
+  | 'maze_path'            // 36 Labirent ve Rota Kodlama
+  | 'logic_grid'           // 37 Mantık Tablosu ve Çıkarım
+  | 'punch_folding'        // 38 Katlama ve Delik Açma
+  | 'detail_detection'     // 39 Detay Fark Etme ve Eksik Sembol
+  | 'weight_comparison'    // 40 Ağırlık Sıralama ve Kütle Dengesi
+  | 'multiview_perspective'// 41 3B Perspektif ve Çok Yönlü Görünüş
+  | 'raven_matrix'         // 42 Raven İleri Mantık Matrisi
+  | 'word_scramble_logic'  // 43 Şifreli Anagram ve Kelime Mantığı
+  | 'spatial_origami';     // 44 Zihinsel Kutu ve Açılım Eşleme
 
 export const QUESTION_TYPE_LABELS: Record<QuestionType, string> = {
   odd_one_out: '01. Farklı Olanı Bul',
@@ -166,6 +206,32 @@ export const QUESTION_TYPE_LABELS: Record<QuestionType, string> = {
   number_pattern: '16. Sayısal Örüntü',
   logical_sequence: '17. Mantık Akışı',
   matrix_3x3: '18. 3x3 Matris Tamamlama',
+  shape_equation: '19. Şekil Denklemleri',
+  latin_square: '20. Görsel Sudoku (Latin Karesi)',
+  shadow_matching: '21. Gölge Eşleştirme',
+  balance_scale: '22. Terazi Dengesi',
+  gear_rotation: '23. Dişli Çarklar ve Yön',
+  paper_folding: '24. Kağıt Katlama ve Kesme',
+  venn_diagram: '25. Kümeler ve Venn Şeması',
+  cube_counting: '26. Küp Sayma (3 Boyut)',
+  dice_unfold: '27. Küp Açılımı',
+  cryptogram: '28. Şifreli Sözcükler',
+  operation_machine: '29. İşlem Makinesi',
+  top_view: '30. Üstten Görünüş',
+  shape_combination: '31. Şekil Birleştirme',
+  verbal_analogy: '32. Sözel İlişki ve Analoji',
+  number_pyramid: '33. Sayı Piramidi',
+  story_logic: '34. Hikayeli Mantık',
+  tangram_puzzle: '35. Tangram & Şekil İnşası',
+  maze_path: '36. Labirent & Rota Kodlama',
+  logic_grid: '37. Mantık Tablosu & Çıkarım',
+  punch_folding: '38. Katlama ve Delik Açma',
+  detail_detection: '39. Detay Fark Etme & Eksik Sembol',
+  weight_comparison: '40. Ağırlık Sıralama & Kütle Dengesi',
+  multiview_perspective: '41. 3B Perspektif & Çok Yönlü Görünüm',
+  raven_matrix: '42. Raven İleri Mantık Matrisi',
+  word_scramble_logic: '43. Şifreli Anagram & Kelime Mantığı',
+  spatial_origami: '44. Zihinsel Kutu & Açılım Eşleme',
 };
 
 export interface VisualOption {
@@ -280,12 +346,66 @@ export interface SkillMastery {
 
 export type BadgeTier = 'bronze' | 'silver' | 'gold' | 'diamond';
 
+export interface WeeklyBadgeReward {
+  id: string;
+  title: string;
+  badgeIcon: string;
+  tier: BadgeTier;
+  rarityLabel: string;
+  description: string;
+  pedagogyBenefit: string;
+  xpReward: number;
+}
+
+export interface WeeklyCategoryChallenge {
+  id: string;
+  weekId: string;
+  category: CognitiveCategory;
+  categoryName: string;
+  title: string;
+  description: string;
+  pedagogicalObjective: string;
+  targetQuestions: number;
+  completedQuestions: number;
+  isCompleted: boolean;
+  rewardClaimed: boolean;
+  badgeReward: WeeklyBadgeReward;
+  bonusXP: number;
+  difficultyGuidance?: string;
+}
+
+export interface WeeklyChallengesState {
+  weekId: string;
+  weekNumber: number;
+  year: number;
+  startDateFormatted: string;
+  endDateFormatted: string;
+  daysRemaining: number;
+  hoursRemaining: number;
+  challenges: WeeklyCategoryChallenge[];
+  totalQuestionsCompleted: number;
+  totalTargetQuestions: number;
+  completedChallengesCount: number;
+  grandChallenge: {
+    id: string;
+    title: string;
+    description: string;
+    requiredCategoriesCount: number;
+    badgeReward: WeeklyBadgeReward;
+    isCompleted: boolean;
+    rewardClaimed: boolean;
+  };
+  weeklyStreakWeeks: number;
+}
+
 export interface Achievement {
   id: string;
   title: string;
   description: string;
   iconName: string;
-  category: 'streak' | 'questions' | 'exam' | 'mastery' | 'special';
+  category: 'streak' | 'questions' | 'exam' | 'mastery' | 'special' | 'weekly';
+  cognitiveCategory?: CognitiveCategory;
+  weeklyChallengeId?: string;
   tier?: BadgeTier;
   rarityLabel?: string;
   pedagogyNote?: string;

@@ -21,10 +21,10 @@ export const VisualExplanationOverlay: React.FC<VisualExplanationOverlayProps> =
     }
   };
   return (
-    <div className="w-full mt-4 p-4 md:p-5 rounded-2xl bg-amber-50/80 border-2 border-amber-200/80 text-slate-800 shadow-xs animate-fadeIn">
+    <div className="w-full mt-4 p-4 md:p-5 rounded-xl bg-amber-50/80 border-2 border-amber-200/80 text-slate-800  animate-fadeIn">
       {/* Header */}
       <div className="flex items-center gap-2 mb-2">
-        <div className="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shadow-xs">
+        <div className="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center ">
           <Lightbulb className="w-4 h-4" />
         </div>
         <div>
@@ -75,7 +75,7 @@ export const VisualExplanationOverlay: React.FC<VisualExplanationOverlayProps> =
 
           <button
             onClick={handleOpenGlossary}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold transition-all cursor-pointer  active:scale-95"
           >
             <BookOpen className="w-3.5 h-3.5 text-indigo-600" />
             <span>Terim Sözlüğünde Aç</span>

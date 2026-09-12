@@ -252,7 +252,8 @@ export const ShapeSvg: React.FC<ShapeSvgProps> = ({ kind, style = {}, cx = 50, c
         return <circle cx={x} cy={y} r={mr} fill={markerColor} stroke={PALETTE.dark} strokeWidth={1.5} />;
       case 'plus':
         return (
-          <g stroke={markerColor} strokeWidth={strokeWidth} strokeLinecap="round">
+          <g stroke={markerColor} strokeWidth={strokeWidth} strokeLinecap="round"
+      style={{ filter: "drop-shadow(0px 3px 2px rgba(0,0,0,0.2)) drop-shadow(0px 6px 12px rgba(0,0,0,0.1))" }}>
             <line x1={x - mr} y1={y} x2={x + mr} y2={y} />
             <line x1={x} y1={y - mr} x2={x} y2={y + mr} />
           </g>
@@ -289,6 +290,7 @@ export const ShapeSvg: React.FC<ShapeSvgProps> = ({ kind, style = {}, cx = 50, c
             stroke={markerColor}
             strokeWidth={strokeWidth + 1}
             strokeLinecap="round"
+      style={{ filter: "drop-shadow(0px 3px 2px rgba(0,0,0,0.2)) drop-shadow(0px 6px 12px rgba(0,0,0,0.1))" }}
           />
         );
       default:
@@ -305,6 +307,7 @@ export const ShapeSvg: React.FC<ShapeSvgProps> = ({ kind, style = {}, cx = 50, c
       strokeDasharray={dashed ? '4 3' : undefined}
       strokeLinejoin="round"
       strokeLinecap="round"
+      style={{ filter: "drop-shadow(0px 3px 2px rgba(0,0,0,0.2)) drop-shadow(0px 6px 12px rgba(0,0,0,0.1))" }}
     >
       {renderBaseShape()}
       {renderMarker()}

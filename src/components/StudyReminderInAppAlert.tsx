@@ -52,7 +52,7 @@ export const StudyReminderInAppAlert: React.FC<StudyReminderInAppAlertProps> = (
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border-2 border-indigo-200 overflow-hidden transform transition-all animate-in zoom-in-95 duration-250">
+      <div className="relative w-full max-w-lg bg-white rounded-xl  border-2 border-indigo-200 overflow-hidden transform transition-all animate-in zoom-in-95 duration-250">
         {/* Decorative Top Accent Gradient */}
         <div className="h-3 bg-gradient-to-r from-amber-400 via-orange-500 to-indigo-600" />
 
@@ -68,7 +68,7 @@ export const StudyReminderInAppAlert: React.FC<StudyReminderInAppAlertProps> = (
         <div className="p-6 sm:p-7 space-y-5">
           {/* Header with animated bell badge */}
           <div className="flex items-start gap-4">
-            <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-orange-500/30 shrink-0">
+            <div className="relative w-14 h-14 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white flex items-center justify-center   shrink-0">
               <Bell className="w-7 h-7 animate-bounce" />
               <span className="absolute -top-1 -right-1 flex h-4 w-4">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
@@ -93,7 +93,7 @@ export const StudyReminderInAppAlert: React.FC<StudyReminderInAppAlertProps> = (
           </div>
 
           {/* Goal & Streak Summary Pill Box */}
-          <div className="grid grid-cols-2 gap-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 text-xs">
+          <div className="grid grid-cols-2 gap-3 p-3.5 bg-slate-50 rounded-xl border border-zinc-200/80 text-xs">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
                 <Target className="w-4 h-4" />
@@ -106,7 +106,7 @@ export const StudyReminderInAppAlert: React.FC<StudyReminderInAppAlertProps> = (
               </div>
             </div>
 
-            <div className="flex items-center gap-2.5 border-l border-slate-200 pl-3">
+            <div className="flex items-center gap-2.5 border-l border-zinc-200 pl-3">
               <div className="w-8 h-8 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center">
                 <Flame className="w-4 h-4 fill-orange-500 text-orange-500" />
               </div>
@@ -120,7 +120,7 @@ export const StudyReminderInAppAlert: React.FC<StudyReminderInAppAlertProps> = (
           </div>
 
           {/* Motivational Message */}
-          <div className="p-3.5 rounded-2xl bg-indigo-50/70 border border-indigo-100 flex items-start gap-2.5 text-xs text-indigo-950">
+          <div className="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-100 flex items-start gap-2.5 text-xs text-indigo-950">
             <Sparkles className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
             <p className="font-medium leading-relaxed">
               {alert.motivationQuote}
@@ -131,7 +131,7 @@ export const StudyReminderInAppAlert: React.FC<StudyReminderInAppAlertProps> = (
           <div className="space-y-2 pt-1">
             <button
               onClick={() => handleStart('practice')}
-              className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/25 active:scale-98 transition-all cursor-pointer group"
+              className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2   active:scale-98 transition-all cursor-pointer group"
             >
               <Play className="w-5 h-5 fill-white" />
               <span>Hemen Günlük Pratiğe Başla</span>
@@ -158,7 +158,7 @@ export const StudyReminderInAppAlert: React.FC<StudyReminderInAppAlertProps> = (
           </div>
 
           {/* Footer Snooze Options */}
-          <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+          <div className="pt-2 border-t border-zinc-200 flex items-center justify-between text-xs text-slate-600">
             <button
               onClick={() => handleSnooze(15)}
               className="flex items-center gap-1.5 text-slate-600 hover:text-indigo-600 font-semibold transition-colors cursor-pointer"

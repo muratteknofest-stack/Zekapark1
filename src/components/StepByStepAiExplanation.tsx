@@ -160,14 +160,14 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
     switch (type) {
       case 'focus':
         return {
-          border: isOpen ? 'border-indigo-200 bg-indigo-50/40' : 'border-slate-200 bg-white hover:border-indigo-200',
+          border: isOpen ? 'border-indigo-200 bg-indigo-50/40' : 'border-zinc-200 bg-white hover:border-indigo-200',
           badge: 'bg-indigo-100 text-indigo-800 border-indigo-200',
           numberBg: isOpen ? 'bg-indigo-600 text-white' : 'bg-indigo-100 text-indigo-700',
           accent: 'bg-indigo-50 border-indigo-100 text-indigo-950',
         };
       case 'rule':
         return {
-          border: isOpen ? 'border-amber-200 bg-amber-50/40' : 'border-slate-200 bg-white hover:border-amber-200',
+          border: isOpen ? 'border-amber-200 bg-amber-50/40' : 'border-zinc-200 bg-white hover:border-amber-200',
           badge: 'bg-amber-100 text-amber-800 border-amber-200',
           numberBg: isOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700',
           accent: 'bg-amber-50 border-amber-100 text-amber-950',
@@ -178,7 +178,7 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
             ? isCorrect
               ? 'border-emerald-200 bg-emerald-50/40'
               : 'border-rose-200 bg-rose-50/40'
-            : 'border-slate-200 bg-white hover:border-slate-300',
+            : 'border-zinc-200 bg-white hover:border-slate-300',
           badge: isCorrect
             ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
             : 'bg-rose-100 text-rose-800 border-rose-200',
@@ -193,17 +193,17 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
         };
       case 'tactic':
         return {
-          border: isOpen ? 'border-purple-200 bg-purple-50/40' : 'border-slate-200 bg-white hover:border-purple-200',
+          border: isOpen ? 'border-purple-200 bg-purple-50/40' : 'border-zinc-200 bg-white hover:border-purple-200',
           badge: 'bg-purple-100 text-purple-800 border-purple-200',
           numberBg: isOpen ? 'bg-purple-600 text-white' : 'bg-purple-100 text-purple-700',
           accent: 'bg-purple-50 border-purple-100 text-purple-950',
         };
       default:
         return {
-          border: 'border-slate-200 bg-white',
-          badge: 'bg-slate-100 text-slate-800 border-slate-200',
+          border: 'border-zinc-200 bg-white',
+          badge: 'bg-slate-100 text-slate-800 border-zinc-200',
           numberBg: 'bg-slate-200 text-slate-700',
-          accent: 'bg-slate-50 border-slate-100 text-slate-900',
+          accent: 'bg-slate-50 border-zinc-200 text-slate-900',
         };
     }
   };
@@ -218,12 +218,12 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
-      className="w-full rounded-3xl bg-gradient-to-b from-white to-slate-50/70 border-2 border-indigo-100 shadow-sm overflow-hidden"
+      className="w-full rounded-xl bg-gradient-to-b from-white to-slate-50/70 border-2 border-indigo-100  overflow-hidden"
     >
       {/* Accordion Top Header */}
       <div className="p-4 sm:p-5 border-b border-indigo-50 bg-indigo-50/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/20 shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white flex items-center justify-center   shrink-0">
             <Sparkles className="w-5 h-5 text-amber-300" />
           </div>
           <div>
@@ -245,7 +245,7 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
         {/* Step Progress & Accordion Controls */}
         <div className="flex items-center gap-2 self-end sm:self-center">
           {totalSteps > 0 && (
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-700 shadow-2xs">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white text-xs font-bold text-slate-700 ">
               <Eye className="w-3.5 h-3.5 text-indigo-600" />
               <span>{openedCount} / {totalSteps} Adım Açık</span>
             </div>
@@ -254,14 +254,14 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
           {allOpened ? (
             <button
               onClick={handleCollapseAll}
-              className="px-2.5 py-1 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 font-bold text-xs transition-all cursor-pointer shadow-2xs"
+              className="px-2.5 py-1 rounded-xl bg-white hover:bg-slate-100 border border-zinc-200 text-slate-600 font-bold text-xs transition-all cursor-pointer "
             >
               Daralt
             </button>
           ) : (
             <button
               onClick={handleExpandAll}
-              className="px-2.5 py-1 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition-all cursor-pointer shadow-2xs active:scale-95"
+              className="px-2.5 py-1 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition-all cursor-pointer  active:scale-95"
             >
               Hepsini Aç
             </button>
@@ -271,7 +271,7 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
             <button
               onClick={onOpenGlossary}
               title="Terim Sözlüğünde İncele"
-              className="p-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-indigo-600 transition-colors cursor-pointer"
+              className="p-1.5 rounded-xl bg-white hover:bg-slate-100 border border-zinc-200 text-indigo-600 transition-colors cursor-pointer"
             >
               <BookOpen className="w-4 h-4" />
             </button>
@@ -293,7 +293,7 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
           {[1, 2, 3].map((n) => (
             <div
               key={n}
-              className="p-4 rounded-2xl bg-white border border-slate-200 animate-pulse flex items-center justify-between"
+              className="p-4 rounded-xl bg-white animate-pulse flex items-center justify-between"
             >
               <div className="flex items-center gap-3 w-3/4">
                 <div className="w-7 h-7 rounded-xl bg-slate-200" />
@@ -322,11 +322,12 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: idx * 0.06 }}
-                className={`rounded-2xl border transition-all duration-200 overflow-hidden ${theme.border}`}
+                className={`rounded-xl border transition-all duration-200 overflow-hidden ${theme.border}`}
               >
                 {/* Accordion Trigger Header */}
-                <button
-                  type="button"
+                <div
+                  role="button"
+                  tabIndex={0}
                   onClick={() => toggleStep(step.stepNumber)}
                   className="w-full p-3.5 sm:p-4 text-left flex items-center justify-between gap-3 cursor-pointer select-none"
                   aria-expanded={isOpen}
@@ -385,7 +386,7 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
                       <ChevronDown className="w-4 h-4" />
                     </motion.div>
                   </div>
-                </button>
+                </div>
 
                 {/* Framer Motion Accordion Body */}
                 <AnimatePresence initial={false}>
@@ -411,7 +412,7 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
                       }}
                       className="overflow-hidden"
                     >
-                      <div className="px-3.5 sm:px-4 pb-4 pt-1 space-y-3 border-t border-slate-100">
+                      <div className="px-3.5 sm:px-4 pb-4 pt-1 space-y-3 border-t border-zinc-200">
                         {/* Explanation Paragraph */}
                         <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
                           {step.explanation}
@@ -466,7 +467,7 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="pt-1 flex items-center justify-between gap-3 px-3 py-2 rounded-2xl bg-indigo-50/60 border border-indigo-100 text-xs text-indigo-950"
+              className="pt-1 flex items-center justify-between gap-3 px-3 py-2 rounded-xl bg-indigo-50/60 border border-indigo-100 text-xs text-indigo-950"
             >
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-indigo-600 shrink-0" />
@@ -477,7 +478,7 @@ export const StepByStepAiExplanation: React.FC<StepByStepAiExplanationProps> = (
               <button
                 type="button"
                 onClick={handleRevealNext}
-                className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shrink-0 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center gap-1"
+                className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shrink-0 transition-all cursor-pointer  active:scale-95 flex items-center gap-1"
               >
                 <span>Sıradaki Adımı Aç</span>
                 <ArrowRight className="w-3.5 h-3.5" />

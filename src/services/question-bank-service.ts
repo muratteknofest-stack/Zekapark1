@@ -7,6 +7,7 @@ import {
 } from '../types';
 import { generateQuestionByType, CATEGORY_TYPES_MAP } from '../features/questions/generators';
 import { GRADE_CONFIGS, ALL_GRADES } from '../features/questions/grade-config';
+import { safeStorage } from '../lib/storage';
 
 const STORAGE_KEY = 'bilsem_admin_managed_questions_v1';
 
@@ -49,7 +50,7 @@ class QuestionBankService {
     if (this.initialized) return;
 
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = safeStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -59,7 +60,7 @@ class QuestionBankService {
         }
       }
     } catch (e) {
-      console.warn('Failed to parse questions from localStorage', e);
+      console.warn('Failed to parse questions from safeStorage', e);
     }
 
     // Default Seeded Questions across 4 grades and 8 cognitive categories
@@ -79,6 +80,11 @@ class QuestionBankService {
       { type: 'visual_sequence' as QuestionType, diff: 2 as DifficultyLevel, cat: 'pattern' as CognitiveCategory, seed: baseSeed + 103 },
       { type: 'shape_counting' as QuestionType, diff: 1 as DifficultyLevel, cat: 'attention' as CognitiveCategory, seed: baseSeed + 104 },
       { type: 'symmetry_completion' as QuestionType, diff: 2 as DifficultyLevel, cat: 'spatial' as CognitiveCategory, seed: baseSeed + 105 },
+      { type: 'direction_path' as QuestionType, diff: 1 as DifficultyLevel, cat: 'spatial' as CognitiveCategory, seed: baseSeed + 106 },
+      { type: 'shadow_matching' as QuestionType, diff: 2 as DifficultyLevel, cat: 'visual_perception' as CognitiveCategory, seed: baseSeed + 107 },
+      { type: 'tangram_puzzle' as QuestionType, diff: 2 as DifficultyLevel, cat: 'visual_perception' as CognitiveCategory, seed: baseSeed + 108 },
+      { type: 'maze_path' as QuestionType, diff: 2 as DifficultyLevel, cat: 'spatial' as CognitiveCategory, seed: baseSeed + 109 },
+      { type: 'detail_detection' as QuestionType, diff: 2 as DifficultyLevel, cat: 'attention' as CognitiveCategory, seed: baseSeed + 110 },
     ];
 
     g1Configs.forEach((c, idx) => {
@@ -89,7 +95,7 @@ class QuestionBankService {
       q.category = c.cat;
       q.ageGroup = '1-2';
       q.estimatedSeconds = GRADE_CONFIGS[1].timeLimitSeconds;
-      q.createdAt = new Date(Date.now() - (10 - idx) * 3600000).toISOString();
+      q.createdAt = new Date(Date.now() - (15 - idx) * 3600000).toISOString();
       pool.push(q);
     });
 
@@ -100,6 +106,11 @@ class QuestionBankService {
       { type: 'figure_rotation' as QuestionType, diff: 3 as DifficultyLevel, cat: 'spatial' as CognitiveCategory, seed: baseSeed + 203 },
       { type: 'visual_memory' as QuestionType, diff: 2 as DifficultyLevel, cat: 'memory' as CognitiveCategory, seed: baseSeed + 204 },
       { type: 'classification' as QuestionType, diff: 3 as DifficultyLevel, cat: 'logic' as CognitiveCategory, seed: baseSeed + 205 },
+      { type: 'balance_scale' as QuestionType, diff: 3 as DifficultyLevel, cat: 'logic' as CognitiveCategory, seed: baseSeed + 206 },
+      { type: 'gear_rotation' as QuestionType, diff: 3 as DifficultyLevel, cat: 'spatial' as CognitiveCategory, seed: baseSeed + 207 },
+      { type: 'top_view' as QuestionType, diff: 3 as DifficultyLevel, cat: 'spatial' as CognitiveCategory, seed: baseSeed + 208 },
+      { type: 'punch_folding' as QuestionType, diff: 3 as DifficultyLevel, cat: 'spatial' as CognitiveCategory, seed: baseSeed + 209 },
+      { type: 'weight_comparison' as QuestionType, diff: 3 as DifficultyLevel, cat: 'numerical' as CognitiveCategory, seed: baseSeed + 210 },
     ];
 
     g2Configs.forEach((c, idx) => {
@@ -110,7 +121,7 @@ class QuestionBankService {
       q.category = c.cat;
       q.ageGroup = '1-2';
       q.estimatedSeconds = GRADE_CONFIGS[2].timeLimitSeconds;
-      q.createdAt = new Date(Date.now() - (8 - idx) * 3600000).toISOString();
+      q.createdAt = new Date(Date.now() - (12 - idx) * 3600000).toISOString();
       pool.push(q);
     });
 
@@ -121,6 +132,11 @@ class QuestionBankService {
       { type: 'symbol_coding' as QuestionType, diff: 4 as DifficultyLevel, cat: 'logic' as CognitiveCategory, seed: baseSeed + 303 },
       { type: 'matrix_3x3' as QuestionType, diff: 4 as DifficultyLevel, cat: 'matrix' as CognitiveCategory, seed: baseSeed + 304 },
       { type: 'logical_sequence' as QuestionType, diff: 3 as DifficultyLevel, cat: 'pattern' as CognitiveCategory, seed: baseSeed + 305 },
+      { type: 'operation_machine' as QuestionType, diff: 4 as DifficultyLevel, cat: 'numerical' as CognitiveCategory, seed: baseSeed + 306 },
+      { type: 'verbal_analogy' as QuestionType, diff: 4 as DifficultyLevel, cat: 'logic' as CognitiveCategory, seed: baseSeed + 307 },
+      { type: 'logic_grid' as QuestionType, diff: 4 as DifficultyLevel, cat: 'logic' as CognitiveCategory, seed: baseSeed + 308 },
+      { type: 'multiview_perspective' as QuestionType, diff: 4 as DifficultyLevel, cat: 'spatial' as CognitiveCategory, seed: baseSeed + 309 },
+      { type: 'spatial_origami' as QuestionType, diff: 4 as DifficultyLevel, cat: 'spatial' as CognitiveCategory, seed: baseSeed + 310 },
     ];
 
     g3Configs.forEach((c, idx) => {
@@ -131,7 +147,7 @@ class QuestionBankService {
       q.category = c.cat;
       q.ageGroup = '3-4';
       q.estimatedSeconds = GRADE_CONFIGS[3].timeLimitSeconds;
-      q.createdAt = new Date(Date.now() - (6 - idx) * 3600000).toISOString();
+      q.createdAt = new Date(Date.now() - (9 - idx) * 3600000).toISOString();
       pool.push(q);
     });
 
@@ -142,6 +158,11 @@ class QuestionBankService {
       { type: 'spatial_relationship' as QuestionType, diff: 5 as DifficultyLevel, cat: 'spatial' as CognitiveCategory, seed: baseSeed + 403 },
       { type: 'symbol_coding' as QuestionType, diff: 6 as DifficultyLevel, cat: 'logic' as CognitiveCategory, seed: baseSeed + 404 },
       { type: 'visual_analogy' as QuestionType, diff: 5 as DifficultyLevel, cat: 'logic' as CognitiveCategory, seed: baseSeed + 405 },
+      { type: 'story_logic' as QuestionType, diff: 5 as DifficultyLevel, cat: 'logic' as CognitiveCategory, seed: baseSeed + 406 },
+      { type: 'raven_matrix' as QuestionType, diff: 5 as DifficultyLevel, cat: 'matrix' as CognitiveCategory, seed: baseSeed + 407 },
+      { type: 'word_scramble_logic' as QuestionType, diff: 5 as DifficultyLevel, cat: 'pattern' as CognitiveCategory, seed: baseSeed + 408 },
+      { type: 'number_pyramid' as QuestionType, diff: 5 as DifficultyLevel, cat: 'numerical' as CognitiveCategory, seed: baseSeed + 409 },
+      { type: 'latin_square' as QuestionType, diff: 5 as DifficultyLevel, cat: 'logic' as CognitiveCategory, seed: baseSeed + 410 },
     ];
 
     g4Configs.forEach((c, idx) => {
@@ -152,7 +173,7 @@ class QuestionBankService {
       q.category = c.cat;
       q.ageGroup = '3-4';
       q.estimatedSeconds = GRADE_CONFIGS[4].timeLimitSeconds;
-      q.createdAt = new Date(Date.now() - (4 - idx) * 3600000).toISOString();
+      q.createdAt = new Date(Date.now() - (6 - idx) * 3600000).toISOString();
       pool.push(q);
     });
 
@@ -161,14 +182,29 @@ class QuestionBankService {
 
   private save() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.questions));
+      safeStorage.setItem(STORAGE_KEY, JSON.stringify(this.questions));
     } catch (e) {
-      console.warn('Failed to save questions to localStorage', e);
+      console.warn('Failed to save questions to safeStorage', e);
     }
   }
 
   public getAll(): BaseQuestion[] {
     return [...this.questions];
+  }
+
+  public getAllQuestions(): BaseQuestion[] {
+    return [...this.questions];
+  }
+
+  public createCustomQuestion(question: BaseQuestion): BaseQuestion {
+    const existingIdx = this.questions.findIndex((q) => q.id === question.id);
+    if (existingIdx !== -1) {
+      this.questions[existingIdx] = { ...this.questions[existingIdx], ...question };
+    } else {
+      this.questions.unshift(question);
+    }
+    this.save();
+    return question;
   }
 
   public getFiltered(filter?: QuestionFilter): BaseQuestion[] {
@@ -235,6 +271,14 @@ class QuestionBankService {
     this.questions.unshift(newQuestion);
     this.save();
     return newQuestion;
+  }
+
+  public addBulkQuestions(newQuestions: BaseQuestion[]): number {
+    if (!newQuestions || newQuestions.length === 0) return 0;
+    // Prepend all new questions
+    this.questions.unshift(...newQuestions);
+    this.save();
+    return newQuestions.length;
   }
 
   public updateQuestion(id: string, updates: Partial<BaseQuestion>): BaseQuestion | null {
@@ -358,6 +402,8 @@ class QuestionBankService {
       attention: 0,
       memory: 0,
       numerical: 0,
+      verbal: 0,
+      coding: 0,
     };
     const byDifficulty: Record<DifficultyLevel, number> = {
       1: 0,

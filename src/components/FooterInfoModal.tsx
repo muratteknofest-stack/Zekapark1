@@ -51,11 +51,11 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden">
+      <div className="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-xl  border border-zinc-200 flex flex-col overflow-hidden">
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between shrink-0">
+        <div className="px-6 py-4 border-b border-zinc-200 bg-slate-50 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-600/20">
+            <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center  ">
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
@@ -73,7 +73,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
               sound.playClick();
               onClose();
             }}
-            className="w-9 h-9 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100 flex items-center justify-center transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-xl bg-white text-slate-500 hover:text-slate-800 hover:bg-slate-100 flex items-center justify-center transition-colors cursor-pointer"
             aria-label="Kapat"
           >
             <X className="w-5 h-5" />
@@ -81,7 +81,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
         </div>
 
         {/* Modal Navigation Tabs */}
-        <div className="px-4 sm:px-6 py-2 border-b border-slate-100 bg-white overflow-x-auto scrollbar-none flex items-center gap-1.5 shrink-0">
+        <div className="px-4 sm:px-6 py-2 border-b border-zinc-200 bg-white overflow-x-auto scrollbar-none flex items-center gap-1.5 shrink-0">
           {[
             { id: 'bilsem_guide' as FooterModalTopic, label: 'BİLSEM 2026 Kılavuzu', icon: Calendar },
             { id: 'pedagogy' as FooterModalTopic, label: 'Pedagojik Güvence', icon: Heart },
@@ -99,7 +99,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                 onClick={() => handleTabChange(tab.id)}
                 className={`px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer ${
                   isCurrent
-                    ? 'bg-indigo-600 text-white shadow-xs'
+                    ? 'bg-indigo-600 text-white '
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
@@ -115,7 +115,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
           {/* 1. BİLSEM 2026 Kılavuzu */}
           {activeTab === 'bilsem_guide' && (
             <div className="space-y-6 animate-in fade-in duration-150">
-              <div className="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-100 flex items-start gap-3.5">
+              <div className="p-4 rounded-xl bg-indigo-50/80 border border-indigo-100 flex items-start gap-3.5">
                 <div className="p-2 rounded-xl bg-indigo-600 text-white shrink-0 mt-0.5">
                   <Calendar className="w-5 h-5" />
                 </div>
@@ -135,15 +135,15 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                   Sınıf öğretmenleri tarafından MEBBİS üzerinden aday gösterilen öğrenciler, il merkezlerindeki belirlenen sınav salonlarında tablet bilgisayarlar aracılığıyla grup tarama uygulamasına alınır.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <div className="p-3 rounded-xl bg-slate-50 border border-zinc-200">
                     <span className="font-bold text-slate-900 block mb-1">1. Sınıflar</span>
                     <span className="text-slate-600">30 Soru • Yaklaşık 40 Dakika • Görsel & Mantıksal Örüntüler</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <div className="p-3 rounded-xl bg-slate-50 border border-zinc-200">
                     <span className="font-bold text-slate-900 block mb-1">2. Sınıflar</span>
                     <span className="text-slate-600">40 Soru • Yaklaşık 50 Dakika • Matris, Uzamsal & Sayısal</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <div className="p-3 rounded-xl bg-slate-50 border border-zinc-200">
                     <span className="font-bold text-slate-900 block mb-1">3. Sınıflar</span>
                     <span className="text-slate-600">40 Soru • Yaklaşık 50 Dakika • İleri Düzey Mantık & Bellek</span>
                   </div>
@@ -162,7 +162,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                 </ul>
               </div>
 
-              <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900">
+              <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900">
                 <div className="font-bold flex items-center gap-1.5 mb-1">
                   <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
                   <span>Önemli Hatırlatma:</span>
@@ -175,7 +175,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
           {/* 2. Pedagojik Güvence */}
           {activeTab === 'pedagogy' && (
             <div className="space-y-6 animate-in fade-in duration-150">
-              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-start gap-3.5">
+              <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-100 flex items-start gap-3.5">
                 <div className="p-2 rounded-xl bg-emerald-600 text-white shrink-0 mt-0.5">
                   <Heart className="w-5 h-5" />
                 </div>
@@ -190,7 +190,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200 space-y-1.5">
                   <div className="flex items-center gap-2 text-indigo-700 font-bold text-sm">
                     <CheckCircle2 className="w-4 h-4 text-indigo-600" />
                     <span>Sıfır Reklam Garantisi</span>
@@ -200,7 +200,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200 space-y-1.5">
                   <div className="flex items-center gap-2 text-indigo-700 font-bold text-sm">
                     <CheckCircle2 className="w-4 h-4 text-indigo-600" />
                     <span>Mikro-Öğrenme & Ekran Süresi</span>
@@ -210,7 +210,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200 space-y-1.5">
                   <div className="flex items-center gap-2 text-indigo-700 font-bold text-sm">
                     <CheckCircle2 className="w-4 h-4 text-indigo-600" />
                     <span>Hata Korkusu Yerine "Hata Defteri"</span>
@@ -220,7 +220,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200 space-y-1.5">
                   <div className="flex items-center gap-2 text-indigo-700 font-bold text-sm">
                     <CheckCircle2 className="w-4 h-4 text-indigo-600" />
                     <span>Göz Dostu Kontrast ve Vektör Çizim</span>
@@ -236,7 +236,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
           {/* 3. KVKK ve Çocuk Güvenliği */}
           {activeTab === 'kvkk' && (
             <div className="space-y-6 animate-in fade-in duration-150">
-              <div className="p-4 rounded-2xl bg-blue-50 border border-blue-100 flex items-start gap-3.5">
+              <div className="p-4 rounded-xl bg-blue-50 border border-blue-100 flex items-start gap-3.5">
                 <div className="p-2 rounded-xl bg-blue-600 text-white shrink-0 mt-0.5">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
@@ -285,7 +285,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
           {/* 4. Kullanım Koşulları */}
           {activeTab === 'terms' && (
             <div className="space-y-6 animate-in fade-in duration-150">
-              <div className="p-4 rounded-2xl bg-purple-50 border border-purple-100 flex items-start gap-3.5">
+              <div className="p-4 rounded-xl bg-purple-50 border border-purple-100 flex items-start gap-3.5">
                 <div className="p-2 rounded-xl bg-purple-600 text-white shrink-0 mt-0.5">
                   <FileText className="w-5 h-5" />
                 </div>
@@ -327,7 +327,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
           {/* 5. Bilişsel Metodoloji */}
           {activeTab === 'cognitive_domains' && (
             <div className="space-y-6 animate-in fade-in duration-150">
-              <div className="p-4 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-start gap-3.5">
+              <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-100 flex items-start gap-3.5">
                 <div className="p-2 rounded-xl bg-indigo-600 text-white shrink-0 mt-0.5">
                   <Brain className="w-5 h-5" />
                 </div>
@@ -374,7 +374,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                     metric: 'Soyutlama & Mantıksal Kod Çözme',
                   },
                 ].map((item, idx) => (
-                  <div key={idx} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div key={idx} className="p-3.5 rounded-xl bg-slate-50 border border-zinc-200">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
                       <span className="font-bold text-slate-900 text-sm">{item.title}</span>
                       <span className="text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-100">
@@ -391,7 +391,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
           {/* 6. Sınav Kaygısı Rehberi */}
           {activeTab === 'exam_anxiety' && (
             <div className="space-y-6 animate-in fade-in duration-150">
-              <div className="p-4 rounded-2xl bg-amber-50 border border-amber-100 flex items-start gap-3.5">
+              <div className="p-4 rounded-xl bg-amber-50 border border-amber-100 flex items-start gap-3.5">
                 <div className="p-2 rounded-xl bg-amber-600 text-white shrink-0 mt-0.5">
                   <Sparkles className="w-5 h-5" />
                 </div>
@@ -406,28 +406,28 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
               </div>
 
               <div className="space-y-3 text-xs sm:text-sm text-slate-600">
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200">
                   <h4 className="font-bold text-slate-900 mb-1">1. "Zeka Testine Gidiyorsun" Demeyin</h4>
                   <p>
                     Çocuğa bu uygulamanın bir "zeka ölçümü" veya "kader sınavı" olduğu söylenmemelidir. "Bugün seninle keyifli akıl oyunları ve şekil bulmacaları oynanacak bir etkinliğe gidiyoruz" yaklaşımı kaygıyı %80 oranında azaltır.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200">
                   <h4 className="font-bold text-slate-900 mb-1">2. Sonuca Değil, Çabaya Vurgu Yapın</h4>
                   <p>
                     "Sen çok zekisin, kesin kazanırsın" demek yerine; "Soruları ne kadar dikkatli incelediğini ve pes etmeden düşündüğünü görmek beni çok mutlu ediyor" diyerek süreç odaklı övgü verin.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200">
                   <h4 className="font-bold text-slate-900 mb-1">3. Tablet ve Dokunmatik Ekran Deneyimi</h4>
                   <p>
                     Ön değerlendirme sınavı tablet üzerinden yapıldığı için çocuğun ekrandaki şıkları kaydırma, tıklama ve onaylama reflekslerinin oturmuş olması gereklidir. ZekaPark arayüzü tablet ekran ergonomisiyle birebir uyumludur.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200">
                   <h4 className="font-bold text-slate-900 mb-1">4. BİLSEM Kazanamamak Bir Başarısızlık Değildir</h4>
                   <p>
                     BİLSEM kontenjanları okulların ve illerin fiziki kapasiteleriyle sınırlıdır. Her üstün potansiyelli çocuk BİLSEM'e yerleşemeyebilir; bu durum çocuğun zekasından veya potansiyelinden hiçbir şey eksiltmez.
@@ -440,7 +440,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
           {/* 7. İletişim & Destek */}
           {activeTab === 'contact' && (
             <div className="space-y-6 animate-in fade-in duration-150">
-              <div className="p-4 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-start gap-3.5">
+              <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-100 flex items-start gap-3.5">
                 <div className="p-2 rounded-xl bg-indigo-600 text-white shrink-0 mt-0.5">
                   <Mail className="w-5 h-5" />
                 </div>
@@ -455,7 +455,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200 flex items-start gap-3">
                   <div className="p-2 rounded-xl bg-indigo-100 text-indigo-700 shrink-0">
                     <Mail className="w-5 h-5" />
                   </div>
@@ -473,7 +473,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200 flex items-start gap-3">
                   <div className="p-2 rounded-xl bg-emerald-100 text-emerald-700 shrink-0">
                     <Clock className="w-5 h-5" />
                   </div>
@@ -488,7 +488,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200 flex items-start gap-3">
                   <div className="p-2 rounded-xl bg-purple-100 text-purple-700 shrink-0">
                     <MapPin className="w-5 h-5" />
                   </div>
@@ -503,7 +503,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                <div className="p-4 rounded-xl bg-slate-50 border border-zinc-200 flex items-start gap-3">
                   <div className="p-2 rounded-xl bg-amber-100 text-amber-700 shrink-0">
                     <HelpCircle className="w-5 h-5" />
                   </div>
@@ -520,7 +520,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
               </div>
 
               {/* Quick direct message form preview */}
-              <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+              <div className="p-5 rounded-xl bg-white ">
                 <h4 className="font-bold text-slate-900 text-sm mb-3">
                   Hızlı Mesaj Bırakın
                 </h4>
@@ -528,18 +528,18 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                   <input
                     type="text"
                     placeholder="Adınız Soyadınız"
-                    className="px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="px-3.5 py-2.5 rounded-xl border border-zinc-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                   <input
                     type="email"
                     placeholder="E-posta Adresiniz"
-                    className="px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="px-3.5 py-2.5 rounded-xl border border-zinc-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
                 <textarea
                   rows={3}
                   placeholder="Mesajınız, sorunuz veya BİLSEM ile ilgili danışmak istediğiniz konu..."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-3"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-3"
                 ></textarea>
                 <div className="flex justify-end">
                   <button
@@ -548,7 +548,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
                       sound.playSuccess();
                       alert('Mesajınız başarıyla iletildi! En geç 4 saat içinde e-posta adresinize yanıt verilecektir.');
                     }}
-                    className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs cursor-pointer shadow-sm transition-colors"
+                    className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs cursor-pointer  transition-colors"
                   >
                     Mesajı Gönder
                   </button>
@@ -559,7 +559,7 @@ export const FooterInfoModal: React.FC<FooterInfoModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3.5 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-2 shrink-0 text-xs text-slate-500">
+        <div className="px-6 py-3.5 border-t border-zinc-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-2 shrink-0 text-xs text-slate-500">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
             <span>Resmi ve Pedagojik Güvence • ZekaPark v2.4</span>

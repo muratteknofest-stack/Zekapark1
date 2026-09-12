@@ -3,6 +3,7 @@ import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI, Type } from '@google/genai';
 import dotenv from 'dotenv';
+import nodemailer from 'nodemailer';
 
 dotenv.config();
 
@@ -18,15 +19,93 @@ async function startServer() {
     if (!aiClient && process.env.GEMINI_API_KEY) {
       aiClient = new GoogleGenAI({
         apiKey: process.env.GEMINI_API_KEY,
-        httpOptions: {
-          headers: {
-            'User-Agent': 'aistudio-build',
-          },
-        },
       });
     }
     return aiClient;
   }
+
+  // Weekly Report Email Endpoint
+  app.post('/api/send-weekly-report', async (req, res) => {
+    try {
+      const { parentEmail, studentName, weeklyData } = req.body;
+      
+      if (!parentEmail) {
+        return res.status(400).json({ error: 'Parent email is required' });
+      }
+
+      // HTML Email Template
+      const emailHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;">
+          <div style="background-color: #4f46e5; padding: 24px; text-align: center;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">ZekaPark Haftalık Gelişim Özeti</h1>
+          </div>
+          <div style="padding: 24px; background-color: #ffffff;">
+            <p style="font-size: 16px; line-height: 1.5;">Merhaba,</p>
+            <p style="font-size: 16px; line-height: 1.5;">Öğrencimiz <strong>${studentName}</strong>'ın bu haftaki çalışma performansı başarıyla analiz edildi:</p>
+            
+            <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 24px 0;">
+              <ul style="list-style-type: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 12px; font-size: 15px; display: flex; justify-content: space-between;">
+                  <span style="color: #64748b;">⏱️ Haftalık Çalışma Süresi:</span>
+                  <strong style="color: #0f172a;">${weeklyData?.totalMinutes || 0} dakika</strong>
+                </li>
+                <li style="margin-bottom: 12px; font-size: 15px; display: flex; justify-content: space-between;">
+                  <span style="color: #64748b;">🎯 Çözülen Toplam Soru:</span>
+                  <strong style="color: #0f172a;">${weeklyData?.totalQuestions || 0} soru</strong>
+                </li>
+                <li style="margin-bottom: 12px; font-size: 15px; display: flex; justify-content: space-between;">
+                  <span style="color: #64748b;">✅ Doğru Oranı:</span>
+                  <strong style="color: #10b981;">%${weeklyData?.accuracy || 0}</strong>
+                </li>
+                <li style="font-size: 15px; display: flex; justify-content: space-between;">
+                  <span style="color: #64748b;">🔥 Güncel Öğrenme Serisi:</span>
+                  <strong style="color: #f59e0b;">${weeklyData?.streak || 0} gün</strong>
+                </li>
+              </ul>
+            </div>
+            
+            <p style="font-size: 15px; color: #475569; line-height: 1.5;">Gelişim eğrisini incelemek ve yapay zeka destekli detaylı analizlere ulaşmak için Veli Portalı'nı ziyaret edebilirsiniz.</p>
+            
+            <div style="text-align: center; margin-top: 32px;">
+              <a href="#" style="background-color: #4f46e5; color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: bold; display: inline-block;">Portala Giriş Yap</a>
+            </div>
+          </div>
+        </div>
+      `;
+
+      if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+        console.log('Simulating weekly report email to:', parentEmail);
+        return res.json({ 
+          success: true, 
+          simulated: true, 
+          message: 'E-posta simüle edildi (SMTP ayarları eksik).',
+          preview: emailHtml
+        });
+      }
+
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || 'smtp.gmail.com',
+        port: Number(process.env.SMTP_PORT) || 587,
+        secure: process.env.SMTP_PORT === '465',
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      });
+
+      await transporter.sendMail({
+        from: '"ZekaPark Gelişim" <noreply@zekapark.com>',
+        to: parentEmail,
+        subject: `${studentName} - Haftalık ZekaPark Gelişim Özeti`,
+        html: emailHtml,
+      });
+
+      res.json({ success: true, message: 'Haftalık özet başarıyla gönderildi.' });
+    } catch (error: any) {
+      console.error('Email sending error:', error);
+      res.status(500).json({ error: error.message || 'E-posta gönderilemedi' });
+    }
+  });
 
   // Health check endpoint
   app.get('/api/health', (req, res) => {
@@ -89,7 +168,7 @@ Soru Bilgileri:
 `;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
+        model: 'gemini-2.5-flash',
         contents: promptContext,
         config: {
           systemInstruction:
@@ -141,10 +220,10 @@ Soru Bilgileri:
         introEncouragement: parsed.introEncouragement,
         steps: parsed.steps,
         isAiGenerated: true,
-        modelUsed: 'gemini-3.8-flash',
+        modelUsed: 'gemini-2.5-flash',
       });
     } catch (err: any) {
-      console.error('Error generating AI hint:', err);
+      console.log('AI fallback triggered: AI hint unavailable');
       // Fail gracefully so frontend uses fallback
       return res.status(200).json({
         fallback: true,
@@ -203,7 +282,7 @@ Soru Bilgileri:
 `;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
+        model: 'gemini-2.5-flash',
         contents: promptContext,
         config: {
           systemInstruction:
@@ -265,10 +344,10 @@ Soru Bilgileri:
         goldenRuleTip: parsed.goldenRuleTip,
         bilsemSuperPower: parsed.bilsemSuperPower,
         isAiGenerated: true,
-        modelUsed: 'gemini-3.8-flash',
+        modelUsed: 'gemini-2.5-flash',
       });
     } catch (err: any) {
-      console.error('Error explaining mistake with AI:', err);
+      console.log('AI fallback triggered: AI mistake explanation unavailable');
       return res.status(200).json({
         fallback: true,
         error: err?.message || 'AI service error',
@@ -331,7 +410,7 @@ GÖREVİN: Çocuğun zihninde soru çözümünü netleştirecek 4 KADEMELİ ADIM
 `;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
+        model: 'gemini-2.5-flash',
         contents: promptContext,
         config: {
           systemInstruction:
@@ -393,10 +472,10 @@ GÖREVİN: Çocuğun zihninde soru çözümünü netleştirecek 4 KADEMELİ ADIM
         pedagogicalSummary: parsed.pedagogicalSummary,
         steps: parsed.steps,
         isAiGenerated: true,
-        modelUsed: 'gemini-3.8-flash',
+        modelUsed: 'gemini-2.5-flash',
       });
     } catch (err: any) {
-      console.error('Error generating AI step explanation:', err);
+      console.log('AI fallback triggered: AI step explanation unavailable');
       return res.status(200).json({
         fallback: true,
         error: err?.message || 'AI service error',
@@ -485,7 +564,7 @@ Plan Şunları İçermelidir:
 `;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
+        model: 'gemini-2.5-flash',
         contents: promptContext,
         config: {
           systemInstruction:
@@ -594,10 +673,10 @@ Plan Şunları İçermelidir:
         totalTargetQuestions: parsed.totalTargetQuestions || dailyGoalQuestions,
         estimatedMinutes: parsed.estimatedMinutes || dailyGoalMinutes,
         isAiGenerated: true,
-        modelUsed: 'gemini-3.8-flash',
+        modelUsed: 'gemini-2.5-flash',
       });
     } catch (err: any) {
-      console.error('Error generating AI daily plan:', err);
+      console.log('AI fallback triggered: AI daily plan unavailable');
       return res.status(200).json({
         fallback: true,
         error: err?.message || 'AI plan service error',

@@ -66,11 +66,13 @@ import {
   Square,
   ArrowUpDown,
   BarChart3,
+  Zap,
 } from 'lucide-react';
 
 interface AdminQuestionManagerProps {
   onInspectInStudio: (type: QuestionType, seed: number, difficulty: DifficultyLevel) => void;
   onNavigateToAnalytics?: () => void;
+  onNavigateToBulkGenerator?: () => void;
 }
 
 // Cognitive Category Theme Config
@@ -83,6 +85,8 @@ const CATEGORY_ICONS: Record<CognitiveCategory, string> = {
   attention: '🎯',
   memory: '✨',
   numerical: '🔢',
+  verbal: '💬',
+  coding: '💻',
 };
 
 const CATEGORY_COLORS: Record<
@@ -137,11 +141,24 @@ const CATEGORY_COLORS: Record<
     border: 'border-rose-200',
     pill: 'bg-rose-100 text-rose-800 border-rose-300',
   },
+  verbal: {
+    bg: 'bg-pink-50',
+    text: 'text-pink-800',
+    border: 'border-pink-200',
+    pill: 'bg-pink-100 text-pink-800 border-pink-300',
+  },
+  coding: {
+    bg: 'bg-cyan-50',
+    text: 'text-cyan-800',
+    border: 'border-cyan-200',
+    pill: 'bg-cyan-100 text-cyan-800 border-cyan-300',
+  },
 };
 
 export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
   onInspectInStudio,
   onNavigateToAnalytics,
+  onNavigateToBulkGenerator,
 }) => {
   // State
   const [questions, setQuestions] = useState<BaseQuestion[]>([]);
@@ -351,14 +368,14 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
     <div className="space-y-6">
       {/* Toast Notification */}
       {notification && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-slate-900 text-white shadow-xl text-xs sm:text-sm font-bold border border-slate-700 animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900 text-white  text-xs sm:text-sm font-bold border border-slate-700 animate-in fade-in slide-in-from-bottom-3 duration-200">
           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           <span>{notification.text}</span>
         </div>
       )}
 
       {/* Hero Management Header */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-5">
+      <div className="bg-white rounded-xl border border-zinc-200 p-5 sm:p-6  space-y-5">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
@@ -385,7 +402,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                   sound.playClick();
                   onNavigateToAnalytics();
                 }}
-                className="px-3.5 py-2.5 rounded-2xl bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer shadow-2xs"
+                className="px-3.5 py-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer "
                 title="Kategori ve zorluk derecelerine göre öğrenci başarı oranlarını incele"
               >
                 <BarChart3 className="w-4 h-4 text-purple-600" />
@@ -398,7 +415,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                 sound.playClick();
                 setIsCreateModalOpen(true);
               }}
-              className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs sm:text-sm shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center gap-2 cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs sm:text-sm  hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center gap-2 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Yeni Soru Ekle</span>
@@ -406,7 +423,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
 
             <button
               onClick={handleExportJSON}
-              className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 font-bold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-2 rounded-xl bg-slate-50 border border-zinc-200 text-slate-700 hover:bg-slate-100 font-bold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
               title="Filtrelenmiş soruları JSON olarak indir"
             >
               <Download className="w-3.5 h-3.5 text-purple-600" />
@@ -418,7 +435,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                 sound.playClick();
                 setIsImportModalOpen(true);
               }}
-              className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 font-bold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-2 rounded-xl bg-slate-50 border border-zinc-200 text-slate-700 hover:bg-slate-100 font-bold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
               title="JSON dosyasından soru içe aktar"
             >
               <Upload className="w-3.5 h-3.5 text-blue-600" />
@@ -427,7 +444,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
 
             <button
               onClick={handleResetDefaults}
-              className="p-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 font-bold text-xs transition-colors cursor-pointer"
+              className="p-2 rounded-xl bg-slate-50 border border-zinc-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 font-bold text-xs transition-colors cursor-pointer"
               title="Varsayılan Soru Havuzuna Sıfırla"
             >
               <RotateCcw className="w-4 h-4" />
@@ -436,8 +453,8 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
         </div>
 
         {/* Dynamic Overview Metric Pills */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-slate-100">
-          <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-zinc-200">
+          <div className="p-3 rounded-xl bg-slate-50 border border-zinc-200/80">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
               Toplam Soru
             </span>
@@ -445,7 +462,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
             <span className="text-[10px] font-bold text-purple-700">Havuzda Kayıtlı</span>
           </div>
 
-          <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200/70">
+          <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200/70">
             <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block">
               1. Sınıf Düzeyi
             </span>
@@ -453,7 +470,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
             <span className="text-[10px] font-bold text-emerald-700">Temel Algı (Zorluk 1-2)</span>
           </div>
 
-          <div className="p-3 rounded-2xl bg-blue-50 border border-blue-200/70">
+          <div className="p-3 rounded-xl bg-blue-50 border border-blue-200/70">
             <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wider block">
               2. Sınıf Düzeyi
             </span>
@@ -461,7 +478,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
             <span className="text-[10px] font-bold text-blue-700">Kural Keşfi (Zorluk 2-3)</span>
           </div>
 
-          <div className="p-3 rounded-2xl bg-purple-50 border border-purple-200/70">
+          <div className="p-3 rounded-xl bg-purple-50 border border-purple-200/70">
             <span className="text-[10px] font-bold text-purple-600 uppercase tracking-wider block">
               3 & 4. Sınıf Düzeyi
             </span>
@@ -474,7 +491,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
 
         {/* Cognitive Domain Distribution Visual Stacked Bar */}
         {categoryDistribution.length > 0 && (
-          <div className="pt-3 border-t border-slate-100 space-y-2">
+          <div className="pt-3 border-t border-zinc-200 space-y-2">
             <div className="flex items-center justify-between text-xs">
               <span className="font-bold text-slate-700 flex items-center gap-1.5">
                 <Brain className="w-4 h-4 text-purple-600" />
@@ -483,7 +500,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
               <span className="text-[11px] text-slate-400 font-medium">8 BİLSEM Yetenek Alanı</span>
             </div>
             {/* Stacked multi-color bar */}
-            <div className="w-full h-3 rounded-full overflow-hidden flex bg-slate-100 shadow-inner">
+            <div className="w-full h-3 rounded-full overflow-hidden flex bg-slate-100 ">
               {categoryDistribution.map((item) => (
                 <div
                   key={item.category}
@@ -506,8 +523,8 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                   }}
                   className={`text-[10px] font-bold px-2 py-0.5 rounded-lg border cursor-pointer transition-all ${
                     selectedCategory === item.category
-                      ? `${item.color.pill} ring-2 ring-purple-400 shadow-xs`
-                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                      ? `${item.color.pill} ring-2 ring-purple-400 `
+                      : 'bg-slate-50 text-slate-600 border-zinc-200 hover:bg-slate-100'
                   }`}
                 >
                   {CATEGORY_ICONS[item.category as CognitiveCategory]} {item.label}: {item.count} (%{item.pct})
@@ -519,7 +536,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
       </div>
 
       {/* Interactive Filter & Selector Toolbar */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-5 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl border border-zinc-200 p-5  space-y-4">
         {/* 1. Grade Level Selector Filter */}
         <div>
           <div className="flex items-center justify-between mb-2">
@@ -538,10 +555,10 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                 sound.playClick();
                 setSelectedGrade('all');
               }}
-              className={`p-2 rounded-2xl border text-xs font-bold transition-all cursor-pointer text-center ${
+              className={`p-2 rounded-xl border text-xs font-bold transition-all cursor-pointer text-center ${
                 selectedGrade === 'all'
-                  ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
-                  : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  ? 'bg-slate-900 text-white border-slate-900 '
+                  : 'bg-slate-50 text-slate-700 border-zinc-200 hover:bg-slate-100'
               }`}
             >
               <span>Tüm Sınıflar</span>
@@ -560,10 +577,10 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                     sound.playClick();
                     setSelectedGrade(g);
                   }}
-                  className={`p-2 rounded-2xl border text-xs font-bold transition-all cursor-pointer text-center flex flex-col items-center gap-0.5 ${
+                  className={`p-2 rounded-xl border text-xs font-bold transition-all cursor-pointer text-center flex flex-col items-center gap-0.5 ${
                     isSelected
-                      ? `${cfg.badgeBg} ${cfg.badgeColor} border-current shadow-xs scale-102`
-                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                      ? `${cfg.badgeBg} ${cfg.badgeColor} border-current  scale-102`
+                      : 'bg-slate-50 text-slate-700 border-zinc-200 hover:bg-slate-100'
                   }`}
                 >
                   <div className="flex items-center gap-1">
@@ -600,7 +617,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
               className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                 selectedCategory === 'all'
                   ? 'bg-purple-600 text-white border-purple-600'
-                  : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  : 'bg-slate-50 text-slate-700 border-zinc-200 hover:bg-slate-100'
               }`}
             >
               Tüm Kategoriler
@@ -619,8 +636,8 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                   }}
                   className={`px-2.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center gap-1 ${
                     isSelected
-                      ? `${theme.bg} ${theme.text} border-current shadow-2xs`
-                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                      ? `${theme.bg} ${theme.text} border-current `
+                      : 'bg-slate-50 text-slate-700 border-zinc-200 hover:bg-slate-100'
                   }`}
                 >
                   <span>{CATEGORY_ICONS[cat]}</span>
@@ -635,7 +652,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
         </div>
 
         {/* 3. Difficulty Level & Search Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 pt-2 border-t border-slate-100">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 pt-2 border-t border-zinc-200">
           {/* Difficulty Filter */}
           <div className="md:col-span-6 space-y-1.5">
             <label className="text-xs font-bold text-slate-700 flex items-center gap-1">
@@ -651,7 +668,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                 className={`px-2.5 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                   selectedDifficulty === 'all'
                     ? 'bg-slate-900 text-white border-slate-900'
-                    : 'bg-slate-50 text-slate-600 border-slate-200'
+                    : 'bg-slate-50 text-slate-600 border-zinc-200'
                 }`}
               >
                 Tümü
@@ -668,8 +685,8 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                     }}
                     className={`px-2.5 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                       isSelected
-                        ? `${DIFFICULTY_COLORS[lvl]} border-current shadow-2xs`
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                        ? `${DIFFICULTY_COLORS[lvl]} border-current `
+                        : 'bg-slate-50 text-slate-700 border-zinc-200 hover:bg-slate-100'
                     }`}
                   >
                     Seviye {lvl}: {DIFFICULTY_LABELS[lvl]}
@@ -727,12 +744,12 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
 
           {/* View Mode Toggle */}
           <div className="md:col-span-2 space-y-1.5 flex flex-col justify-end">
-            <div className="flex rounded-xl bg-slate-100 p-1 border border-slate-200">
+            <div className="flex rounded-xl bg-slate-100 p-1 border border-zinc-200">
               <button
                 onClick={() => setViewMode('cards')}
                 className={`flex-1 py-1 rounded-lg text-xs font-bold flex items-center justify-center gap-1 cursor-pointer transition-colors ${
                   viewMode === 'cards'
-                    ? 'bg-white text-slate-900 shadow-2xs'
+                    ? 'bg-white text-slate-900 '
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -743,7 +760,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                 onClick={() => setViewMode('table')}
                 className={`flex-1 py-1 rounded-lg text-xs font-bold flex items-center justify-center gap-1 cursor-pointer transition-colors ${
                   viewMode === 'table'
-                    ? 'bg-white text-slate-900 shadow-2xs'
+                    ? 'bg-white text-slate-900 '
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -813,7 +830,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
           {displayQuestions.length > 0 && (
             <button
               onClick={handleSelectAllVisible}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all cursor-pointer shadow-2xs"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all cursor-pointer "
             >
               {selectedQuestionIds.size === displayQuestions.length && displayQuestions.length > 0 ? (
                 <CheckSquare className="w-4 h-4 text-purple-600" />
@@ -825,6 +842,19 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                   ? 'Seçimleri Kaldır'
                   : 'Tümünü Seç'}
               </span>
+            </button>
+          )}
+
+          {onNavigateToBulkGenerator && (
+            <button
+              onClick={() => {
+                sound.playClick();
+                onNavigateToBulkGenerator();
+              }}
+              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/15 to-indigo-500/15 hover:from-amber-500/25 hover:to-indigo-500/25 text-amber-700 dark:text-amber-300 font-bold text-xs flex items-center gap-1.5 border border-amber-500/30 transition-all cursor-pointer shadow-xs"
+            >
+              <Zap className="w-3.5 h-3.5 text-amber-500" />
+              <span>Toplu Soru Motoru</span>
             </button>
           )}
 
@@ -843,7 +873,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
 
       {/* Floating Sticky Batch Operations Toolbar */}
       {selectedQuestionIds.size > 0 && (
-        <div className="sticky bottom-4 z-40 bg-slate-900 text-white p-3.5 sm:p-4 rounded-3xl shadow-2xl border border-slate-700 flex flex-wrap items-center justify-between gap-3 animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <div className="sticky bottom-4 z-40 bg-slate-900 text-white p-3.5 sm:p-4 rounded-xl  border border-slate-700 flex flex-wrap items-center justify-between gap-3 animate-in fade-in slide-in-from-bottom-4 duration-200">
           <div className="flex items-center gap-2">
             <span className="w-7 h-7 rounded-xl bg-purple-600 text-white font-black text-xs flex items-center justify-center">
               {selectedQuestionIds.size}
@@ -904,8 +934,8 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
 
       {/* Main Question Display: Cards or Table */}
       {displayQuestions.length === 0 ? (
-        <div className="bg-white rounded-3xl border border-dashed border-slate-300 p-12 text-center space-y-4">
-          <div className="w-14 h-14 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mx-auto">
+        <div className="bg-white rounded-xl border border-dashed border-slate-300 p-12 text-center space-y-4">
+          <div className="w-14 h-14 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mx-auto">
             <HelpCircle className="w-7 h-7" />
           </div>
           <div>
@@ -919,7 +949,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
               sound.playClick();
               setIsCreateModalOpen(true);
             }}
-            className="px-4 py-2.5 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+            className="px-4 py-2.5 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700 transition-colors inline-flex items-center gap-1.5 cursor-pointer "
           >
             <Plus className="w-4 h-4" />
             <span>Yeni Soru Oluştur</span>
@@ -937,10 +967,10 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
             return (
               <div
                 key={q.id}
-                className={`bg-white rounded-3xl border p-5 space-y-4 transition-all shadow-xs flex flex-col justify-between ${
+                className={`bg-white rounded-xl border p-5 space-y-4 transition-all  flex flex-col justify-between ${
                   isSelected
                     ? 'border-purple-500 ring-2 ring-purple-200'
-                    : 'border-slate-200 hover:border-purple-300'
+                    : 'border-zinc-200 hover:border-purple-300'
                 }`}
               >
                 {/* Header Badges */}
@@ -993,7 +1023,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                   </div>
 
                   {/* Question Prompt */}
-                  <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200/80">
+                  <div className="bg-slate-50 p-3 rounded-xl border border-zinc-200/80">
                     <h4 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2">
                       {q.prompt}
                     </h4>
@@ -1012,14 +1042,14 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                 </div>
 
                 {/* SVG Visual Thumbnail Canvas */}
-                <div className="bg-white p-2 rounded-2xl border border-slate-200 shadow-2xs overflow-hidden flex items-center justify-center min-h-[140px]">
+                <div className="bg-white p-2 rounded-xl border border-zinc-200  overflow-hidden flex items-center justify-center min-h-[140px]">
                   <div className="w-full max-w-[260px] pointer-events-none scale-90">
                     <QuestionRenderer question={q} />
                   </div>
                 </div>
 
                 {/* Card Actions Footer */}
-                <div className="pt-2 border-t border-slate-100 flex items-center justify-between gap-1.5">
+                <div className="pt-2 border-t border-zinc-200 flex items-center justify-between gap-1.5">
                   <div className="flex items-center gap-1">
                     {/* View Detail */}
                     <button
@@ -1028,7 +1058,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                         setActiveQuestion(q);
                         setIsDetailModalOpen(true);
                       }}
-                      className="p-2 rounded-xl bg-slate-50 hover:bg-purple-50 text-slate-600 hover:text-purple-700 border border-slate-200 text-xs font-bold transition-colors cursor-pointer"
+                      className="p-2 rounded-xl bg-slate-50 hover:bg-purple-50 text-slate-600 hover:text-purple-700 border border-zinc-200 text-xs font-bold transition-colors cursor-pointer"
                       title="Soruyu tam ekranda ve çözümüyle incele"
                     >
                       <Eye className="w-4 h-4" />
@@ -1054,7 +1084,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                         setActiveQuestion(q);
                         setIsEditModalOpen(true);
                       }}
-                      className="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 border border-slate-200 text-xs font-bold transition-colors cursor-pointer"
+                      className="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 border border-zinc-200 text-xs font-bold transition-colors cursor-pointer"
                       title="Soru parametrelerini ve metinlerini düzenle"
                     >
                       <Edit3 className="w-4 h-4" />
@@ -1066,7 +1096,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                         sound.playClick();
                         onInspectInStudio(q.type, q.seed, q.difficulty);
                       }}
-                      className="p-2 rounded-xl bg-slate-50 hover:bg-teal-50 text-slate-600 hover:text-teal-700 border border-slate-200 text-xs font-bold transition-colors cursor-pointer"
+                      className="p-2 rounded-xl bg-slate-50 hover:bg-teal-50 text-slate-600 hover:text-teal-700 border border-zinc-200 text-xs font-bold transition-colors cursor-pointer"
                       title="Soru Mimarı & SVG Stüdyosunda Aç"
                     >
                       <ExternalLink className="w-4 h-4" />
@@ -1084,7 +1114,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                           e.target.value = '';
                         }
                       }}
-                      className="text-[11px] font-bold p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 cursor-pointer focus:outline-hidden"
+                      className="text-[11px] font-bold p-1.5 rounded-xl border border-zinc-200 bg-slate-50 text-slate-700 hover:bg-slate-100 cursor-pointer focus:outline-hidden"
                       title="Başka bir sınıf düzeyine kopyala"
                     >
                       <option value="" disabled>
@@ -1099,7 +1129,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
 
                     <button
                       onClick={() => handleDelete(q.id, q.prompt)}
-                      className="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 border border-slate-200 transition-colors cursor-pointer"
+                      className="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 border border-zinc-200 transition-colors cursor-pointer"
                       title="Soruyu Sil"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -1112,10 +1142,10 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
         </div>
       ) : (
         /* Table View */
-        <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs">
+        <div className="bg-white rounded-xl border border-zinc-200 overflow-hidden ">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-700">
-              <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider text-[10px] border-b border-slate-200">
+              <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider text-[10px] border-b border-zinc-200">
                 <tr>
                   <th className="py-3 px-3 w-10 text-center">
                     <button
@@ -1235,7 +1265,7 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                               setActiveQuestion(q);
                               setIsDetailModalOpen(true);
                             }}
-                            className="p-1.5 rounded-lg bg-slate-50 hover:bg-purple-50 text-slate-600 hover:text-purple-700 border border-slate-200 cursor-pointer"
+                            className="p-1.5 rounded-lg bg-slate-50 hover:bg-purple-50 text-slate-600 hover:text-purple-700 border border-zinc-200 cursor-pointer"
                             title="İncele"
                           >
                             <Eye className="w-3.5 h-3.5" />
@@ -1246,21 +1276,21 @@ export const AdminQuestionManager: React.FC<AdminQuestionManagerProps> = ({
                               setActiveQuestion(q);
                               setIsEditModalOpen(true);
                             }}
-                            className="p-1.5 rounded-lg bg-slate-50 hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 border border-slate-200 cursor-pointer"
+                            className="p-1.5 rounded-lg bg-slate-50 hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 border border-zinc-200 cursor-pointer"
                             title="Düzenle"
                           >
                             <Edit3 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => onInspectInStudio(q.type, q.seed, q.difficulty)}
-                            className="p-1.5 rounded-lg bg-slate-50 hover:bg-teal-50 text-slate-600 hover:text-teal-700 border border-slate-200 cursor-pointer"
+                            className="p-1.5 rounded-lg bg-slate-50 hover:bg-teal-50 text-slate-600 hover:text-teal-700 border border-zinc-200 cursor-pointer"
                             title="Stüdyoda Aç"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleDelete(q.id, q.prompt)}
-                            className="p-1.5 rounded-lg bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 border border-slate-200 cursor-pointer"
+                            className="p-1.5 rounded-lg bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 border border-zinc-200 cursor-pointer"
                             title="Sil"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -1450,11 +1480,11 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-xl border border-zinc-200  w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         {/* Modal Header */}
-        <div className="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50/80">
+        <div className="p-4 sm:p-5 border-b border-zinc-200 flex items-center justify-between bg-slate-50/80">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center">
               <Plus className="w-5 h-5" />
             </div>
             <div>
@@ -1506,10 +1536,10 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
                           setDifficulty(cfg.defaultDifficulty);
                         }
                       }}
-                      className={`p-2.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex flex-col items-center gap-1 ${
+                      className={`p-2.5 rounded-xl border text-xs font-bold transition-all cursor-pointer flex flex-col items-center gap-1 ${
                         isSelected
-                          ? `${cfg.badgeBg} ${cfg.badgeColor} border-current shadow-xs scale-102`
-                          : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                          ? `${cfg.badgeBg} ${cfg.badgeColor} border-current  scale-102`
+                          : 'bg-slate-50 text-slate-700 border-zinc-200 hover:bg-slate-100'
                       }`}
                     >
                       <span className="text-lg">{cfg.icon}</span>
@@ -1545,8 +1575,8 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
                       }}
                       className={`p-2 rounded-xl border text-xs font-bold transition-all cursor-pointer text-left flex items-center gap-1.5 ${
                         isSelected
-                          ? `${theme.bg} ${theme.text} border-current shadow-2xs`
-                          : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                          ? `${theme.bg} ${theme.text} border-current `
+                          : 'bg-slate-50 text-slate-700 border-zinc-200 hover:bg-slate-100'
                       }`}
                     >
                       <span className="text-base">{CATEGORY_ICONS[cat]}</span>
@@ -1584,8 +1614,8 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
                       }}
                       className={`py-2 px-1 rounded-xl border text-center font-bold transition-all cursor-pointer flex flex-col items-center ${
                         isSelected
-                          ? `${DIFFICULTY_COLORS[lvl]} border-current shadow-2xs scale-102`
-                          : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                          ? `${DIFFICULTY_COLORS[lvl]} border-current  scale-102`
+                          : 'bg-slate-50 text-slate-700 border-zinc-200 hover:bg-slate-100'
                       }`}
                     >
                       <span className="text-sm font-black">{lvl}</span>
@@ -1656,7 +1686,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
             </div>
 
             {/* 5. Custom Prompts & Advanced Options Toggle */}
-            <div className="pt-2 border-t border-slate-200">
+            <div className="pt-2 border-t border-zinc-200">
               <button
                 type="button"
                 onClick={() => setShowAdvanced(!showAdvanced)}
@@ -1667,7 +1697,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
               </button>
 
               {showAdvanced && (
-                <div className="mt-3 space-y-3 bg-slate-50 p-3 rounded-2xl border border-slate-200 text-xs">
+                <div className="mt-3 space-y-3 bg-slate-50 p-3 rounded-xl border border-zinc-200 text-xs">
                   <div>
                     <label className="font-bold text-slate-700 block mb-1">
                       Soru Ana Yönergesi (Prompt):
@@ -1710,7 +1740,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
           </div>
 
           {/* Right: Live Interactive Visual Canvas (5 cols) */}
-          <div className="lg:col-span-5 bg-slate-50 rounded-3xl border border-slate-200 p-4 flex flex-col justify-between space-y-3">
+          <div className="lg:col-span-5 bg-slate-50 rounded-xl border border-zinc-200 p-4 flex flex-col justify-between space-y-3">
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
@@ -1723,7 +1753,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
               </div>
 
               {/* Question Box */}
-              <div className="bg-white p-3 rounded-2xl border border-slate-200 text-center mb-3">
+              <div className="bg-white p-3 rounded-xl border border-zinc-200 text-center mb-3">
                 <h4 className="text-xs font-bold text-slate-900">
                   {customPrompt || liveQuestion.prompt}
                 </h4>
@@ -1735,7 +1765,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
               </div>
 
               {/* SVG Canvas Preview */}
-              <div className="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs mb-3 flex items-center justify-center min-h-[160px]">
+              <div className="bg-white p-3 rounded-xl border border-zinc-200  mb-3 flex items-center justify-center min-h-[160px]">
                 <div className="w-full max-w-[280px]">
                   <QuestionRenderer question={liveQuestion} />
                 </div>
@@ -1755,7 +1785,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
                         className={`p-1.5 rounded-xl border text-center transition-all ${
                           isCorrect
                             ? 'bg-emerald-50 border-emerald-400 ring-2 ring-emerald-300'
-                            : 'bg-white border-slate-200'
+                            : 'bg-white border-zinc-200'
                         }`}
                       >
                         <div className="text-[10px] font-bold mb-1 flex items-center justify-center gap-1">
@@ -1779,7 +1809,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
             </div>
 
             {/* Action Buttons in footer */}
-            <div className="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+            <div className="pt-3 border-t border-zinc-200 flex items-center justify-end gap-2">
               <button
                 type="button"
                 onClick={onClose}
@@ -1791,7 +1821,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({
               <button
                 type="button"
                 onClick={handleSave}
-                className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-xs cursor-pointer transition-colors flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold  cursor-pointer transition-colors flex items-center gap-1.5"
               >
                 <Plus className="w-4 h-4" />
                 <span>Havuza Kaydet & Yayınla</span>
@@ -1851,10 +1881,10 @@ const EditQuestionModal: React.FC<EditQuestionModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-        <div className="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+      <div className="bg-white rounded-xl border border-zinc-200  w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="p-4 sm:p-5 border-b border-zinc-200 flex items-center justify-between bg-slate-50">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center">
               <Edit3 className="w-5 h-5" />
             </div>
             <div>
@@ -1886,8 +1916,8 @@ const EditQuestionModal: React.FC<EditQuestionModalProps> = ({
                   onClick={() => setTargetGrade(g)}
                   className={`p-2 rounded-xl border font-bold cursor-pointer transition-all ${
                     targetGrade === g
-                      ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
-                      : 'bg-slate-50 text-slate-700 border-slate-200'
+                      ? 'bg-purple-600 text-white border-purple-600 '
+                      : 'bg-slate-50 text-slate-700 border-zinc-200'
                   }`}
                 >
                   {g}. Sınıf
@@ -1923,8 +1953,8 @@ const EditQuestionModal: React.FC<EditQuestionModalProps> = ({
                   onClick={() => setDifficulty(lvl)}
                   className={`py-1.5 rounded-xl border font-bold text-center cursor-pointer transition-all ${
                     difficulty === lvl
-                      ? `${DIFFICULTY_COLORS[lvl]} border-current shadow-2xs`
-                      : 'bg-slate-50 text-slate-700 border-slate-200'
+                      ? `${DIFFICULTY_COLORS[lvl]} border-current `
+                      : 'bg-slate-50 text-slate-700 border-zinc-200'
                   }`}
                 >
                   {lvl} - {DIFFICULTY_LABELS[lvl]}
@@ -1966,8 +1996,8 @@ const EditQuestionModal: React.FC<EditQuestionModalProps> = ({
                   onClick={() => setCorrectOptionId(optId)}
                   className={`flex-1 py-1.5 rounded-xl border font-bold cursor-pointer ${
                     correctOptionId === optId
-                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
-                      : 'bg-slate-50 text-slate-700 border-slate-200'
+                      ? 'bg-emerald-600 text-white border-emerald-600 '
+                      : 'bg-slate-50 text-slate-700 border-zinc-200'
                   }`}
                 >
                   Seçenek {optId}
@@ -1988,7 +2018,7 @@ const EditQuestionModal: React.FC<EditQuestionModalProps> = ({
           </div>
         </div>
 
-        <div className="p-4 border-t border-slate-200 flex items-center justify-end gap-2 bg-slate-50">
+        <div className="p-4 border-t border-zinc-200 flex items-center justify-end gap-2 bg-slate-50">
           <button
             type="button"
             onClick={onClose}
@@ -1999,7 +2029,7 @@ const EditQuestionModal: React.FC<EditQuestionModalProps> = ({
           <button
             type="button"
             onClick={handleUpdate}
-            className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs cursor-pointer shadow-xs"
+            className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs cursor-pointer "
           >
             Değişiklikleri Kaydet
           </button>
@@ -2030,8 +2060,8 @@ const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-        <div className="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+      <div className="bg-white rounded-xl border border-zinc-200  w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="p-4 sm:p-5 border-b border-zinc-200 flex items-center justify-between bg-slate-50">
           <div className="flex flex-wrap items-center gap-2">
             <span
               className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold border ${gradeCfg.badgeBg} ${gradeCfg.badgeColor}`}
@@ -2085,7 +2115,7 @@ const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
           </div>
 
           {/* SVG Canvas Box */}
-          <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 flex items-center justify-center">
+          <div className="bg-slate-50 p-6 rounded-xl border border-zinc-200 flex items-center justify-center">
             <div className="w-full max-w-md">
               <QuestionRenderer question={question} />
             </div>
@@ -2102,10 +2132,10 @@ const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
                 return (
                   <div
                     key={opt.id}
-                    className={`p-3 rounded-2xl border text-center relative transition-all ${
+                    className={`p-3 rounded-xl border text-center relative transition-all ${
                       isCorrect
                         ? 'bg-emerald-50 border-emerald-400 ring-2 ring-emerald-300'
-                        : 'bg-white border-slate-200'
+                        : 'bg-white border-zinc-200'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -2132,7 +2162,7 @@ const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
           </div>
 
           {/* Pedagogical Explanation Box */}
-          <div className="bg-indigo-50/70 p-5 rounded-3xl border border-indigo-200 space-y-3">
+          <div className="bg-indigo-50/70 p-5 rounded-xl border border-indigo-200 space-y-3">
             <div className="flex items-center gap-2 text-indigo-900 font-bold text-sm">
               <Sparkles className="w-4 h-4 text-indigo-600" />
               <span>BİLSEM Pedagojik Çözüm Kuralı: {question.explanation.ruleTitle}</span>
@@ -2153,7 +2183,7 @@ const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
           </div>
 
           {/* Audit Verification */}
-          <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-medium">
+          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-zinc-200 text-xs text-slate-600 font-medium">
             <span>Soru ID: <strong className="font-mono">{question.id}</strong> • Tohum: {question.seed}</span>
             <span className="flex items-center gap-1 text-emerald-700 font-bold">
               <CheckCircle2 className="w-4 h-4" />
@@ -2199,8 +2229,8 @@ const ImportQuestionModal: React.FC<ImportQuestionModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-xs">
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-        <div className="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+      <div className="bg-white rounded-xl border border-zinc-200  w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="p-4 sm:p-5 border-b border-zinc-200 flex items-center justify-between bg-slate-50">
           <div className="flex items-center gap-2">
             <Upload className="w-5 h-5 text-blue-600" />
             <h3 className="text-base font-black text-slate-900">JSON Soru İçe Aktar</h3>
@@ -2226,7 +2256,7 @@ const ImportQuestionModal: React.FC<ImportQuestionModalProps> = ({
               setJsonText(e.target.value);
               setError(null);
             }}
-            className="w-full p-3 rounded-2xl border border-slate-300 font-mono text-[11px] text-slate-900 bg-slate-50 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-purple-500"
+            className="w-full p-3 rounded-xl border border-slate-300 font-mono text-[11px] text-slate-900 bg-slate-50 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-purple-500"
           />
 
           {error && (
@@ -2237,7 +2267,7 @@ const ImportQuestionModal: React.FC<ImportQuestionModalProps> = ({
           )}
         </div>
 
-        <div className="p-4 border-t border-slate-200 flex items-center justify-end gap-2 bg-slate-50">
+        <div className="p-4 border-t border-zinc-200 flex items-center justify-end gap-2 bg-slate-50">
           <button
             type="button"
             onClick={onClose}
@@ -2248,7 +2278,7 @@ const ImportQuestionModal: React.FC<ImportQuestionModalProps> = ({
           <button
             type="button"
             onClick={handleImport}
-            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs cursor-pointer shadow-xs"
+            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs cursor-pointer "
           >
             Soruları İçe Aktar
           </button>
