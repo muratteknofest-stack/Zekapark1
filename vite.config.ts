@@ -64,7 +64,9 @@ function aistudioMediaPlugin(): Plugin {
 }
 // LINT.ThenChange(//depot/google3/java/com/google/alkali/boq/makersuite/applet_dev_service/templates/initializers/react_theme/vite.config.ts:aistudio_media_plugin)
 
-export default defineConfig(() => {
+export default defineConfig(({mode}) => {
+  const isProduction = mode === 'production';
+  
   return {
     plugins: [react(), tailwindcss(), aistudioMediaPlugin()],
     resolve: {
@@ -72,12 +74,41 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    build: {
+      // Code splitting for better performance
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+            charts: ['recharts'],
+            animations: ['motion'],
+            icons: ['lucide-react'],
+          },
+        },
+      },
+      // Enable minification with better tree-shaking
+      minify: 'esbuild',
+      // Generate source maps for debugging
+      sourcemap: !isProduction,
+      // Split CSS into separate files
+      cssCodeSplit: true,
+      // Target modern browsers
+      target: 'esnext',
+      // Limit chunk size warnings to 600kB
+      chunkSizeWarningLimit: 600,
+    },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
+      // Do not modify—file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
+    },
+    // Optimize dependencies pre-bundling
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-router-dom', 'motion', 'recharts'],
+      exclude: ['firebase'],
     },
   };
 });

@@ -1,6 +1,38 @@
+```
+# Dependencies
 node_modules/
-coverage/
-.DS_Store
+
+# Build artifacts
+dist/
+build/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Logs
 *.log
-.env*
-!.env.example
+
+# Coverage
+coverage/
+.nyc_output/
+istanbul/
+*.lcov
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp files
+*.tmp
+*.temp
+
+# Testing
+.jest/
+jest/
+test-results/
+```
