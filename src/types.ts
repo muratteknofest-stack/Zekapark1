@@ -21,6 +21,7 @@ export interface UserProfile {
   studentCode?: string;
   linkedStudentIds?: string[];
   linkedParentId?: string;
+  parentEmail?: string;
   grade?: number;
   avatar: string;
   level: number;
