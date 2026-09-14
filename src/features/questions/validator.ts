@@ -11,7 +11,13 @@ export type ValidationErrorCode =
   | 'EMPTY_EXPLANATION'
   | 'AMBIGUOUS_VISUAL'
   | 'INVALID_DIFFICULTY'
-  | 'INSUFFICIENT_OPTIONS';
+  | 'INSUFFICIENT_OPTIONS'
+  | 'DIFFICULTY_MISMATCH'
+  | 'CATEGORY_MISMATCH'
+  | 'MISSING_CORRECT_OPTION'
+  | 'WEAK_EXPLANATION'
+  | 'BLOOM_MISALIGNMENT'
+  | 'GRADE_INAPPROPRIATE';
 
 export interface ValidationError {
   code: ValidationErrorCode;

@@ -7,6 +7,8 @@ export interface GradeLevelConfig {
   subtitle: string;
   defaultDifficulty: DifficultyLevel;
   difficultyRange: DifficultyLevel[];
+  minDifficulty: DifficultyLevel;
+  maxDifficulty: DifficultyLevel;
   recommendedTypes: QuestionType[];
   timeLimitSeconds: number;
   pedagogicalFocus: string;
@@ -27,6 +29,8 @@ export const GRADE_CONFIGS: Record<1 | 2 | 3 | 4, GradeLevelConfig> = {
     subtitle: 'İlkokul 1. Sınıf BİLSEM Genel Yetenek',
     defaultDifficulty: 2,
     difficultyRange: [1, 2],
+    minDifficulty: 1,
+    maxDifficulty: 2,
     recommendedTypes: [
       'odd_one_out',
       'figure_completion',
@@ -67,6 +71,8 @@ export const GRADE_CONFIGS: Record<1 | 2 | 3 | 4, GradeLevelConfig> = {
     subtitle: 'İlkokul 2. Sınıf BİLSEM Genel Yetenek',
     defaultDifficulty: 3,
     difficultyRange: [2, 3],
+    minDifficulty: 2,
+    maxDifficulty: 3,
     recommendedTypes: [
       'matrix_2x2',
       'mirror_reflection',
@@ -112,6 +118,8 @@ export const GRADE_CONFIGS: Record<1 | 2 | 3 | 4, GradeLevelConfig> = {
     subtitle: 'İlkokul 3. Sınıf BİLSEM Genel Yetenek',
     defaultDifficulty: 4,
     difficultyRange: [3, 4],
+    minDifficulty: 3,
+    maxDifficulty: 4,
     recommendedTypes: [
       'visual_analogy',
       'matrix_3x3',
@@ -162,6 +170,8 @@ export const GRADE_CONFIGS: Record<1 | 2 | 3 | 4, GradeLevelConfig> = {
     subtitle: 'İlkokul 4. Sınıf BİLSEM Genel Yetenek',
     defaultDifficulty: 5,
     difficultyRange: [4, 5, 6],
+    minDifficulty: 4,
+    maxDifficulty: 6,
     recommendedTypes: [
       'matrix_3x3',
       'logical_sequence',

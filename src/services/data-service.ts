@@ -1,3 +1,10 @@
+/**
+ * ZEKAPARK - Production Authentication & Data Service
+ * 
+ * Tam uygulama modu: Firebase Authentication + Firestore entegrasyonu
+ * Demo fallback: Sadece Firebase kapalıysa veya network hatası varsa devreye girer
+ */
+
 import { doc, getDoc, setDoc, updateDoc, increment, serverTimestamp, collection, addDoc, query, orderBy, getDocs, limit, where } from 'firebase/firestore';
 import { db, auth } from '../lib/firebase';
 import {
@@ -138,7 +145,8 @@ export const SYSTEM_ACCOUNTS: Record<UserRole, UserProfile> = {
   },
 };
 
-export const DEMO_PERSONAS = SYSTEM_ACCOUNTS;
+// Demo personas sadece fallback için saklanır - production'da kullanılmaz
+const DEMO_PERSONAS = SYSTEM_ACCOUNTS;
 
 export const INITIAL_SKILL_MASTERIES: SkillMastery[] = [
   { category: 'pattern', categoryName: 'Örüntü ve Dizi', mastery: 72, attemptCount: 45, accuracy: 78, recentTrend: 'up' },
@@ -611,7 +619,16 @@ export const INITIAL_MISTAKES: MistakeItem[] = [
   },
 ];
 
-class LocalDemoDataService {
+/**
+ * Production DataService Class
+ * 
+ * Öncelik sırası:
+ * 1. Firebase Authentication + Firestore (tam uygulama modu)
+ * 2. LocalStorage fallback (sadece Firebase erişilemezse)
+ * 
+ * Demo hesaplar sadece test amaçlıdır, production'da gerçek kullanıcı kayıtları kullanılır.
+ */
+class ProductionDataService {
   // Hybrid Firebase Sync
   syncUserFromFirebase(profile: UserProfile | null) {
     if (profile) {
@@ -634,28 +651,35 @@ class LocalDemoDataService {
     }
   }
 
-  // 1. User Management
+  // 1. User Management - Production Mode
   getCurrentUser(): UserProfile {
     const raw = safeStorage.getItem(STORAGE_KEYS.CURRENT_USER);
     if (raw) {
       try {
-        let parsed = JSON.parse(raw); if (!parsed || typeof parsed !== "object") parsed = { ...SYSTEM_ACCOUNTS.student };
-        if (!parsed.claimedStreakDays) parsed.claimedStreakDays = [3];
-        if (parsed.streakFreezeCount === undefined) parsed.streakFreezeCount = 1;
-        if (parsed.longestStreak === undefined) parsed.longestStreak = Math.max(parsed.streak || 5, 7);
-        if (parsed.totalQuestionsSolved === undefined) parsed.totalQuestionsSolved = 24;
-        if (parsed.resolvedMistakesCount === undefined) parsed.resolvedMistakesCount = 1;
-        if (parsed.dailyGoalQuestions === undefined) parsed.dailyGoalQuestions = 10;
-        if (parsed.todayQuestionsSolved === undefined) parsed.todayQuestionsSolved = 7;
-        if (parsed.dailyGoalSessions === undefined) parsed.dailyGoalSessions = 2;
-        if (parsed.todaySessionsCompleted === undefined) parsed.todaySessionsCompleted = 1;
-        if (!parsed.weeklyStreakHistory) parsed.weeklyStreakHistory = [true, true, true, true, parsed.todayPracticed || false, false, false];
-        return parsed;
+        let parsed = JSON.parse(raw); 
+        if (!parsed || typeof parsed !== "object") {
+          // Fallback: Boş profil döndür, demo hesap kullanma
+          parsed = null;
+        }
+        if (parsed) {
+          // Eksik alanları tamamla
+          if (!parsed.claimedStreakDays) parsed.claimedStreakDays = [3];
+          if (parsed.streakFreezeCount === undefined) parsed.streakFreezeCount = 1;
+          if (parsed.longestStreak === undefined) parsed.longestStreak = Math.max(parsed.streak || 5, 7);
+          if (parsed.totalQuestionsSolved === undefined) parsed.totalQuestionsSolved = 24;
+          if (parsed.resolvedMistakesCount === undefined) parsed.resolvedMistakesCount = 1;
+          if (parsed.dailyGoalQuestions === undefined) parsed.dailyGoalQuestions = 10;
+          if (parsed.todayQuestionsSolved === undefined) parsed.todayQuestionsSolved = 7;
+          if (parsed.dailyGoalSessions === undefined) parsed.dailyGoalSessions = 2;
+          if (parsed.todaySessionsCompleted === undefined) parsed.todaySessionsCompleted = 1;
+          if (!parsed.weeklyStreakHistory) parsed.weeklyStreakHistory = [true, true, true, true, parsed.todayPracticed || false, false, false];
+          return parsed;
+        }
       } catch {}
     }
-    const defaultUser = DEMO_PERSONAS.student;
-    this.setCurrentUser(defaultUser);
-    return defaultUser;
+    // Production mode: Demo hesap döndürme, null veya boş profil
+    // Kullanıcı login olmamışsa null dönecek şekilde tasarlandı
+    return null as any;
   }
 
   setCurrentUser(user: UserProfile) {
@@ -663,11 +687,18 @@ class LocalDemoDataService {
   }
 
   isAuthenticated(): boolean {
-    return safeStorage.getItem(STORAGE_KEYS.AUTH_SESSION) === 'true';
+    const session = safeStorage.getItem(STORAGE_KEYS.AUTH_SESSION);
+    const user = this.getCurrentUser();
+    // Production mode: Sadece gerçek kullanıcı oturumu varsa true döndür
+    return session === 'true' && user !== null;
   }
 
   loginAs(role: UserRole, customUser?: UserProfile): UserProfile {
-    const user = customUser || SYSTEM_ACCOUNTS[role];
+    if (!customUser) {
+      // Production mode: Demo hesapla giriş yapma, gerçek kullanıcı profili gerekli
+      throw new Error('Production modunda demo hesap kullanılamaz. Lütfen kayıt olun veya giriş yapın.');
+    }
+    const user = customUser;
     safeStorage.setItem(STORAGE_KEYS.AUTH_SESSION, 'true');
     this.setCurrentUser(user);
     return user;
@@ -675,12 +706,13 @@ class LocalDemoDataService {
 
   logout(): void {
     safeStorage.removeItem(STORAGE_KEYS.AUTH_SESSION);
+    safeStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
   }
 
   switchPersona(role: UserRole): UserProfile {
-    const user = SYSTEM_ACCOUNTS[role];
-    this.setCurrentUser(user);
-    return user;
+    // Production mode: Persona değiştirme özelliği kaldırıldı
+    // Her kullanıcı sadece kendi hesabıyla işlem yapabilir
+    throw new Error('Production modunda persona değiştirme kullanılamaz.');
   }
 
   // Daily Streak Counter & Rewards Methods
@@ -1806,4 +1838,5 @@ class LocalDemoDataService {
   }
 }
 
-export const dataService = new LocalDemoDataService();
+// Production instance - tam uygulama modu
+export const dataService = new ProductionDataService();
